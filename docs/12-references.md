@@ -26,7 +26,7 @@ Re-check rules and prices before relying on them.
 
 ## Motors and propulsion
 
-- ThrustCurve.org motor database and RASP files: [thrustcurve.org](https://www.thrustcurve.org) - [G40W](https://www.thrustcurve.org/motors/AeroTech/G40W), [F15](https://www.thrustcurve.org/motors/Estes/F15)
+- ThrustCurve.org motor database and RASP files: [thrustcurve.org](https://www.thrustcurve.org) - [F42T](https://www.thrustcurve.org/motors/AeroTech/F42T), [F25W](https://www.thrustcurve.org/motors/AeroTech/F25W), [F52C](https://www.thrustcurve.org/motors/AeroTech/F52C), [G25W](https://www.thrustcurve.org/motors/AeroTech/G25W), [G40W](https://www.thrustcurve.org/motors/AeroTech/G40W), [F15](https://www.thrustcurve.org/motors/Estes/F15)
 - AeroTech G40W: [aerotech-rocketry.com](https://aerotech-rocketry.com/products/product_e54bba8f-a733-e5ba-b4f6-3db6a2d05b19); G80T: [aerotech-rocketry.com](https://aerotech-rocketry.com/products/product_12ac810d-0472-e322-6e54-c5d35b4eb0e5)
 - Estes F15: [NAR certification sheet](https://www.nar.org/wp-content/uploads/2014/08/F15.pdf), [Estes](https://estesrockets.com/products/f15-4-engines)
 - NFPA 1125 motor tolerances (forum summary): [Rocketry Forum](https://www.rocketryforum.com/threads/bp-motors-whats-the-variation-of-burn-time-per-nfpa-1125.176287/latest)

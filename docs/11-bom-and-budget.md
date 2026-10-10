@@ -21,7 +21,7 @@ availability before ordering.
 | 4 | 8 mm x 6 mm pultruded carbon tube, 0.6 m | | $6 | $24 |
 | 4 | Torsion springs + Kevlar line + syringe dampers | | $4 | $16 |
 | 1 | 30 in nylon parachute + Nomex blanket + Kevlar shock cord + swivel | | $45 | $45 |
-| 1 | 9 in drogue + swivel | | $15 | $15 |
+| 1 | Airbrake petal hinges, torsion springs, stainless pins, latch ring | | $15 | $15 |
 | 1 | Epoxy (30-min + high-temp), CA, fillers, paint | | $50 | $50 |
 | | | | **Vehicle subtotal** | **≈ $440** |
 
@@ -36,40 +36,42 @@ availability before ordering.
 | 1 | u-blox NEO-M9N breakout (or a cheaper M10 module) | $70 | $70 |
 | 2 | RFM95W 915 MHz breakouts (flight + ground station) | $20 | $40 |
 | 3 | KST X08H HV digital servo (gimbal x2, paddles) | $35 | $105 |
-| 4 | 4 g micro servos (latches, pins) | $8 | $32 |
+| 3 | 4 g micro servos (airbrake latch, leg pin, chute latch) | $8 | $24 |
 | 1 | Pololu 5 V 3 A buck (D24V30F5) | $15 | $15 |
 | 2 | 2S 450 mAh LiPo | $12 | $24 |
 | 1 | LiPo balance charger + fire bag | $50 | $50 |
 | 1 | Arm key switch, fuses, AO3400A FETs, resistors, capacitors, JST-GH kit, perfboard | $40 | $40 |
 | 1 | microSD 16 GB | $8 | $8 |
 | 1 | Ground station MCU (Feather / spare Teensy) | $25 | $25 |
-| | **Avionics subtotal** | | **≈ $510** |
+| | **Avionics subtotal** | | **≈ $500** |
 
 ## 11.3 Motors and test equipment
 
 | Qty | Item | Each | Total |
 |---:|---|---:|---:|
-| 12 | AeroTech G40W (5 static fires + 3 flights x 2 + spares) ([AeroTech](https://aerotech-rocketry.com/products/product_e54bba8f-a733-e5ba-b4f6-3db6a2d05b19)) | $44* | $528 |
+| 8 | AeroTech F25W landing motors (5 static fires + 3 flights) | $25 | $200 |
+| 4 | AeroTech F42T ascent motors (3 flights + spare) | $22 | $88 |
+| 1 | AeroTech F52C (test flight F2) | $25 | $25 |
 | 1 | Hazmat shipping (one order) | $40 | $40 |
 | 12 | Extra igniters (dual landing igniters) | $3 | $36 |
 | 1 | Load cell 20 kg + ADS1220 ADC board + test-stand hardware | $60 | $60 |
 | 1 | 2-axis swivel test rig (printed / aluminium) | $40 | $40 |
 | 1 | Bench power supply, laser pointer, dummy-load resistors | $40 | $40 |
 | 1 | NAR membership (insurance at club launches) + club fees | $60 | $60 |
-| | **Motors and test subtotal** | | **≈ $800** |
+| | **Motors and test subtotal** | | **≈ $590** |
 
 ## 11.4 Total
 
 | | |
 |---|---:|
 | Vehicle | ≈ $440 |
-| Avionics | ≈ $510 |
-| Motors, test equipment, club | ≈ $800 |
-| Contingency (20%: crashes happen) | ≈ $350 |
-| **Total** | **≈ $2,100** |
+| Avionics | ≈ $500 |
+| Motors, test equipment, club | ≈ $590 |
+| Contingency (20%: crashes happen) | ≈ $310 |
+| **Total** | **≈ $1,850** |
 
 **Ways to cut cost:**
 - prototype with MG90S servos ($5) and skip the GPS for the first ascent-only
   flights;
 - build a cheap EDF hopper ([docs/04](04-propulsion.md#47-truly-throttleable-alternative-edf-test-bed))
-  to practise the control software without burning $44 motors.
+  to practise the control software without burning motors.

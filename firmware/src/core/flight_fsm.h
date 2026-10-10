@@ -5,6 +5,8 @@
 //                                                  v            v
 //                                             ABORT_CHUTE   TOUCHDOWN -> LANDED_SAFE
 //
+// The top airbrakes open at apogee (COAST -> DESCENT); the engine does the
+// rest. The main chute only deploys on an abort.
 // The HAL feeds FsmInputs every control cycle (200 Hz) and applies
 // FsmOutputs. Nothing in here touches hardware, so the same code runs in the
 // native unit tests.
@@ -52,8 +54,7 @@ struct FsmOutputs {
     float throttle = 1.0f;               // exhaust-paddle throttle command 0..1
     bool pyro_enable = false;            // master software enable (hardware key is separate)
     bool fire_landing = false;           // both landing igniters
-    bool drogue_deploy = false;
-    bool drogue_release = false;
+    bool airbrakes_deploy = false;       // top airbrake petals (latch released at apogee)
     bool legs_deploy = false;
     bool chute_deploy = false;
     float h_feet = 0;
@@ -86,5 +87,5 @@ private:
     float f_at_fire_ = 0, max_h_ = 0, thrust_scale_ = 1.0f, next_replan_ = 0;
     float throttle_ = 1.0f, cda_ = 0;
     int hold_count_ = 0;
-    bool drogue_out_ = false, legs_out_ = false, terminal_ = false;
+    bool airbrakes_out_ = false, legs_out_ = false, terminal_ = false;
 };

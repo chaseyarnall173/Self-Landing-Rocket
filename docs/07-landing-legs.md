@@ -5,7 +5,7 @@
 | Requirement | Value | Basis |
 |---|---|---|
 | Stowed | Flat along the body, < 6 mm proud | Drag and stability on the way up |
-| Deploy | Flip down in < 0.3 s at 8 m altitude (~15 m/s, ~0.5 s before touchdown) | Guidance timeline |
+| Deploy | Flip down in < 0.3 s at 12 m altitude (~18 m/s, just after the FIRE command, ~1.6 s before touchdown) | Guidance timeline |
 | Vertical touchdown | <= 2.5 m/s without bounce | Monte Carlo p95 = 2.3 m/s |
 | Lateral touchdown | <= 1.5 m/s without tipping | Monte Carlo p5-p95 = −1.1 to +1.4 m/s |
 | Mass | <= 85 g for all four, including the release | Mass budget |
@@ -28,7 +28,7 @@ outer edge of its footprint at touchdown (angular momentum is conserved at the
 impact):
 
 - **Inputs:** CG height above the feet h = 0.74 m; worst-case support distance
-  (between two legs) d = R·cos 45° = 0.38 m; m = 1.33 kg; I_cg = 0.24 kg·m².
+  (between two legs) d = R·cos 45° = 0.38 m; m = 1.25 kg; I_cg = 0.20 kg·m².
 - **Static tip angle:** atan(d/h) = **27°**.
 - **Critical lateral speed:**
   v_crit = (I_p·ω_max)/(m·h), with I_p = I_cg + m(h² + d²) and
@@ -58,8 +58,8 @@ foot radius ≥ 0.6-0.9 x the CG height, and lateral speed < ~1-1.5 m/s.
 | Damping | 3-5 cm of stroke: a TPU-95A lattice foot (crush pad) **plus** a small syringe or air damper in the strut, like Kapoor's lander ([PopSci](https://www.popsci.com/science/model-rocket-landing/)). Without damping, bounce is what ended BPS's early attempts. |
 | Feet | 30 mm TPU discs, angled to sit flat at 55° |
 
-**Energy sizing.** At 2.5 m/s, ½·m·v² = 4.2 J. Spread over 4 cm of stroke that
-averages 105 N, about 8 g of deceleration. That is gentle on the electronics,
+**Energy sizing.** At 2.5 m/s, ½·m·v² = 3.9 J (1.25 kg). Spread over 4 cm of stroke that
+averages ~98 N, about 8 g of deceleration. That is gentle on the electronics,
 and the BMI088's ±24 g range logs it cleanly.
 
 ## 7.4 Tests

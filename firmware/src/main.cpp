@@ -30,7 +30,7 @@ static Actuators act;
 static Logger logger;
 static AttitudeEstimator att;
 static AltitudeKF kf;
-static FlightFsm fsm(MOTOR_G40W, MOTOR_G40W);  // ascent, landing
+static FlightFsm fsm(MOTOR_F42T, MOTOR_F25W);  // ascent, landing
 
 static bool have_gps = false;
 static float ground_p = 101325.0f, ground_t = 15.0f;
@@ -178,8 +178,7 @@ void loop() {
         if (out.fire_landing) act.fire_landing_igniters();
         act.gimbal(out.gimbal_dy, out.gimbal_dz);
         act.throttle(out.throttle);
-        act.drogue_latch(out.drogue_deploy);
-        act.drogue_cut(out.drogue_release);
+        act.airbrake_latch(out.airbrakes_deploy);
         act.leg_pin(out.legs_deploy);
         act.chute_latch(out.chute_deploy);
         act.service();
@@ -212,8 +211,8 @@ void loop() {
             r.baro_h = baro_h;
             r.lidar_m = lidar_h;
             r.phase = (uint8_t)out.phase;
-            r.flags = (out.drogue_deploy << 0) | (out.legs_deploy << 1) | (out.chute_deploy << 2) |
-                      (out.drogue_release << 3) | (act.arm_key() << 4);
+            r.flags = (out.airbrakes_deploy << 0) | (out.legs_deploy << 1) |
+                      (out.chute_deploy << 2) | (act.arm_key() << 4);
             logger.push(r);
         }
     }

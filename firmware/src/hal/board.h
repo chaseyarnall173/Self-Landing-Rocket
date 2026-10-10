@@ -24,8 +24,7 @@ constexpr float RADIO_MHZ = 915.0f;
 constexpr uint8_t SERVO_GIMBAL_Y = 2;     // FlexPWM4.2, 333 Hz digital servo
 constexpr uint8_t SERVO_GIMBAL_Z = 3;     // FlexPWM4.2, 333 Hz
 constexpr uint8_t SERVO_PADDLES = 4;      // FlexPWM2.0, 333 Hz
-constexpr uint8_t SERVO_DROGUE_LATCH = 7; // FlexPWM1.3, 50 Hz analog micro servo
-constexpr uint8_t SERVO_DROGUE_CUT = 8;   // FlexPWM1.3, 50 Hz
+constexpr uint8_t SERVO_AIRBRAKE_LATCH = 7; // FlexPWM1.3, 50 Hz analog micro servo
 constexpr uint8_t SERVO_LEG_PIN = 28;     // FlexPWM3.1, 50 Hz
 constexpr uint8_t SERVO_CHUTE_LATCH = 29; // FlexPWM3.1, 50 Hz
 constexpr float FAST_SERVO_HZ = 333.0f;
@@ -61,8 +60,7 @@ constexpr float GIMBAL_Z_CENTER_US = 1500, GIMBAL_Z_US_PER_RAD = 1800;
 // Paddle servo pulse at throttle = 1.0, 0.75, 0.5, 0.25 (measured on the
 // load-cell stand; interpolated linearly in between).
 constexpr float PADDLE_US[4] = {1000, 1250, 1500, 1800};
-constexpr float DROGUE_LATCH_CLOSED_US = 1000, DROGUE_LATCH_OPEN_US = 2000;
-constexpr float DROGUE_CUT_HOLD_US = 1000, DROGUE_CUT_RELEASE_US = 2000;
+constexpr float AIRBRAKE_LATCH_CLOSED_US = 1000, AIRBRAKE_LATCH_OPEN_US = 2000;
 constexpr float LEG_PIN_HOLD_US = 1000, LEG_PIN_RELEASE_US = 2000;
 constexpr float CHUTE_LATCH_CLOSED_US = 1000, CHUTE_LATCH_OPEN_US = 2000;
 

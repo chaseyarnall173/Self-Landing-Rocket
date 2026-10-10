@@ -11,13 +11,13 @@ several Scout versions. Budget for multiple flights.
 | T1 | **Bench / HIL**: flight computer on the bench, dummy pyro loads | Wiring, axis signs, state machine | Correct phases when you tilt or shake the board; pyro fires only when armed; key-out disarms | `IMU_MAP` verified |
 | T2 | **Gimbal calibration** (laser pointer at 2 m) | Linkage nonlinearity, backlash | Backlash < 0.2°; ±7° reached; full-scale step settles in < 60 ms (high-speed phone video) | `GIMBAL_*_US_PER_RAD`, centres |
 | T3 | **Mass properties** | Mass growth, CG, inertia | ≤ 1500 g with motors (target 1400); CG ≈ 1.03 m | `DRY_MASS_KG`, `INERTIA_KGM2`, `GIMBAL_LEVER_M` |
-| T4 | **Static fires of the landing motor** (3-5 G40Ws), load cell at ≥ 1 kHz, with the flight igniters fired by the flight computer | **Ignition delay, impulse scatter** | Delay σ ≤ 0.08 s (the MC assumption); impulse within ±5% | `IGNITION_DELAY_NOMINAL_S`, the measured σ fed into the MC |
+| T4 | **Static fires of the landing motor** (3-5 F25Ws), load cell at ≥ 1 kHz, with the flight igniters fired by the flight computer | **Ignition delay, impulse scatter** | Delay σ ≤ 0.08 s (the MC assumption); impulse within ±5% | `IGNITION_DELAY_NOMINAL_S`, the measured σ fed into the MC |
 | T5 | **Paddle-throttle static fires**: paddles stepped through 4 positions during a burn | **Paddle authority k_min**, paddle survival | Closed ≤ 0.30 of thrust; no paddle fracture; < 1 mm erosion per burn | `PADDLE_US[]`, `THROTTLE_MIN` |
 | T6 | **TVC static fire**: vehicle on a 2-axis swivel (CG pivot) with the motor burning, closed loop | Attitude loop on real hardware | Holds vertical ±2° through the burn; no oscillation; gimbal unsaturated after 0.3 s | Gain adjustments |
 | T7 | **Leg drop tests** ([docs/07](07-landing-legs.md#74-tests)) | Bounce, tip-over | No bounce > 3 cm at 2.5 m/s; no tip at 1.5 m/s lateral | — |
-| T8 | **Recovery ground tests**: drogue and main ejection by servo | Recovery reliability | 10/10 deploys for each | — |
-| F1 | **Flight 1: ascent only.** G40W ascent with TVC; drogue at apogee, **main chute at 60 m**; landing motor = **inert dummy of equal mass** | Ascent TVC, apogee, drogue descent, attitude under the drogue | Apogee 130-175 m; tilt < 10° under the drogue; descent 20-25 m/s; clean log | Real drag (descent speed) → `CDA_PRE_M2` |
-| F2 | **Flight 2: "virtual ground" landing burn.** Same as F1, but the flight computer treats **60 m AGL as the ground** (`VIRTUAL_GROUND_M = 60` in `params.h`). It fires the live landing motor, runs the whole burn, then deploys the main chute | Ignition in flight, guidance, paddles in flight | Touchdown at the virtual ground at ≤ 2.5 m/s (from the log); chute deploys | Guidance validation with no risk to the vehicle |
+| T8 | **Mechanism ground tests**: airbrake petals, leg release and backup-chute ejection by servo | Mechanism reliability | 10/10 deploys for each | — |
+| F1 | **Flight 1: ascent + airbrakes only.** F42T ascent with TVC; airbrakes open at apogee, **backup chute fires at 25 m on purpose**; landing motor = **inert dummy of equal mass** | Ascent TVC, apogee, airbrake opening, tail-first stability | Apogee 55-72 m; tilt < 10° under airbrakes; descent 17-21 m/s; clean log | Real airbrake drag (descent speed) → `CDA_PRE_M2` |
+| F2 | **Flight 2: "virtual ground" landing burn.** F52C ascent (~84 m apogee) so there is room; the flight computer treats **30 m AGL as the ground** (`VIRTUAL_GROUND_M = 30` in `params.h`). It fires the live landing motor, flies the whole burn, then deploys the backup chute | Ignition in flight, guidance, paddles in flight | Touchdown at the virtual ground at ≤ 2.5 m/s (from the log); chute deploys | Guidance validation with no risk to the vehicle |
 | F3 | **Flight 3: full mission** in wind < 2.5 m/s at the surface | Everything | Upright landing, ≤ 2.5 m/s | 🎉 |
 
 ## Notes on the key tests
@@ -48,13 +48,13 @@ with air flowing in.
 **F2 - virtual-ground flight.** This is how you test the landing logic without
 betting the vehicle.
 - Set `params::VIRTUAL_GROUND_M = 60`. The state machine then flies the
-  entire landing against a ground 60 m up: the fire decision, guidance,
+  entire landing against a ground 30 m up: the fire decision, guidance,
   legs and terminal phase.
 - At the virtual touchdown it logs `VIRTUAL TOUCHDOWN vz=...` and deploys
   the main chute.
 - Lidar updates are ignored in this mode.
-- You need an apogee of ≥ 150 m so the drogue descent reaches terminal
-  speed before the 81 m fire point.
+- Fly it on the F52C (~84 m apogee) so the airbrake descent is steady before
+  the ~45 m fire point, and the backup chute has 30 m to open from a near-hover.
 
 ## Lessons from people who've done this
 

@@ -118,9 +118,9 @@ FsmOutputs FlightFsm::step(const FsmInputs& in, float dt) {
         case Phase::COAST: {
             if (in.vz < -0.5f) {
                 if (++hold_count_ >= 10) {
-                    drogue_out_ = true;
-                    out_.drogue_deploy = true;
-                    event(in.t, "DROGUE");
+                    airbrakes_out_ = true;
+                    out_.airbrakes_deploy = true;
+                    event(in.t, "AIRBRAKES");
                     set_phase(in.t, Phase::DESCENT);
                 }
             } else {
@@ -138,7 +138,7 @@ FsmOutputs FlightFsm::step(const FsmInputs& in, float dt) {
                             in.vz > FIRE_VZ_MIN && in.vz < FIRE_VZ_MAX;
             if (h_feet < PREDICTOR_GATE_ALT_M && envelope &&
                 guidance_.fire_now(h_feet, in.vz, in.rho, IGNITION_DELAY_NOMINAL_S, FIRE_K1,
-                                   true)) {
+                                   true, FIRE_WINDOW_FRAC)) {
                 t_fire_ = in.t;
                 f_at_fire_ = in.f_axial;
                 out_.fire_landing = true;
@@ -148,7 +148,7 @@ FsmOutputs FlightFsm::step(const FsmInputs& in, float dt) {
                 set_phase(in.t, Phase::LANDING_BURN);
             } else if (h_feet < 15.0f && !envelope) {
                 // Below the last useful ignition altitude and outside the safe
-                // envelope (e.g. drogue failed, too fast, tilted): don't light it.
+                // envelope (e.g. airbrakes failed, too fast, tilted): don't light it.
                 event(in.t, "ABORT: envelope");
                 set_phase(in.t, Phase::ABORT_CHUTE);
             }
@@ -212,7 +212,7 @@ FsmOutputs FlightFsm::step(const FsmInputs& in, float dt) {
 void FlightFsm::do_landing_guidance(const FsmInputs& in, float dt) {
     const float tb = landing_burn_clock(in.t);
     const float m = guidance_.mass(tb);
-    cda_ = (drogue_out_ ? CDA_PRE_M2 : CDA_BURN_M2) + (legs_out_ ? CDA_LEGS_M2 : 0.0f);
+    cda_ = (airbrakes_out_ ? CDA_PRE_M2 : CDA_BURN_M2) + (legs_out_ ? CDA_LEGS_M2 : 0.0f);
     const float nominal = landing_.thrust(tb);
 
     // Learn the real thrust level from the accelerometer (drag removed).
@@ -235,21 +235,22 @@ void FlightFsm::do_landing_guidance(const FsmInputs& in, float dt) {
             set_phase(in.t, Phase::ABORT_CHUTE);
             return;
         }
-        if (drogue_out_) {
-            out_.drogue_release = true;  // cut it so ground wind can't drag us over
-            drogue_out_ = false;
-            event(in.t, "DROGUE RELEASE");
-        }
         set_phase(in.t, Phase::TOUCHDOWN);
         return;
     }
 
     const float cos_t = fmaxf(0.7f, cosf(in.tilt));
-    if (out_.h_feet > TERMINAL_ALT_M && !terminal_) {
+    const float term_alt = EXP_BURN_PROFILE ? EXP_TERMINAL_ALT_M : TERMINAL_ALT_M;
+    if (out_.h_feet > term_alt && !terminal_) {
         if (in.t >= next_replan_) {
             next_replan_ = in.t + REPLAN_DT_S;
-            ThrottlePlan p = guidance_.best_plan(out_.h_feet, in.vz, in.rho, tb, cos_t, cda_,
-                                                 thrust_scale_);
+            // Strong braking first, decaying to about the vehicle's weight at
+            // touchdown (or the older linear throttle ramp).
+            ThrottlePlan p = EXP_BURN_PROFILE
+                ? guidance_.best_plan_exp(out_.h_feet, in.vz, in.rho, tb, cos_t, cda_,
+                                          thrust_scale_, EXP_END_WEIGHT)
+                : guidance_.best_plan(out_.h_feet, in.vz, in.rho, tb, cos_t, cda_,
+                                      thrust_scale_);
             if (!p.valid) {
                 terminal_ = true;
             } else {

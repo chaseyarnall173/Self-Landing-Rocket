@@ -61,6 +61,7 @@ class GuidanceConfig:
     # --- landing-burn ignition predictor
     ignition_delay_nominal_s: float = 0.30   # fire-command -> thrust (MEASURE IT)
     fire_k1: float = 0.0                     # fire when the plan's throttle ramp slope <= this
+    fire_window_frac: float = 0.65          # where in the touchdown window the fire plan aims (0..1)
     throttle_min: float = 0.25               # paddles fully closed: DESIGN REQUIREMENT, measure it
     target_touchdown_speed: float = 0.5      # m/s, downward
     predictor_dt: float = 0.01
@@ -74,7 +75,14 @@ class GuidanceConfig:
     cda_pre_m2: float = 0.0                  # descent CdA with drogue (set from vehicle)
     cda_burn_m2: float = 0.0                 # CdA after the drogue is released
     cda_legs_m2: float = 0.0                 # extra CdA once the legs are out
-    release_drag_device_on_ignition: bool = False  # keep drogue for stability; cut at touchdown
+    release_drag_device_on_ignition: bool = False  # keep the top airbrakes out through the burn
+    cut_drag_device_on_touchdown: bool = False     # True only for a drogue on a leash
+    # --- burn shape: 'exp' = strong braking that decays to ~weight at touchdown,
+    #                 'ramp' = linear throttle ramp (the original planner)
+    burn_profile: str = 'exp'
+    exp_tau_fracs: tuple[float, ...] = (0.25, 0.35, 0.5)   # decay time / time-to-go
+    exp_end_weight: float = 2.0      # cost on (net accel at touchdown)/g, wants ~0 = hover
+    exp_terminal_alt_m: float = 0.8
     # --- abort logic
     ignition_detect_timeout_s: float = 0.90  # no thrust by then -> chute
     abort_tilt_deg: float = 35.0
@@ -83,7 +91,7 @@ class GuidanceConfig:
     terminal_kv: float = 3.0
     lateral_kv: float = 1.5                  # thrust-tilt command per (m/s / g)
     lateral_tilt_max_deg: float = 12.0
-    lateral_fade_alt_m: float = 1.5          # bring tilt command to 0 below this
+    lateral_fade_alt_m: float = 2.5          # bring tilt command to 0 below this
     # --- attitude controller (dynamic inversion PID)
     att_wn: float = 12.0                     # rad/s
     att_zeta: float = 0.85
@@ -92,8 +100,8 @@ class GuidanceConfig:
     ascent_lateral_kv: float = 0.8
     ascent_tilt_max_deg: float = 4.0
     # --- mechanisms
-    leg_deploy_alt_m: float = 8.0
-    drogue_deploy_on_apogee: bool = True
+    leg_deploy_alt_m: float = 12.0
+    drogue_deploy_on_apogee: bool = True     # deploys the top airbrakes (or a drogue)
 
 
 @dataclass
@@ -240,6 +248,61 @@ class FlightComputer:
             return None
         return best[1:]
 
+    def plan_exp(self, h: float, v: float, rho: float, tb_now: float, t_land: float,
+                 tau_frac: float, cos_tilt: float = 1.0, cda: float | None = None):
+        """'Strong then simmer' burn: net upward acceleration
+        a(s) = A*exp(-s/tau) + C, solved so that h = 0 and v = -v_td at
+        t_land. Returns (A, C, tau, k_profile, a_end) or None. The throttle
+        that produces this acceleration is k = m*(a + g - drag)/thrust."""
+        c = self.cfg
+        T = t_land - tb_now
+        if T < 0.05:
+            return None
+        cda = c.cda_burn_m2 if cda is None else cda
+        tau = max(0.05, tau_frac * T)
+        E = math.exp(-T / tau)
+        v_td = -c.target_touchdown_speed
+        a11, a12, r1 = tau * (1.0 - E), T, v_td - v
+        a21, a22, r2 = tau * (T - tau * (1.0 - E)), 0.5 * T * T, -h - v * T
+        det = a11 * a22 - a12 * a21
+        if abs(det) < 1e-9:
+            return None
+        A = (r1 * a22 - a12 * r2) / det
+        C = (a11 * r2 - a21 * r1) / det
+        s_ = np.linspace(0.0, T, c.plan_samples)
+        e = np.exp(-s_ / tau)
+        a_net = A * e + C
+        v_s = v + A * tau * (1.0 - e) + C * s_
+        tb = tb_now + s_
+        m = self.dry_mass_kg + self.ascent_motor.casing_kg + self.landing_motor.mass_v(tb)
+        drag_up = -0.5 * rho * cda * v_s * np.abs(v_s) / m
+        force = m * (a_net + G0 - drag_up)
+        avail = self.thrust_scale * self.landing_motor.thrust_v(tb) * cos_tilt
+        k = np.where(avail > 1.0, force / np.maximum(avail, 1e-6), 9.0)
+        return A, C, tau, k, A * E + C
+
+    def best_plan_exp(self, h: float, v: float, rho: float, tb_now: float,
+                      cos_tilt: float = 1.0, cda: float | None = None):
+        """Search touchdown time and decay rate for the most feasible
+        'strong then simmer' burn. Returns (t_land, k_now, violation, a_end)."""
+        c = self.cfg
+        t1, t2 = self.landing_window()
+        lo = max(t1, tb_now + 0.15)
+        hi = max(lo, t2)
+        pref = self._t_land if self._t_land is not None else 0.5 * (t1 + t2)
+        best = None
+        for tl in np.linspace(lo, hi, c.plan_candidates):
+            for f in c.exp_tau_fracs:
+                p = self.plan_exp(h, v, rho, tb_now, float(tl), f, cos_tilt, cda)
+                if p is None:
+                    continue
+                _, _, _, k, a_end = p
+                viol = max(0.0, c.throttle_min - float(k.min())) + max(0.0, float(k.max()) - 1.0)
+                cost = 10.0 * viol + c.exp_end_weight * abs(a_end) / G0 + 0.05 * abs(tl - pref)
+                if best is None or cost < best[0]:
+                    best = (cost, float(tl), float(k[0]), viol, a_end)
+        return None if best is None else best[1:]
+
     def fire_now(self, h: float, v: float, rho: float) -> bool:
         """Decide whether to send the ignition command now (see below)."""
         c = self.cfg
@@ -252,7 +315,7 @@ class FlightComputer:
         if h <= 0.0:
             return True
         t1, t2 = self.landing_window()
-        tl = 0.5 * (t1 + t2)
+        tl = t1 + c.fire_window_frac * (t2 - t1)
         cda = c.cda_burn_m2 if c.release_drag_device_on_ignition else c.cda_pre_m2
         p = self.plan(h, v, rho, 0.0, tl, cda=cda)
         if p is None:
@@ -321,7 +384,7 @@ class FlightComputer:
                     self._set_phase(s.t, Phase.DESCENT)
                     if c.drogue_deploy_on_apogee:
                         self.flaps = 1.0
-                        self._log(s.t, "DROGUE")
+                        self._log(s.t, "AIRBRAKES")
             else:
                 self._neg_vz_count = 0
 
@@ -392,22 +455,33 @@ class FlightComputer:
         if s.h_feet <= 0.05:
             self._set_phase(s.t, Phase.TOUCHDOWN)
             self.throttle = c.throttle_min
-            if self.flaps > 0.0:
-                self.flaps = 0.0          # cut the drogue so ground wind can't drag us over
+            if self.flaps > 0.0 and c.cut_drag_device_on_touchdown:
+                self.flaps = 0.0          # cut a drogue so ground wind can't drag us over
                 self._log(s.t, "DROGUE RELEASE")
             return
 
         cos_t = max(0.7, math.cos(s.theta))
-        if s.h_feet > c.terminal_alt_m and not self._terminal:
+        exp_mode = c.burn_profile == "exp"
+        term_alt = c.exp_terminal_alt_m if exp_mode else c.terminal_alt_m
+        if s.h_feet > term_alt and not self._terminal:
             if s.t >= self._next_replan:
                 self._next_replan = s.t + c.replan_dt
-                bp = self.best_plan(s.h_feet, s.vz, s.rho, tb, cos_t, cda)
-                if bp is None:
-                    self._terminal = True
+                if exp_mode:
+                    bp = self.best_plan_exp(s.h_feet, s.vz, s.rho, tb, cos_t, cda)
+                    if bp is None:
+                        self._terminal = True
+                    else:
+                        self._t_land, k_now, viol, a_end = bp
+                        self.last_plan = bp
+                        self.throttle = max(c.throttle_min, min(1.0, k_now))
                 else:
-                    self._t_land, k0, k1, viol = bp
-                    self.last_plan = bp
-                    self.throttle = max(c.throttle_min, min(1.0, k0))
+                    bp = self.best_plan(s.h_feet, s.vz, s.rho, tb, cos_t, cda)
+                    if bp is None:
+                        self._terminal = True
+                    else:
+                        self._t_land, k0, k1, viol = bp
+                        self.last_plan = bp
+                        self.throttle = max(c.throttle_min, min(1.0, k0))
         else:
             # Constant-deceleration braking to v_td exactly at h = 0, plus a
             # small rate term so we don't hang above the pad.

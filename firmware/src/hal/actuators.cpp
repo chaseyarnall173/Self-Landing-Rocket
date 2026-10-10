@@ -24,13 +24,12 @@ void Actuators::begin() {
     analogReadResolution(12);
     analogWriteResolution(PWM_BITS);
     const uint8_t fast[] = {SERVO_GIMBAL_Y, SERVO_GIMBAL_Z, SERVO_PADDLES};
-    const uint8_t slow[] = {SERVO_DROGUE_LATCH, SERVO_DROGUE_CUT, SERVO_LEG_PIN, SERVO_CHUTE_LATCH};
+    const uint8_t slow[] = {SERVO_AIRBRAKE_LATCH, SERVO_LEG_PIN, SERVO_CHUTE_LATCH};
     for (uint8_t p : fast) analogWriteFrequency(p, FAST_SERVO_HZ);
     for (uint8_t p : slow) analogWriteFrequency(p, SLOW_SERVO_HZ);
     gimbal(0, 0);
     throttle(1.0f);
-    drogue_latch(false);
-    drogue_cut(false);
+    airbrake_latch(false);
     leg_pin(false);
     chute_latch(false);
 }
@@ -53,12 +52,9 @@ void Actuators::throttle(float k) {
     write_us(SERVO_PADDLES, PADDLE_US[i] + u * (PADDLE_US[i + 1] - PADDLE_US[i]), FAST_SERVO_HZ);
 }
 
-void Actuators::drogue_latch(bool open) {
-    write_us(SERVO_DROGUE_LATCH, open ? DROGUE_LATCH_OPEN_US : DROGUE_LATCH_CLOSED_US,
+void Actuators::airbrake_latch(bool open) {
+    write_us(SERVO_AIRBRAKE_LATCH, open ? AIRBRAKE_LATCH_OPEN_US : AIRBRAKE_LATCH_CLOSED_US,
              SLOW_SERVO_HZ);
-}
-void Actuators::drogue_cut(bool rel) {
-    write_us(SERVO_DROGUE_CUT, rel ? DROGUE_CUT_RELEASE_US : DROGUE_CUT_HOLD_US, SLOW_SERVO_HZ);
 }
 void Actuators::leg_pin(bool rel) {
     write_us(SERVO_LEG_PIN, rel ? LEG_PIN_RELEASE_US : LEG_PIN_HOLD_US, SLOW_SERVO_HZ);

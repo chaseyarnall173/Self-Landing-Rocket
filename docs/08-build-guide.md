@@ -41,13 +41,21 @@ Work in this order. Each stage ends with a check you can run before moving on.
    - Kevlar shock cord, 3x the body length.
 7. **Nose cone.** Print it in PETG: 0.8 mm walls, 15% gyroid infill in the
    shoulder.
-   - The tip holds a 40 mm drogue cup with a 20 N spring, a printed cap and a
-     servo latch.
-   - Hard-mount the drogue leash to a ply bulkhead in the nose shoulder, with
-     a ball-bearing swivel.
-   - The drogue-cut servo pin is at that bulkhead.
-   - **Check:** pull the cup latch by hand. The cap and drogue must clear the
-     tip within 0.3 s.
+8. **Top airbrake petals** (see [docs/03](03-vehicle-design.md#34-top-airbrake-petals)).
+   - Mark a 125 mm band starting 0.42 m from the nose tip (it sits just aft of
+     the nose shoulder). Glue a full-length coupler sleeve inside it *first*,
+     so the airframe stays strong.
+   - Cut the band's outer tube into four 90° petals with a fine saw, keeping
+     the cut lines on the leg lines so they don't line up with the fins.
+   - Seal the cut edges with thin CA and stiffen each petal's inside face with
+     one layer of 2 oz fibreglass.
+   - Bond a printed CF-nylon hinge to each petal's forward edge, with a
+     stainless pin through a matching hinge block on the sleeve.
+   - Fit a torsion spring (~0.1 N·m) and a printed 90° stop per petal.
+   - Make the latch: a printed ring with 4 hooks over the petals' aft edges,
+     turned by one micro servo through a slot in the sleeve.
+   - **Check:** release the latch 20 times. All 4 petals must snap to 90°
+     within 0.2 s, and each stop must hold 5 N pushed by hand.
 
 ## 8.2 Motor bay and TVC gimbal
 

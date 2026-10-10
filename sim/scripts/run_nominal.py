@@ -19,8 +19,9 @@ for t, e in r.events:
 print("  touchdown:", {k: (round(float(x), 2) if isinstance(x, float) else x)
                        for k, x in r.touchdown.items() if k not in ("chute_open",)})
 _path.IMG.mkdir(parents=True, exist_ok=True)
+asc, land = v.ascent_motor.name.split("_")[-1], v.landing_motor.name.split("_")[-1]
 plots.mission(r, str(_path.IMG / "mission_nominal.png"),
-              f"SLR-1 nominal mission (2x AeroTech G40W, {wind:g} m/s wind)")
+              f"SLR-1 nominal mission ({asc} ascent, {land} landing, {wind:g} m/s wind)")
 plots.landing_zoom(r, str(_path.IMG / "landing_burn_nominal.png"),
-                   "Landing burn: exhaust-paddle throttle + TVC")
+                   "Landing burn: strong, then simmering down to the rocket's weight")
 print("figures written to", _path.IMG)

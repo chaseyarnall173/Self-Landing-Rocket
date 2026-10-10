@@ -7,8 +7,7 @@ public:
     void begin();
     void gimbal(float dy_rad, float dz_rad);   // thrust deflection (body frame)
     void throttle(float k);                    // exhaust-paddle throttle 0.25..1
-    void drogue_latch(bool open);
-    void drogue_cut(bool release);
+    void airbrake_latch(bool open);   // top airbrake petals: spring-open when released
     void leg_pin(bool release);
     void chute_latch(bool open);
 

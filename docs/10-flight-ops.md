@@ -7,9 +7,9 @@ each line aloud. Nothing gets skipped.
 
 | Item | Go if |
 |---|---|
-| Surface wind (landing attempt) | **≤ 2.5 m/s (5.5 mph)** sustained. For an ascent-only flight, ≤ 20 mph per the NAR code |
+| Surface wind (landing attempt) | **≤ 3 m/s (6.7 mph)** sustained. For an ascent-only flight, ≤ 20 mph per the NAR code |
 | Clouds | Not launching into cloud; RSO approval |
-| Field | ≥ 1500 ft minimum dimension (two Gs); landing area clear |
+| Field | ≥ 1000 ft minimum dimension (127 N·s total); landing area clear |
 | Vehicle | Liftoff mass ≤ 1500 g (weighed today); all checks below passed |
 | Battery | 2S at ≥ 8.0 V at the pad (the software refuses to arm below 7.4 V) |
 | Parameters | `params.h` matches the measured ignition delay / k_min / mass; firmware version logged |
@@ -20,9 +20,9 @@ each line aloud. Nothing gets skipped.
 - [ ] Inspect the paddles: erosion < 1 mm; no cracks; pivots free.
 - [ ] Inspect the gimbal: pins, backlash < 0.2°, servo horns tight.
 - [ ] Leg deploy test x 3, then re-stow and check the release-pin servo.
-- [ ] Drogue cup and main ejection test with the servos (no pyro).
+- [ ] Airbrake petals: release and re-latch x 3; check all 4 snap to 90° and the stops are tight.
+- [ ] Backup-chute ejection test with the servo (no pyro).
 - [ ] Pack the main chute (30 in): Z-fold, Nomex blanket, shock cord flaked.
-- [ ] Pack the drogue (9 in) in the nose cup; swivel and leash checked.
 - [ ] Clean the lidar window.
 - [ ] Flash the firmware; record the git commit hash in the log book.
 - [ ] Bench check (USB status line), with no motors and no igniters:
@@ -36,7 +36,7 @@ each line aloud. Nothing gets skipped.
 
 ## 10.3 Prep table (field)
 
-- [ ] Weigh both motors. Check the type (G40W) and the plugged / no-ejection
+- [ ] Weigh both motors. Check the types (F42T ascent, F25W landing) and the plugged / no-ejection
   configuration.
 - [ ] Install the **landing** motor in the LANDING sleeve (the one with the
   paddles), retainer locked.
@@ -44,8 +44,8 @@ each line aloud. Nothing gets skipped.
   shorted together until the pad.
 - [ ] Install the **ascent** motor in the ASCENT sleeve, retainer locked. Its
   igniter is installed at the pad.
-- [ ] Weigh the whole rocket: ______ g (≤ 1500). CG: ______ m (≈ 1.03).
-- [ ] Legs stowed; release pin in. Drogue cap latched. Nose and main chute
+- [ ] Weigh the whole rocket: ______ g (≤ 1500). CG: ______ m (≈ 1.02).
+- [ ] Legs stowed; release pin in. Airbrake petals latched flush. Main chute
   latched.
 - [ ] Key **OUT**. Power on. Status: `PAD_SAFE`, GPS fix, telemetry received.
 
@@ -85,9 +85,8 @@ each line aloud. Nothing gets skipped.
    - disconnect the igniters.
 3. [ ] Pull the arm key. Power off.
 4. [ ] Hot parts: let the gimbal and paddles cool for ≥ 5 min. Gloves.
-5. [ ] Collect the drogue (it was cut at touchdown).
-6. [ ] Pull the SD card → `FLTnnn.CSV`. Back it up before anything else.
-7. [ ] Post-flight: compare the logged descent speed, ignition delay (FIRE →
+5. [ ] Pull the SD card → `FLTnnn.CSV`. Back it up before anything else.
+6. [ ] Post-flight: compare the logged descent speed, ignition delay (FIRE →
    IGNITION event), touchdown speed and throttle history with the simulation.
    Update the parameters. Re-run the Monte Carlo before the next flight.
 
@@ -96,7 +95,7 @@ each line aloud. Nothing gets skipped.
 | Situation | Vehicle response | Crew action |
 |---|---|---|
 | Tilt > 35° on descent | Main chute | Track it; recover like a misfire if the motor is unlit |
-| Outside the fire envelope below 15 m (e.g. drogue failed, > 35 m/s) | Main chute; landing motor **not** lit | Same |
+| Outside the fire envelope below 15 m (e.g. airbrakes failed, > 35 m/s) | Main chute; landing motor **not** lit | Same |
 | No ignition 0.9 s after FIRE | Main chute | **Hang-fire risk**: keep clear for 60 s after landing |
 | Late ignition under the chute | TVC holds the nozzle down | Keep clear; spectators upwind |
 | Hard landing / tip-over | Paddles closed, attitude hold until burnout | Wait for burnout; inspect for damage |

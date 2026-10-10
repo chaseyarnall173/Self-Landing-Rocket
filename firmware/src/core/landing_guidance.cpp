@@ -109,9 +109,82 @@ ThrottlePlan LandingGuidance::best_plan(float h, float v, float rho, float tb_no
     return best;
 }
 
+bool LandingGuidance::plan_exp(float h, float v, float rho, float tb_now, float t_land,
+                               float tau_frac, float cos_tilt, float cda, float thrust_scale,
+                               ExpProfile& out) const {
+    const float T = t_land - tb_now;
+    if (T < 0.05f) return false;
+    const float tau = fmaxf(0.05f, tau_frac * T);
+    const float E = expf(-T / tau);
+    const float vtd = -v_.v_td;
+    const float a11 = tau * (1.0f - E), a12 = T, r1 = vtd - v;
+    const float a21 = tau * (T - tau * (1.0f - E)), a22 = 0.5f * T * T, r2 = -h - v * T;
+    const float det = a11 * a22 - a12 * a21;
+    if (fabsf(det) < 1e-9f) return false;
+    out.A = (r1 * a22 - a12 * r2) / det;
+    out.C = (a11 * r2 - a21 * r1) / det;
+    out.tau = tau;
+    out.a_end = out.A * E + out.C;
+    out.k_min = 1e9f;
+    out.k_max = -1e9f;
+    for (int i = 0; i < PLAN_SAMPLES; ++i) {
+        const float s = T * i / (PLAN_SAMPLES - 1);
+        const float e = expf(-s / tau);
+        const float a_net = out.A * e + out.C;
+        const float vs = v + out.A * tau * (1.0f - e) + out.C * s;
+        const float m = mass(tb_now + s);
+        const float drag_up = -0.5f * rho * cda * vs * fabsf(vs) / m;
+        const float force = m * (a_net + G0 - drag_up);
+        const float avail = thrust_scale * v_.landing->thrust(tb_now + s) * cos_tilt;
+        const float k = (avail > 1.0f) ? force / avail : 9.0f;
+        if (k < out.k_min) out.k_min = k;
+        if (k > out.k_max) out.k_max = k;
+        if (i == 0) out.k_first = k;
+        if (i == PLAN_SAMPLES / 2) out.k_mid = k;
+        if (i == PLAN_SAMPLES - 1) out.k_last = k;
+    }
+    return true;
+}
+
+ThrottlePlan LandingGuidance::best_plan_exp(float h, float v, float rho, float tb_now,
+                                            float cos_tilt, float cda, float thrust_scale,
+                                            float end_weight) {
+    static const float TAU_FRACS[] = {0.25f, 0.35f, 0.5f};
+    float t1, t2;
+    window(t1, t2);
+    float lo = fmaxf(t1, tb_now + 0.15f);
+    float hi = fmaxf(lo, t2);
+    float pref = have_t_land_ ? t_land_pref_ : 0.5f * (t1 + t2);
+    ThrottlePlan best;
+    float best_cost = 1e30f;
+    for (int i = 0; i < PLAN_CANDIDATES; ++i) {
+        const float tl = lo + (hi - lo) * i / (PLAN_CANDIDATES - 1);
+        for (float f : TAU_FRACS) {
+            ExpProfile p;
+            if (!plan_exp(h, v, rho, tb_now, tl, f, cos_tilt, cda, thrust_scale, p)) continue;
+            const float viol = fmaxf(0.0f, v_.throttle_min - p.k_min) + fmaxf(0.0f, p.k_max - 1.0f);
+            const float cost = 10.0f * viol + end_weight * fabsf(p.a_end) / G0 + 0.05f * fabsf(tl - pref);
+            if (cost < best_cost) {
+                best_cost = cost;
+                best.valid = true;
+                best.t_land = tl;
+                best.k0 = p.k_first;
+                best.k1 = 0.0f;
+                best.violation = viol;
+                best.a_end = p.a_end;
+            }
+        }
+    }
+    if (best.valid) {
+        have_t_land_ = true;
+        t_land_pref_ = best.t_land;
+    }
+    return best;
+}
+
 bool LandingGuidance::fire_now(float h, float v, float rho, float delay_s, float fire_k1,
-                               bool keep_drogue) {
-    // Coast through the expected ignition delay under the drogue.
+                               bool keep_drag, float window_frac) {
+    // Coast through the expected ignition delay with the airbrakes out.
     const float dt = 0.01f;
     const float m = mass(-1.0f);
     int steps = (int)lroundf(delay_s / dt);
@@ -124,8 +197,8 @@ bool LandingGuidance::fire_now(float h, float v, float rho, float delay_s, float
     float t1, t2;
     window(t1, t2);
     float k0, k1;
-    float cda = keep_drogue ? v_.cda_pre_m2 : v_.cda_burn_m2;
-    if (!plan(h, v, rho, 0.0f, 0.5f * (t1 + t2), 1.0f, cda, 1.0f, k0, k1)) return true;
+    float cda = keep_drag ? v_.cda_pre_m2 : v_.cda_burn_m2;
+    if (!plan(h, v, rho, 0.0f, t1 + window_frac * (t2 - t1), 1.0f, cda, 1.0f, k0, k1)) return true;
     return k1 <= fire_k1;
 }
 

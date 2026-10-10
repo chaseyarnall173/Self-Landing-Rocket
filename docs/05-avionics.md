@@ -12,8 +12,8 @@
    HV servos (direct 2S)       5 V 3 A buck          Igniter A    Igniter B   (both in the LANDING motor)    |
    - gimbal Y  (KST X08H)        |      |                |            |                                     |
    - gimbal Z  (KST X08H)        |   mechanism servos   drain        drain                                  |
-   - paddles   (KST X08H)        |   (drogue latch,      |            |                                     |
-        | 1000 uF                |    drogue cut, legs,  AO3400A     AO3400A  <- gates from Teensy 20 / 21  |
+   - paddles   (KST X08H)        |   (airbrake latch,    |            |                                     |
+        | 1000 uF                |    leg pin, chute)    AO3400A     AO3400A  <- gates from Teensy 20 / 21  |
         |                        |    chute latch)       |            |         (100R series, 10k pulldown) |
         |                   Teensy 4.1 VIN               GND          GND                                   |
         |                        |                       |            |                                     |
@@ -36,12 +36,12 @@
 | MCU | **Teensy 4.1** | 600 MHz M7, double-precision FPU, 1 MB RAM, built-in SDIO microSD | Plenty of headroom for 1 kHz estimation and the 50 Hz re-plan | [PJRC](https://www.pjrc.com/store/teensy41.html) |
 | IMU | **Bosch BMI088** | Accel +-24 g, gyro +-2000 °/s, vibration-robust | BPS wiki's "best choice"; **avoid the MPU6050/9250** (end of life, drift) and the BNO055 (its fusion fails under flight loads) | [Bosch](https://www.bosch-sensortec.com/products/motion-sensors/imus/bmi088/), [BPS wiki](https://github.com/bps-space/bps-space.github.io/blob/master/electronics/imu-selection.md) |
 | Barometer | **Bosch BMP390** | +-0.03 hPa relative (~25 cm), up to 200 Hz | Altitude through the whole flight | [Bosch](https://www.bosch-sensortec.com/products/environmental-sensors/pressure-sensors/pressure-sensors-bmp390.html) |
-| Lidar | **Benewake TFmini-S** | 12 m (90% reflectivity) / **7 m on 10% reflectivity**, 70 klux sunlight, 100-1000 Hz | Precise height for the last ~7 m and touchdown detection. The ignition decision (~21 m) uses baro + IMU. **VL53L1X-type ToF sensors do not work outdoors.** | [Benewake](https://en.benewake.com/TFminiS/), [Pololu VL53L1X](https://www.pololu.com/product/3415) |
+| Lidar | **Benewake TFmini-S** | 12 m (90% reflectivity) / **7 m on 10% reflectivity**, 70 klux sunlight, 100-1000 Hz | Precise height for the last ~7 m and touchdown detection. The ignition decision (~15 m) uses baro + IMU. **VL53L1X-type ToF sensors do not work outdoors.** | [Benewake](https://en.benewake.com/TFminiS/), [Pololu VL53L1X](https://www.pololu.com/product/3415) |
 | Lidar (longer reach) | Benewake TF02-Pro | 40 m / 13.5 m on 10% reflectivity, 100 klux, 50 g | Use it if you want lidar at the ignition altitude | [datasheet](https://en.benewake.com/uploadfiles/2024/04/20240426135509321.pdf) |
 | GPS | u-blox NEO-M9N (or M10) | up to 25 Hz | **Lateral velocity** for the landing burn. Scout E tipped over from horizontal drift traced to a bad GPS signal ([Hackaday](https://hackaday.com/2020/11/27/so-close-to-landing-a-model-rocket-on-its-tail/)) | [SparkFun](https://www.sparkfun.com/sparkfun-gps-breakout-neo-m9n-u-fl-qwiic.html) |
 | Telemetry | HopeRF RFM95W 915 MHz LoRa | +20 dBm | 5 Hz summary; full-rate data stays in the onboard log | [HopeRF](https://hoperf.com/modules/lora/RFM95W.html) |
 | Gimbal + paddle servos | 3 x **KST X08H** | 0.09 s/60°, 2.8 kg·cm, runs directly on 2S | Fast, HV, ~8 g. MG90S (0.10 s/60°, 4.8-6 V) is fine for bench prototypes | [X08H](https://servodatabase.com/servo/kst/x08h), [MG90S](https://servodatabase.com/servo/turnigy/mg90s) |
-| Mechanism servos | 4 x 3.7-4.5 g micro servos | 5 V | Drogue latch, drogue cut, leg pin, chute latch: no black powder needed | |
+| Mechanism servos | 3 x 3.7-4.5 g micro servos | 5 V | Airbrake latch, leg pin, chute latch: no black powder needed | |
 | Pyro FETs | 2 x AO3400A (or IRLML6344) | logic-level, Rds(on) specified at Vgs = 2.5 V | Switch ~4-6 A igniter pulses from 3.3 V logic | |
 | Battery | 2S LiPo 450 mAh 45C | 7.4-8.4 V | Runs HV servos directly; ~15 min of pad time | |
 | Regulator | Pololu D24V30F5 (5 V 3 A buck) | | Teensy VIN, lidar, micro servos | |
@@ -95,7 +95,7 @@ How the channel stays safe:
 | 10, 11, 12, 13, 30, 31 | RFM95W CS, MOSI, MISO, SCK, IRQ, RST |
 | 2, 3 | Gimbal servos Y, Z (333 Hz) |
 | 4 | Paddle servo (333 Hz) |
-| 7, 8 | Drogue latch, drogue cut (50 Hz) |
+| 7 | Top-airbrake latch (50 Hz); pin 8 is spare |
 | 28, 29 | Leg pin, chute latch (50 Hz) |
 | 20, 21 | Pyro gates A, B |
 | 14 (A0), 15 (A1) | Continuity sense A, B |

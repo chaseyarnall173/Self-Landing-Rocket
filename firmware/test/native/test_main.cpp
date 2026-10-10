@@ -28,7 +28,7 @@ static int g_fail = 0, g_pass = 0;
 
 static LandingVehicle golden_vehicle() {
     LandingVehicle v;
-    v.landing = &MOTOR_G40W;
+    v.landing = &MOTOR_F25W;
     v.dry_mass_kg = G_DRY_MASS;
     v.spent_ascent_kg = G_ASCENT_CASING;
     v.cda_pre_m2 = G_CDA_PRE;
@@ -47,6 +47,12 @@ static void test_motor() {
     CHECK(m.thrust(-0.1f) == 0.0f && m.thrust(3.0f) == 0.0f, "thrust outside burn");
     CHECK(NEAR(m.mass(10.0f), m.casing_kg(), 1e-5f), "burnt-out mass");
     CHECK(NEAR(m.mass(0.0f), m.total_kg, 1e-6f), "unlit mass");
+    // The landing motor's curve "starts strong and simmers down".
+    const MotorCurve& f = MOTOR_F25W;
+    CHECK(NEAR(f.total_impulse(), 70.8f, 0.5f), "F25W impulse %.2f", f.total_impulse());
+    CHECK(f.thrust(0.1f) > f.thrust(1.0f) && f.thrust(1.0f) > f.thrust(2.0f), "F25W regressive");
+    CHECK(NEAR(MOTOR_F42T.total_impulse(), 55.9f, 0.5f), "F42T impulse %.2f",
+          MOTOR_F42T.total_impulse());
 }
 
 static void test_guidance_matches_python() {
@@ -62,17 +68,28 @@ static void test_guidance_matches_python() {
               "plan h=%.1f v=%.1f: C++ (%.4f, %.4f) python (%.4f, %.4f)", c.h, c.v, k0, k1, c.k0,
               c.k1);
     }
-    // Ignition altitude at a 22.7 m/s drogue descent.
+    // "Strong then simmer" exponential profile, checked at three points.
+    for (const ExpCase& c : EXP_CASES) {
+        ExpProfile p;
+        bool ok = g.plan_exp(c.h, c.v, c.rho, c.tb, c.tl, c.f, 1.0f, G_CDA_BURN, 1.0f, p);
+        CHECK(ok && NEAR(p.k_first, c.k_first, 3e-3f) && NEAR(p.k_mid, c.k_mid, 3e-3f) &&
+                  NEAR(p.k_last, c.k_last, 3e-3f) && NEAR(p.a_end, c.a_end, 1e-2f),
+              "exp plan h=%.1f v=%.1f: C++ k(%.3f %.3f %.3f) a_end %.3f, python k(%.3f %.3f %.3f) "
+              "a_end %.3f",
+              c.h, c.v, p.k_first, p.k_mid, p.k_last, p.a_end, c.k_first, c.k_mid, c.k_last,
+              c.a_end);
+    }
+    // Ignition altitude at the airbrake descent speed.
     float h_fire = -1;
     for (int i = 1200; i > 0; --i) {
         float h = i * 0.05f;
-        if (g.fire_now(h, -22.7f, 1.2f, 0.30f, 0.0f, true)) {
+        if (g.fire_now(h, G_FIRE_V, 1.2f, 0.30f, 0.0f, true, G_FIRE_WINDOW_FRAC)) {
             h_fire = h;
             break;
         }
     }
-    CHECK(NEAR(h_fire, G_FIRE_ALT_AT_22_7, 0.15f), "fire altitude %.2f vs python %.2f", h_fire,
-          G_FIRE_ALT_AT_22_7);
+    CHECK(NEAR(h_fire, G_FIRE_ALT, 0.15f), "fire altitude %.2f vs python %.2f", h_fire,
+          G_FIRE_ALT);
 }
 
 static void test_tvc_closed_loop() {
@@ -137,7 +154,7 @@ static void test_attitude_integration() {
 
 // --------------------------------------------------------------- SIL test
 // A vertical-only truth model drives the real FlightFsm through a whole
-// mission: boost, coast, drogue descent, landing burn, touchdown.
+// mission: boost, coast, airbrake descent, landing burn, touchdown.
 static float g_events_t[32];
 static const char* g_events[32];
 static int g_nev = 0;
@@ -152,13 +169,13 @@ static void on_event(float t, const char* msg) {
 }
 
 static float sil_flight(float true_delay, float true_kmin, bool print) {
-    FlightFsm fsm(MOTOR_G40W, MOTOR_G40W);
+    FlightFsm fsm(MOTOR_F42T, MOTOR_F25W);
     g_nev = 0;
     fsm.on_event = on_event;
     const float dt = 0.005f;
     float t = 0, h = 0, v = 0;
     float t_cmd = -1, k_act = 1.0f;
-    bool drogue = false, legs = false, landed = false;
+    bool brakes = false, legs = false, landed = false;
     float vz_td = 0, max_h = 0;
     const float A = 3.14159f * 0.1016f * 0.1016f / 4;
     Quat up = Quat::from_rotvec(Vec3(0, -90 * DEG, 0));  // body +x = world up
@@ -169,11 +186,11 @@ static float sil_flight(float true_delay, float true_kmin, bool print) {
     for (int i = 0; i < 6000 && !landed; ++i) {
         float ta = t - t_launch;
         float tl = (t_cmd >= 0) ? t - t_cmd - true_delay : -1;
-        float m = params::DRY_MASS_KG + MOTOR_G40W.mass(ta > 0 ? ta : 0) +
-                  (tl > 0 ? MOTOR_G40W.mass(tl) : MOTOR_G40W.total_kg);
-        float thrust = (ta > 0 ? MOTOR_G40W.thrust(ta) : 0) +
-                       (tl > 0 ? fmaxf(k_act, true_kmin) * MOTOR_G40W.thrust(tl) : 0);
-        float cda = (v >= 0) ? 0.55f * A : (drogue ? params::CDA_PRE_M2 : params::CDA_BURN_M2) +
+        float m = params::DRY_MASS_KG + MOTOR_F42T.mass(ta > 0 ? ta : 0) +
+                  (tl > 0 ? MOTOR_F25W.mass(tl) : MOTOR_F25W.total_kg);
+        float thrust = (ta > 0 ? MOTOR_F42T.thrust(ta) : 0) +
+                       (tl > 0 ? fmaxf(k_act, true_kmin) * MOTOR_F25W.thrust(tl) : 0);
+        float cda = (v >= 0) ? 0.55f * A : (brakes ? params::CDA_PRE_M2 : params::CDA_BURN_M2) +
                                                  (legs ? params::CDA_LEGS_M2 : 0);
         float drag = -0.5f * 1.2f * cda * v * fabsf(v);
         float a = (thrust + drag) / m - G0;
@@ -195,8 +212,7 @@ static float sil_flight(float true_delay, float true_kmin, bool print) {
         FsmOutputs o = fsm.step(in, dt);
         if (o.fire_landing && t_cmd < 0) t_cmd = t;
         k_act += clampf((o.throttle - k_act) / 0.04f, -6, 6) * dt;
-        drogue = drogue || o.drogue_deploy;
-        if (o.drogue_release) drogue = false;
+        brakes = brakes || o.airbrakes_deploy;
         legs = o.legs_deploy;
         t += dt;
     }

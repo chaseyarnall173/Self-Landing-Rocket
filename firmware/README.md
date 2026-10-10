@@ -8,7 +8,7 @@ src/core/      hardware-independent C++ (runs on the Teensy AND in native tests)
   motor_tables.h      AUTO-GENERATED from sim/data/motors/*.eng
   estimator.*         gyro-quaternion attitude, 3-state altitude Kalman filter
   tvc_controller.*    2-axis dynamic-inversion PID with offset trim, anti-windup
-  landing_guidance.*  touchdown window, throttle-ramp plan, fire decision, braking law
+  landing_guidance.*  touchdown window, exp-decay ("strong then simmer") + ramp plans, fire decision
   flight_fsm.*        state machine, envelope checks, aborts
 src/hal/       Teensy-specific
   board.h             pin map + calibration constants
@@ -23,7 +23,7 @@ tools/gen_tables.py   regenerate motor tables + Python "golden" values
 ## Build and test
 
 ```bash
-make -C firmware test            # 22 tests: motor model, C++ vs Python guidance,
+make -C firmware test            # 28 tests: motor models, C++ vs Python guidance (ramp + exp),
                                  # TVC closed loop, Kalman filter, attitude, SIL missions
 make -C firmware compile-check   # host type-check of the Teensy code (stub Arduino headers)
 cd firmware && pio run -e teensy41 -t upload
@@ -38,9 +38,9 @@ them up on the bench (docs/08 §8.5) before anything else.
 - Measured values → `src/core/params.h`:
   - `DRY_MASS_KG`, `INERTIA_KGM2`, `GIMBAL_LEVER_M`
   - `IGNITION_DELAY_NOMINAL_S`, `THROTTLE_MIN`
-  - `CDA_PRE_M2` (from the flight-1 descent speed)
+  - `CDA_PRE_M2` (from the flight-1 airbrake descent speed)
 - Calibrations → `src/hal/board.h`:
   - gimbal centres and gains, `PADDLE_US[]`
   - `IMU_MAP`, `PAD_HEADING_DEG`
-- `VIRTUAL_GROUND_M`: 0 for a real landing, 60 for test flight F2.
+- `VIRTUAL_GROUND_M`: 0 for a real landing, 30 for test flight F2 (fly it on an F52C).
 - Re-run the Python Monte Carlo with the same numbers.

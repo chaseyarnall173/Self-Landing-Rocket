@@ -9,8 +9,8 @@ struct LandingVehicle {
     const MotorCurve* landing;   // landing motor curve
     float dry_mass_kg;           // dry vehicle (no motors)
     float spent_ascent_kg;       // casing of the burnt-out ascent motor
-    float cda_pre_m2;            // CdA with the drogue out
-    float cda_burn_m2;           // CdA without drogue
+    float cda_pre_m2;            // CdA with the top airbrakes out
+    float cda_burn_m2;           // CdA with the airbrakes stowed
     float throttle_min;          // paddle authority (fraction of thrust left when closed)
     float v_td;                  // target touchdown speed (positive number, m/s)
     float window_hop_margin;
@@ -21,8 +21,15 @@ struct ThrottlePlan {
     bool valid = false;
     float t_land = 0;  // burn clock at touchdown
     float k0 = 0;      // throttle now
-    float k1 = 0;      // throttle slope (1/s)
+    float k1 = 0;      // throttle slope (1/s) - ramp plans only
     float violation = 0;
+    float a_end = 0;   // net upward acceleration at touchdown - exp plans only
+};
+
+// "Strong then simmer" profile: net upward acceleration a(s) = A*exp(-s/tau) + C.
+struct ExpProfile {
+    float A = 0, C = 0, tau = 0, a_end = 0;
+    float k_min = 0, k_max = 0, k_first = 0, k_mid = 0, k_last = 0;
 };
 
 class LandingGuidance {
@@ -40,8 +47,20 @@ public:
     ThrottlePlan best_plan(float h, float v, float rho, float tb_now, float cos_tilt,
                            float cda, float thrust_scale);
 
+    // "Strong then simmer": solve A, C so that h = 0 and v = -v_td at t_land,
+    // then evaluate the throttle k(s) = m(a + g - drag) / thrust along it.
+    bool plan_exp(float h, float v, float rho, float tb_now, float t_land, float tau_frac,
+                  float cos_tilt, float cda, float thrust_scale, ExpProfile& out) const;
+
+    // Search touchdown time and decay rate for the most feasible exp profile
+    // that also ends near hover (thrust + drag ~ weight at touchdown).
+    ThrottlePlan best_plan_exp(float h, float v, float rho, float tb_now, float cos_tilt,
+                               float cda, float thrust_scale, float end_weight);
+
     // True when the ignition command should be sent now (motor unlit).
-    bool fire_now(float h, float v, float rho, float delay_s, float fire_k1, bool keep_drogue);
+    // window_frac: where in the touchdown window the fire plan aims (0..1).
+    bool fire_now(float h, float v, float rho, float delay_s, float fire_k1, bool keep_drag,
+                  float window_frac = 0.5f);
 
     // Terminal braking law (below TERMINAL_ALT): throttle for constant decel
     // to v_td at h=0.

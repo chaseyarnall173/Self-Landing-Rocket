@@ -2,17 +2,28 @@
 // the Python simulator (sim/rocketsim/guidance.py) for the native tests.
 #pragma once
 static const float G_DRY_MASS = 1.141000f;
-static const float G_ASCENT_CASING = 0.069200f;
-static const float G_CDA_PRE = 0.041509f;
+static const float G_ASCENT_CASING = 0.049000f;
+static const float G_CDA_PRE = 0.056675f;
 static const float G_CDA_BURN = 0.008675f;
 static const float G_KMIN = 0.250000f;
-static const float G_WINDOW_T1 = 1.121429f;
-static const float G_WINDOW_T2 = 1.939098f;
+static const float G_CDA_LEGS = 0.004864f;
+static const float G_INERTIA = 0.203119f;
+static const float G_LEVER = 0.449178f;
+static const float G_FIRE_WINDOW_FRAC = 0.650000f;
+static const float G_WINDOW_T1 = 0.400677f;
+static const float G_WINDOW_T2 = 1.790150f;
 struct PlanCase { float h, v, rho, tb, tl, k0, k1; };
 static const PlanCase PLAN_CASES[] = {
-    {15.0f, -22.0f, 1.2f, 0.0f, 1.6f, 0.551149f, -0.017584f},
-    {8.0f, -14.0f, 1.2f, 0.5f, 1.5f, 0.321208f, 0.532668f},
-    {3.0f, -7.0f, 1.2f, 1.0f, 1.6f, 0.112062f, 1.768469f},
-    {20.0f, -22.7f, 1.2f, 0.0f, 1.78f, 0.358224f, 0.232329f},
+    {15.0f, -22.0f, 1.2f, 0.0f, 1.6f, 0.624676f, 0.168153f},
+    {8.0f, -14.0f, 1.2f, 0.5f, 1.5f, 0.408291f, 0.981475f},
+    {3.0f, -7.0f, 1.2f, 1.0f, 1.6f, 0.190157f, 2.749595f},
+    {20.0f, -22.7f, 1.2f, 0.0f, 1.78f, 0.386468f, 0.490674f},
 };
-static const float G_FIRE_ALT_AT_22_7 = 20.950f;
+struct ExpCase { float h, v, rho, tb, tl, f, k_first, k_mid, k_last, a_end; };
+static const ExpCase EXP_CASES[] = {
+    {8.0f, -18.0f, 1.2f, 0.1f, 1.6f, 0.35f, 1.040770f, 0.597942f, 0.691859f, 1.442817f},
+    {5.0f, -12.0f, 1.2f, 0.3f, 1.5f, 0.25f, 0.953840f, 0.568401f, 0.733207f, 3.603426f},
+    {3.0f, -7.0f, 1.2f, 0.6f, 1.7f, 0.5f, 0.657844f, 0.611585f, 0.817830f, 1.828357f},
+};
+static const float G_FIRE_V = -18.5f;
+static const float G_FIRE_ALT = 15.000f;

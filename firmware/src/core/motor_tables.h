@@ -3,6 +3,16 @@
 #pragma once
 #include "motor_curve.h"
 
+// AeroTech_F42T: I=55.9 N*s, Favg=38.0 N, Fmax=68.7 N, tb=1.47 s, prop=27.0 g, total=76.0 g (APCP)
+static const float MOTOR_F42T_T[] = {0.00000f, 0.01000f, 0.02900f, 0.20200f, 0.51100f, 0.73900f, 0.99300f, 1.02000f, 1.07200f, 1.19900f, 1.26200f, 1.31900f, 1.47000f};
+static const float MOTOR_F42T_F[] = {0.00000f, 68.69400f, 65.87900f, 62.50000f, 51.80200f, 43.35600f, 31.53200f, 29.27900f, 23.08600f, 9.57200f, 4.50500f, 2.81500f, 0.00000f};
+static const MotorCurve MOTOR_F42T = {MOTOR_F42T_T, MOTOR_F42T_F, 13, 0.02700f, 0.07600f};
+
+// AeroTech_F25W: I=70.8 N*s, Favg=26.3 N, Fmax=57.6 N, tb=2.69 s, prop=38.8 g, total=97.2 g (APCP)
+static const float MOTOR_F25W_T[] = {0.00000f, 0.03900f, 0.18700f, 0.34200f, 0.50000f, 1.00000f, 1.50000f, 2.00000f, 2.20700f, 2.69000f};
+static const float MOTOR_F25W_F[] = {0.00000f, 57.63100f, 53.49100f, 51.23900f, 47.86000f, 33.80600f, 22.94000f, 10.13500f, 4.50400f, 0.00000f};
+static const MotorCurve MOTOR_F25W = {MOTOR_F25W_T, MOTOR_F25W_F, 10, 0.03880f, 0.09720f};
+
 // AeroTech_G40W: I=99.0 N*s, Favg=43.1 N, Fmax=74.3 N, tb=2.30 s, prop=53.8 g, total=123.0 g (APCP)
 static const float MOTOR_G40W_T[] = {0.00000f, 0.02400f, 0.05700f, 0.25200f, 0.50000f, 0.76500f, 1.00000f, 1.25000f, 1.50200f, 1.75100f, 1.99900f, 2.12100f, 2.30000f};
 static const float MOTOR_G40W_F[] = {0.00000f, 74.32500f, 67.00500f, 65.87900f, 63.06300f, 60.24800f, 54.05400f, 47.29800f, 36.59900f, 25.33800f, 12.95100f, 3.94100f, 0.00000f};
