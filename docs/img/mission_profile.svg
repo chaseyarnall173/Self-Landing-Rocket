@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 520" width="980" height="520" font-family="DejaVu Sans, Helvetica, Arial, sans-serif">
+  <title>SLR-1 mission profile</title>
+  <rect width="980" height="520" fill="#fcfcfb"/>
+  <text x="20" y="32" font-size="17" font-weight="bold" fill="#0b0b0b">Mission profile (nominal simulation, 2 m/s wind)</text>
+  <text x="20" y="54" font-size="12" fill="#52514e">Altitude to scale (1 px = 0.5 m); horizontal axis is time, not distance. Total flight about 15 s.</text>
+
+  <!-- axes -->
+  <g stroke="#c3c2b7" stroke-width="1">
+    <line x1="80" y1="460" x2="940" y2="460"/>
+    <line x1="80" y1="460" x2="80" y2="150"/>
+  </g>
+  <g font-size="10" fill="#898781">
+    <text x="72" y="463" text-anchor="end">0 m</text>
+    <text x="72" y="363" text-anchor="end">50</text>
+    <text x="72" y="263" text-anchor="end">100</text>
+    <text x="72" y="163" text-anchor="end">150</text>
+    <line x1="80" y1="360" x2="940" y2="360" stroke="#e1e0d9"/>
+    <line x1="80" y1="260" x2="940" y2="260" stroke="#e1e0d9"/>
+    <line x1="80" y1="160" x2="940" y2="160" stroke="#e1e0d9"/>
+    <text x="80" y="480">0 s</text><text x="306" y="480">4</text><text x="532" y="480">8</text><text x="758" y="480">12</text><text x="900" y="480">15 s</text>
+  </g>
+
+  <!-- trajectory: t scaled 56.5 px/s from x=80; altitude 1 px per 0.5 m... (2 px per m) -> 152 m = 304 px -> y = 460-304 = 156 -->
+  <path d="M80,460 C110,455 150,420 199,330 C240,250 300,170 351,156 C400,148 430,170 470,215 C520,270 640,375 745,421 C770,440 790,454 810,459 L900,460"
+        fill="none" stroke="#2a78d6" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- phase markers -->
+  <g font-size="11.5" fill="#0b0b0b">
+    <circle cx="80" cy="460" r="5" fill="#eb6834"/>
+    <text x="90" y="448">1  Liftoff: ascent G40W, TVC on</text>
+    <circle cx="199" cy="330" r="5" fill="#2a78d6"/>
+    <text x="210" y="345">2  Burnout 2.1 s, ~65 m, 47 m/s</text>
+    <text x="210" y="359" fill="#52514e">    coast nose-first (fins stabilise)</text>
+    <circle cx="351" cy="156" r="6" fill="#2a78d6"/>
+    <text x="300" y="130">3  Apogee 152 m (498 ft) at 6.3 s</text>
+    <text x="300" y="144" fill="#52514e">    drogue out, rocket flips tail-down</text>
+    <circle cx="600" cy="335" r="5" fill="#2a78d6"/>
+    <text x="612" y="320">4  Tail-first fall at ~22.5 m/s</text>
+    <text x="612" y="334" fill="#52514e">    computer predicts the ignition point every 5 ms</text>
+    <circle cx="745" cy="421" r="6" fill="#e34948"/>
+    <text x="560" y="398">5  FIRE at ~21 m; lit ~0.3 s later</text>
+    <circle cx="790" cy="452" r="5" fill="#1baf7a"/>
+    <text x="800" y="420">6  Legs at 8 m;</text>
+    <text x="800" y="434" fill="#52514e">paddles throttle</text>
+    <circle cx="810" cy="459" r="6" fill="#0ca30c"/>
+    <text x="818" y="500">7  Touchdown ~1.2 m/s</text>
+  </g>
+</svg>
