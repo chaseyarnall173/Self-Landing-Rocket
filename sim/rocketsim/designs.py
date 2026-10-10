@@ -1,8 +1,9 @@
 """Baseline vehicle definition ("SLR-1") with an itemised mass budget.
 
-Every number here is a design estimate: WEIGH YOUR PARTS and update the
-table. ``python sim/scripts/mass_budget.py`` prints the budget, CG and static
-margins so you can see the effect of each change.
+The rev C budget is rolled up from the CAD model (``python cad/build.py``
+writes cad/out/mass_items.json). It is still an estimate: WEIGH YOUR PARTS
+and update the table. ``python sim/scripts/mass_budget.py`` prints the
+budget, CG and static margins so you can see the effect of each change.
 """
 
 from __future__ import annotations
@@ -48,21 +49,25 @@ class MassItem:
     length_m: float = 0.0     # >0 = treat as uniform rod for inertia
 
 
-# Lean 4-inch build. Stations are from the nose tip; vehicle is 60 in long.
+# Rev C mass budget, rolled up from the CAD model (cad/out/mass_items.json, written by
+# `python cad/build.py`): CAD volume x material density for made parts, catalogue
+# estimates for bought parts. Stations are from the nose tip; the vehicle is 60 in long.
 SLR1_ITEMS = [
-    MassItem("Nose cone (3D-printed PETG ogive, 0.8 mm wall) + shoulder", 0.095, 0.24, 0.40),
-    MassItem("Top airbrake petals: 4 cut from the tube, hinges, springs, latch servo", 0.035, 0.48),
-    MassItem("Backup main chute (30 in) + shock cord + spring/servo door", 0.085, 0.55),
-    MassItem("Avionics bay: Teensy 4.1 board, BMI088, BMP390, LoRa, 2S 450 mAh", 0.105, 0.80, 0.15),
-    MassItem("Body tube: LOC 3.9 in kraft, 43.5 in", 0.374, 0.97, 1.10),
-    MassItem("Couplers, bulkheads, motor-bay frame", 0.080, 0.95, 0.60),
-    MassItem("Dual-motor 2-axis TVC gimbal + 2 servos", 0.130, 1.36),
-    MassItem("Exhaust-paddle throttle (2 ceramic paddles, Al arms, servo)", 0.050, 1.49),
-    MassItem("4 fins, 1/8 in birch ply, root 4.7 in tip 2.4 in span 3 in", 0.045, 1.45),
-    MassItem("4 landing legs (CF tube, printed hinges, springs, TPU feet) + pin servo", 0.085, 1.30),
-    MassItem("Lidar (TFmini-S) + bracket", 0.012, 1.46),
-    MassItem("Wiring, hardware, epoxy, paint", 0.045, 0.95, 1.0),
+    MassItem("Nose cone: printed PETG ogive (0.8 mm wall) + 2 in shoulder", 0.0991, 0.244, 0.344),
+    MassItem("Top airbrakes: petal hinges, springs, tabs, latch ring + servo (petals are tube)", 0.0156, 0.454, 0.289),
+    MassItem("Backup chute (30 in), Nomex, shock cord, ejector, door hinge/latch + servo", 0.0969, 0.630, 0.129),
+    MassItem("Avionics: Teensy 4.1, BMI088, BMP390, GPS, LoRa, 2S 450 mAh, switches", 0.1117, 0.768, 0.148),
+    MassItem("Couplers, bulkheads, sled, aft carbon liner, thrust plate, leg doublers", 0.2504, 0.861, 1.173),
+    MassItem("Body tube: LOC 3.9 in kraft, 47.25 in in 5 pieces (incl. petals + door)", 0.4020, 0.923, 1.202),
+    MassItem("4 landing legs (8x7 CF, dampers, TPU feet, clevises) + release servo", 0.1005, 1.090, 0.854),
+    MassItem("Wiring harness, cables, screws, epoxy fillets", 0.0378, 1.132, 1.071),
+    MassItem("Dual-motor TVC gimbal: rings, posts, kraft sleeves, 2 servos, pushrods", 0.0938, 1.427, 0.137),
+    MassItem("4 fins, 3/32 in birch ply (90 % of the 4.7/2.4/3.0 in planform)", 0.0373, 1.472, 0.222),
+    MassItem("Exhaust-paddle throttle: 2 ceramic paddles, arms, bracket, servo", 0.0326, 1.493, 0.063),
+    MassItem("Lidar (TFmini-S) + bracket + window", 0.0103, 1.504, 0.036),
 ]
+MOTOR_STATION_M = 1.433         # CG of the two motors (CAD)
+
 
 
 def dry_mass_props(items: list[MassItem]) -> tuple[float, float, float]:
@@ -88,14 +93,14 @@ def barrowman_fins(n: int, root: float, tip: float, span: float, sweep: float,
 
 def slr1(drag_device: str = "petals", fins: bool = True,
          items: list[MassItem] | None = None,
-         ascent: str = "AeroTech_F42T", landing: str = "AeroTech_F25W",
+         ascent: str = "AeroTech_F52C", landing: str = "AeroTech_F25W",
          gridfin_size_m: float = 0.055, gridfin_station_m: float = 0.42,
-         fin_scale: float = 1.0) -> Vehicle:
+         fin_scale: float = 0.9, petal_len_m: float = 0.150) -> Vehicle:
     """Baseline SLR-1.
 
     drag_device: "petals" (baseline: four airbrake petals cut from the body
     tube just below the nose, sprung open at apogee - the rocket's Falcon-9
-    grid fins), "gridfins" (square lattice fins, sized by gridfin_size_m),
+    grid fins; 150 mm long in rev C), "gridfins" (square lattice fins, sized by gridfin_size_m),
     "drogue" (9 in drogue on a nose leash - the earlier design), "flaps" or
     "none".
     """
@@ -123,11 +128,11 @@ def slr1(drag_device: str = "petals", fins: bool = True,
                                    ca=c, deployable=True))
     elif drag_device == "petals":
         # Four curved airbrake petals cut from the body tube (one quadrant
-        # each, ~80 mm wide x 125 mm long), hinged at their forward edge and
-        # sprung open to 90 deg at apogee. Flat-plate Cd ~1.2.
-        cds = 1.2 * 4 * (0.080 * 0.125)
+        # each, ~80 mm wide x petal_len_m long), hinged at their forward edge
+        # (station 0.395 m) and sprung open to 90 deg at apogee. Flat-plate Cd ~1.2.
+        cds = 1.2 * 4 * (0.080 * petal_len_m)
         c = cds / a_ref
-        comps.append(AeroComponent("airbrake petals", x_m=0.43, cna_leading=c,
+        comps.append(AeroComponent("airbrake petals", x_m=0.395 + 0.01, cna_leading=c,
                                    cna_trailing=c, ca=c, deployable=True))
     elif drag_device == "gridfins":
         # Falcon-9-style grid fins near the top, folded flat for ascent and
@@ -148,7 +153,7 @@ def slr1(drag_device: str = "petals", fins: bool = True,
         dry_mass_kg=m, dry_cg_m=cg, dry_inertia_kgm2=inertia,
         ascent_motor=motor(ascent),
         landing_motor=motor(landing),
-        motor_station_m=1.40, gimbal_station_m=1.46,
+        motor_station_m=MOTOR_STATION_M, gimbal_station_m=1.46,
         ascent_offset_m=+0.0165, landing_offset_m=-0.0165,
         gimbal_limit_deg=7.0, servo_tau_s=0.030, servo_rate_dps=400.0,
         leg_drop_m=0.22, leg_ca_deployed=0.6,

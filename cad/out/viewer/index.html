@@ -1,0 +1,522 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SLR-1 CAD Viewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a CAD bench - the model on a light drawing plate fills the screen, with a
+   narrow inspection panel (controls, selected part, parts tree) on the right; stacked on phones. */
+:root {
+  --paper: #f3f5f4;
+  --panel: #ffffff;
+  --ink: #15212e;
+  --ink-2: #4a5866;
+  --rule: #d5dbdf;
+  --accent: #e8590c;
+  --accent-ink: #b8430a;
+  --sky: #2a6fb5;
+  --stage-top: #e9eef1;
+  --stage-bot: #cfd8de;
+  --chip: #eef2f4;
+  --ok: #1d7a3e;
+  --display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f161d; --panel: #16202a; --ink: #e4e9ee; --ink-2: #a7b3bf; --rule: #2a3946;
+    --accent: #ff7a33; --accent-ink: #ff9a63; --sky: #6aa8e8;
+    --stage-top: #24313d; --stage-bot: #141c24; --chip: #1e2a35; --ok: #52c27a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f161d; --panel: #16202a; --ink: #e4e9ee; --ink-2: #a7b3bf; --rule: #2a3946;
+  --accent: #ff7a33; --accent-ink: #ff9a63; --sky: #6aa8e8;
+  --stage-top: #24313d; --stage-bot: #141c24; --chip: #1e2a35; --ok: #52c27a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.5; }
+.app { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 360px; }
+.stage { position: relative; min-height: 0; background: linear-gradient(180deg, var(--stage-top), var(--stage-bot)); overflow: hidden; }
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.side { min-width: 0; border-left: 1px solid var(--rule); background: var(--panel); overflow-y: auto; padding-inline: 18px; padding-block: 18px 28px; display: grid; gap: 18px; align-content: start; }
+h1, h2 { font-family: var(--display); margin: 0; line-height: 1.05; text-wrap: balance; }
+h1 { font-size: 34px; font-weight: 700; }
+h1 .code { color: var(--accent); }
+h2 { font-size: 19px; font-weight: 600; letter-spacing: .01em; }
+.eyebrow, .label { font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.mono, .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+p { margin: 0; }
+.head { display: grid; gap: 6px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.stat { background: var(--panel); padding: 8px 10px; display: grid; gap: 2px; min-width: 0; }
+.stat .v { font-family: var(--display); font-size: 22px; font-weight: 600; line-height: 1; }
+.stat .v small { font-family: var(--mono); font-size: 11px; color: var(--ink-2); font-weight: 400; }
+.stat .n { font-size: 11.5px; color: var(--ink-2); }
+.group { display: grid; gap: 8px; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.seg button { font: 500 13.5px var(--body); padding: 8px 6px; border: 0; background: var(--panel); color: var(--ink); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.row label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+input[type=range] { flex: 1 1 140px; accent-color: var(--accent); min-width: 0; }
+input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; }
+.views { display: flex; flex-wrap: wrap; gap: 6px; }
+.views button, .btn { font: 500 13px var(--body); padding: 5px 10px; border: 1px solid var(--rule); border-radius: 999px; background: var(--chip); color: var(--ink); cursor: pointer; }
+.views button:hover, .btn:hover, .seg button:hover { border-color: var(--accent); }
+button:focus-visible, input:focus-visible, summary:focus-visible, li[role=button]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card { border: 1px solid var(--rule); border-left: 3px solid var(--accent); padding: 12px 14px; display: grid; gap: 8px; min-width: 0; }
+.card .pid { font-family: var(--mono); font-size: 12px; color: var(--accent-ink); }
+.card h3 { margin: 0; font: 600 15px/1.35 var(--body); }
+.card dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 12px; margin: 0; font-size: 13px; }
+.card dt { color: var(--ink-2); }
+.card dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.card .empty { color: var(--ink-2); font-size: 13px; }
+.search { width: 100%; font: 14px var(--body); padding: 7px 10px; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); color: var(--ink); }
+.tree { display: grid; gap: 2px; }
+details { border-top: 1px solid var(--rule); }
+details:last-child { border-bottom: 1px solid var(--rule); }
+summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 8px; padding-block: 7px; font-weight: 600; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "+"; font-family: var(--mono); color: var(--ink-2); width: 12px; }
+details[open] > summary::before { content: "\2013"; }
+summary .t { flex: 1; }
+summary .m { font-family: var(--mono); font-size: 12px; color: var(--ink-2); font-weight: 400; }
+ul.parts { list-style: none; margin: 0 0 8px; padding: 0; }
+ul.parts li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 4px 6px 4px 20px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+ul.parts li:hover { background: var(--chip); }
+ul.parts li.sel { background: var(--accent); color: #fff; }
+ul.parts li.sel .q { color: #fff; }
+ul.parts li .q { font-family: var(--mono); font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+.foot { font-size: 12.5px; color: var(--ink-2); display: grid; gap: 6px; }
+.foot a { color: var(--sky); }
+.overlay { position: absolute; left: 14px; bottom: 12px; right: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; pointer-events: none; font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); }
+.overlay span { background: color-mix(in srgb, var(--panel) 78%, transparent); padding: 3px 8px; border-radius: 4px; }
+.loading { position: absolute; inset: 0; display: grid; place-content: center; gap: 10px; text-align: center; color: var(--ink-2); font-size: 13.5px; }
+.bar { width: 220px; height: 4px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0%; background: var(--accent); transition: width .2s; }
+.tip { position: absolute; pointer-events: none; background: var(--panel); color: var(--ink); border: 1px solid var(--rule); padding: 3px 8px; border-radius: 4px; font-size: 12.5px; white-space: nowrap; transform: translate(12px, 12px); }
+.tag3d { font-family: var(--mono); font-size: 11.5px; color: var(--ink); background: color-mix(in srgb, var(--panel) 85%, transparent); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 3px; white-space: nowrap; }
+.tag3d.cg { border-color: var(--accent); color: var(--accent-ink); }
+body.render .side, body.render .overlay, body.render .tip { display: none !important; }
+body.render .app { grid-template-columns: 1fr; }
+@media (max-width: 820px) {
+  .app { grid-template-columns: 1fr; grid-template-rows: 62vh auto; height: auto; }
+  html, body { height: auto; }
+  .side { border-left: 0; border-top: 1px solid var(--rule); overflow: visible; padding-inline: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+
+<div class="app">
+  <div class="stage" id="stage">
+    <div class="loading" id="loading"><span id="loadmsg">Loading the 3D model (about 4 MB)...</span><div class="bar"><i id="loadbar"></i></div></div>
+    <div class="tip" id="tip" hidden></div>
+    <div class="overlay"><span>Drag to orbit · scroll or pinch to zoom · right-drag to pan</span><span id="cfgtag">Flight configuration</span></div>
+  </div>
+
+  <aside class="side">
+    <div class="head">
+      <div class="eyebrow">Rev C · CAD-checked · millimetres</div>
+      <h1><span class="code">SLR-1</span> CAD</h1>
+      <p id="sum">Every part of the 5 ft self-landing rocket, modelled to the dimensions in the design docs.</p>
+    </div>
+
+    <div class="stats" role="list">
+      <div class="stat" role="listitem"><span class="label">Liftoff</span><span class="v" id="s-mass">1466 <small>g</small></span><span class="n" id="s-margin">limit 1500 g</span></div>
+      <div class="stat" role="listitem"><span class="label">CG</span><span class="v" id="s-cg">972 <small>mm</small></span><span class="n">from the nose tip</span></div>
+      <div class="stat" role="listitem"><span class="label">Parts</span><span class="v" id="s-parts">129</span><span class="n" id="s-pieces">215 pieces</span></div>
+    </div>
+
+    <div class="group">
+      <span class="label">Configuration</span>
+      <div class="seg" role="group" aria-label="Configuration">
+        <button id="cfg-flight" aria-pressed="true">Flight: legs stowed</button>
+        <button id="cfg-landing" aria-pressed="false">Landing: legs + airbrakes out</button>
+      </div>
+      <div class="row"><span class="label" style="min-width:58px">Explode</span><input id="explode" type="range" min="0" max="1" step="0.01" value="0" aria-label="Exploded view"></div>
+      <div class="row">
+        <label><input id="section" type="checkbox"> Section cut</label>
+        <label><input id="edges" type="checkbox" checked> Edges</label>
+        <label><input id="tags" type="checkbox" checked> Labels</label>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="label">Views</span>
+      <div class="views" id="views"></div>
+    </div>
+
+    <div class="card" id="card" aria-live="polite"><p class="empty">Click a part on the model or in the list to see what it is, what it is made of and how to make it.</p></div>
+
+    <div class="group">
+      <input id="q" class="search" type="search" placeholder="Find a part (e.g. servo, leg, fin)" aria-label="Find a part">
+      <div class="tree" id="tree"></div>
+    </div>
+
+    <div class="foot">
+      <p>The files behind this model are in the project repository under <span class="mono">cad/out/</span>: <span class="mono">SLR1_flight.step</span> and <span class="mono">SLR1_landing.step</span> open as assemblies in SolidWorks, and every part has its own STEP, STL (printed parts) or DXF (laser-cut parts).</p>
+      <p><a href="https://github.com/chaseyarnall173/Self-Landing-Rocket/tree/claude/rocket-design-controlled-landing-qdajfq/cad" target="_blank" rel="noopener">Open cad/ on GitHub</a></p>
+    </div>
+  </aside>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { CSS2DRenderer, CSS2DObject } from "three/addons/renderers/CSS2DRenderer.js";
+
+const params = new URLSearchParams(location.search);
+const RENDER = params.has("render");
+if (RENDER) document.body.classList.add("render");
+
+const L = 1524, CG = 972;                       // overall length, liftoff CG station (mm)
+const FINISH = {                                 // material -> [metalness, roughness]
+  aluminium: [0.75, 0.35], steel: [0.8, 0.32], brass: [0.8, 0.35], carbon: [0.25, 0.45],
+  kraft: [0, 0.72], kraft_cpl: [0, 0.8], ply: [0, 0.8], liteply: [0, 0.82], petg: [0, 0.42],
+  cf_nylon: [0.05, 0.6], tpu: [0, 0.75], ceramic: [0, 0.6], pcb: [0.05, 0.45], perfboard: [0, 0.6],
+  electronics: [0.2, 0.5], servo: [0.05, 0.5], lipo: [0.35, 0.4], polycarb: [0, 0.15],
+};
+const NO_EDGES = /^(NOSE-01|.*SPRING|LEG-LOOP|CHUTE-30|CHUTE-NOMEX|SHOCK-CORD|HARNESS|CABLE)/;
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+// ------------------------------------------------------------------ scene
+const stage = document.getElementById("stage");
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: RENDER });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.localClippingEnabled = true;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+stage.prepend(renderer.domElement);
+const labels = new CSS2DRenderer();
+labels.domElement.style.cssText = "position:absolute;inset:0;pointer-events:none";
+stage.appendChild(labels.domElement);
+
+const scene = new THREE.Scene();
+const world = new THREE.Group();                 // rotated to lie horizontal for some still renders
+const HORIZ = params.get("horizontal") === "1";
+if (HORIZ) world.rotation.z = -Math.PI / 2;
+scene.add(world);
+const camera = new THREE.PerspectiveCamera(30, 1, 5, 40000);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = !RENDER;
+controls.dampingFactor = 0.12;
+scene.add(new THREE.HemisphereLight(0xf2f6ff, 0x5a5048, 1.25));
+const key = new THREE.DirectionalLight(0xffffff, 2.1); key.position.set(1800, 2600, 2200); scene.add(key);
+const fill = new THREE.DirectionalLight(0xdfe8ff, 0.9); fill.position.set(-2200, 900, -1600); scene.add(fill);
+const rim = new THREE.DirectionalLight(0xffffff, 0.6); rim.position.set(-400, -900, 2400); scene.add(rim);
+
+// CAD frame (mm, Z up) -> three (Y up)
+const v3 = (x, y, z) => new THREE.Vector3(x, z, -y);
+const cutPlane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0);  // keeps the far half (CAD y >= 0)
+const clip = [];
+
+// ground: drawn at the feet (220 mm below the aft end), with the leg footprint
+const ground = new THREE.Group();
+{
+  const g = new THREE.GridHelper(2400, 24, 0x8796a3, 0xaab6c0);
+  g.material.transparent = true; g.material.opacity = 0.35;
+  ground.add(g);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(522, 530, 96), new THREE.MeshBasicMaterial({ color: 0xe8590c, side: THREE.DoubleSide, transparent: true, opacity: 0.55 }));
+  ring.rotation.x = -Math.PI / 2; ring.position.y = 0.5; ground.add(ring);
+  ground.position.y = -220;
+}
+world.add(ground);
+if (HORIZ) ground.visible = false;
+
+// CG marker
+const cgMark = new THREE.Mesh(new THREE.OctahedronGeometry(9), new THREE.MeshBasicMaterial({ color: 0xe8590c, depthTest: false }));
+cgMark.renderOrder = 10; cgMark.position.copy(v3(0, 0, L - CG)); world.add(cgMark);
+function tag(text, cls, pos) {
+  const el = document.createElement("div"); el.className = "tag3d " + (cls || ""); el.textContent = text;
+  const o = new CSS2DObject(el); o.position.copy(pos); world.add(o); return o;
+}
+const tags = [
+  tag("CG " + CG + " mm", "cg", v3(0, 0, L - CG).add(new THREE.Vector3(70, 0, 0))),
+  tag("1524 mm (60 in)", "", v3(0, 0, L + 40)),
+  tag("Ø 101.6 mm", "", v3(-60, 0, 1220)),
+];
+
+// ------------------------------------------------------------------ data + models
+const meta = await fetch("parts.json").then((r) => r.json());
+const P = meta.parts;
+const models = {};          // cfg -> { root, nodes: [{obj, pid, base, off}] }
+let cfg = params.get("mode") === "landing" ? "landing" : "flight";
+let selected = null, hovered = null;
+const pidMeshes = new Map(); // pid -> meshes in the active config
+
+const EXPLODE = {
+  Nose: [0, 0, 560], "Top airbrakes": [0, 0, 420], "Forward airframe": [0, 0, 260],
+  "Backup chute bay": [0, 0, 260], "Avionics bay": [0, 0, 120], "Aft airframe": [0, 0, 0],
+  "Landing legs": [0, 0, 0], "Motor bay": [0, 0, -260], Throttle: [0, 0, -340], Motors: [0, 0, -260],
+};
+const SLIDE = /^(TUBE-0[1-4]|CPL-0[12]|DOOR-|LINER-AFT)/;            // skins slide sideways to show the inside
+const RADIAL = { "Landing legs": 70, Fins: 45 };
+
+function explodeOffset(pid, group, c) {
+  const o = new THREE.Vector3(...(EXPLODE[group] || [0, 0, 0]));
+  if (pid === "TUBE-01") o.set(0, 0, 420);
+  if (pid.startsWith("PETAL-") || pid.startsWith("LATCH") || pid === "CPL-01") o.set(0, 0, 420);
+  if (SLIDE.test(pid) && pid !== "TUBE-04") o.x += 150;
+  const r = Math.hypot(c.x, c.y);
+  let rad = 0;
+  if (group === "Landing legs") rad = RADIAL["Landing legs"];
+  if (pid.startsWith("FIN-")) rad = RADIAL.Fins;
+  if (pid === "PETAL-01") rad = 30;
+  if (rad && r > 1) { o.x += (c.x / r) * rad; o.y += (c.y / r) * rad; }
+  return o;
+}
+
+function prepare(gltf) {
+  const root = gltf.scene;
+  const nodes = [];
+  const top = root.children[0];                       // the GLB's Z-up -> Y-up root
+  top.updateMatrixWorld(true);
+  for (const obj of [...top.children]) {
+    const pid = obj.name.replace(/-\d+$/, "");
+    const m = P[pid];
+    if (!m) continue;
+    obj.traverse((o) => {
+      if (!o.isMesh) return;
+      const [metal, rough] = FINISH[m.material] || [0, 0.6];
+      const col = o.material.color.clone();
+      o.material = new THREE.MeshStandardMaterial({ color: col, metalness: metal, roughness: rough, side: THREE.DoubleSide, clippingPlanes: clip });
+      o.userData.base = col.clone();
+      o.userData.pid = pid;
+      if (NO_EDGES.test(pid)) return;
+      const e = new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 32), new THREE.LineBasicMaterial({ color: 0x1b2530, transparent: true, opacity: 0.38, clippingPlanes: clip }));
+      e.userData.edge = true; o.add(e);
+    });
+    const box = new THREE.Box3().setFromObject(obj);
+    const cw = box.getCenter(new THREE.Vector3());          // world (Y up)
+    const c = new THREE.Vector3(cw.x, -cw.z, cw.y);          // CAD
+    nodes.push({ obj, pid, base: obj.position.clone(), off: explodeOffset(pid, m.group, c) });
+  }
+  return { root, nodes };
+}
+
+const loader = new GLTFLoader();
+async function fetchGlb(which) {
+  // The GLB ships as base64 text (artifact hosting serves only web file types).
+  const bar = document.getElementById("loadbar");
+  try {                                  // a local copy (cad/out/viewer) has the plain GLB
+    const direct = await fetch(`slr1_${which}.glb`);
+    const type = direct.headers.get("content-type") || "";
+    if (direct.ok && !type.includes("text/html")) { bar.style.width = "100%"; return await direct.arrayBuffer(); }
+  } catch (e) { /* fall through to the base64 copy */ }
+  const resp = await fetch(`slr1_${which}.glb.b64.txt`);
+  if (!resp.ok) throw new Error(resp.status);
+  const total = +resp.headers.get("content-length") || 0;
+  const reader = resp.body.getReader(); const chunks = []; let got = 0;
+  for (;;) {
+    const { done, value } = await reader.read(); if (done) break;
+    chunks.push(value); got += value.length;
+    if (total) bar.style.width = (90 * got / total).toFixed(0) + "%";
+  }
+  const all = new Uint8Array(got); let at = 0;
+  for (const c of chunks) { all.set(c, at); at += c.length; }
+  const text = new TextDecoder().decode(all);
+  const bin = atob(text.trim()); const buf = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+  bar.style.width = "100%";
+  return buf.buffer;
+}
+async function load(which) {
+  if (models[which]) return models[which];
+  document.getElementById("loading").hidden = false;
+  try {
+    const buf = await fetchGlb(which);
+    const g = await new Promise((res, rej) => loader.parse(buf, "", res, rej));
+    models[which] = prepare(g); world.add(models[which].root); models[which].root.visible = false;
+    document.getElementById("loading").hidden = true;
+    return models[which];
+  } catch (err) {
+    document.getElementById("loadmsg").textContent = "The 3D model did not load. Reload the page to try again.";
+    throw err;
+  }
+}
+
+function indexMeshes() {
+  pidMeshes.clear();
+  models[cfg].root.traverse((o) => { if (o.isMesh) { if (!pidMeshes.has(o.userData.pid)) pidMeshes.set(o.userData.pid, []); pidMeshes.get(o.userData.pid).push(o); } });
+}
+
+async function setConfig(which) {
+  cfg = which;
+  document.getElementById("cfg-flight").setAttribute("aria-pressed", which === "flight");
+  document.getElementById("cfg-landing").setAttribute("aria-pressed", which === "landing");
+  document.getElementById("cfgtag").textContent = which === "flight" ? "Flight configuration: legs stowed, airbrakes closed" : "Landing configuration: legs at 55°, airbrakes open";
+  await load(which);
+  for (const k in models) models[k].root.visible = k === which;
+  indexMeshes(); applyExplode(); applyEdges(); paint();
+}
+
+// ------------------------------------------------------------------ controls
+const exp = document.getElementById("explode");
+function applyExplode() {
+  const e = parseFloat(exp.value);
+  const m = models[cfg]; if (!m) return;
+  for (const n of m.nodes) n.obj.position.copy(n.base).addScaledVector(n.off, e);
+  ground.visible = e < 0.05 && !HORIZ;
+}
+exp.addEventListener("input", applyExplode);
+const sec = document.getElementById("section");
+function applySection() { clip.length = 0; if (sec.checked) clip.push(cutPlane); }
+sec.addEventListener("change", applySection);
+const edg = document.getElementById("edges");
+function applyEdges() { for (const k in models) models[k].root.traverse((o) => { if (o.userData.edge) o.visible = edg.checked; }); }
+edg.addEventListener("change", applyEdges);
+const tg = document.getElementById("tags");
+tg.addEventListener("change", () => { for (const t of tags) t.visible = tg.checked; cgMark.visible = tg.checked; });
+document.getElementById("cfg-flight").onclick = () => setConfig("flight");
+document.getElementById("cfg-landing").onclick = () => setConfig("landing");
+
+const VIEWS = {
+  overview: { label: "Whole rocket", t: [0, 0, 690], d: [1.0, -1.25, 0.32], r: 3600 },
+  section: { label: "Cutaway", t: [0, 0, 690], d: [0.12, -1, 0.1], r: 3700, sec: true },
+  exploded: { label: "Exploded", t: [0, 0, 820], d: [1.0, -1.6, 0.25], r: 5200, explode: 1 },
+  airbrakes: { label: "Airbrakes", t: [0, 0, 1060], d: [1.0, -0.9, 0.55], r: 900, cfg: "landing" },
+  chute: { label: "Chute bay", t: [0, 0, 880], d: [0.25, -1, 0.2], r: 640, sec: true },
+  avionics: { label: "Avionics bay", t: [0, 0, 745], d: [0.25, -1, 0.15], r: 560, sec: true },
+  motorbay: { label: "Motor bay", t: [0, 0, 92], d: [0.3, -1, 0.32], r: 560, sec: true },
+  throttle: { label: "Throttle paddles", t: [-20, 0, 34], d: [-0.35, -1, 0.12], r: 300, sec: true },
+  landed: { label: "Landed", t: [0, 0, 620], d: [1, -1.25, 0.3], r: 3900, cfg: "landing" },
+  legs: { label: "Legs + footprint", t: [0, 0, 330], d: [1, -1.2, 0.42], r: 2900, cfg: "landing" },
+};
+function setView(name, instant) {
+  const v = VIEWS[name];
+  if (v.cfg && v.cfg !== cfg) setConfig(v.cfg);
+  sec.checked = !!v.sec; applySection();
+  exp.value = v.explode || 0; applyExplode();
+  world.updateMatrixWorld(true);
+  const t = world.localToWorld(v3(...v.t));
+  const d = v3(...v.d).normalize().applyQuaternion(world.quaternion);
+  if (HORIZ) d.applyAxisAngle(new THREE.Vector3(1, 0, 0), 0);
+  controls.target.copy(t);
+  camera.position.copy(t).addScaledVector(d, v.r * (HORIZ ? (v.rh || 0.62) : 1));
+  controls.update();
+}
+const vb = document.getElementById("views");
+for (const k in VIEWS) { const b = document.createElement("button"); b.textContent = VIEWS[k].label; b.onclick = () => setView(k); vb.appendChild(b); }
+
+// ------------------------------------------------------------------ selection + parts tree
+const card = document.getElementById("card");
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function paint() {
+  const acc = new THREE.Color(css("--accent") || "#e8590c");
+  for (const [pid, meshes] of pidMeshes) for (const o of meshes) {
+    const c = o.userData.base.clone();
+    if (pid === selected) c.lerp(acc, 0.65); else if (pid === hovered) c.lerp(acc, 0.3);
+    o.material.color.copy(c);
+  }
+  document.querySelectorAll("ul.parts li").forEach((li) => li.classList.toggle("sel", li.dataset.pid === selected));
+}
+function select(pid) {
+  selected = pid === selected ? null : pid; paint();
+  if (!selected) { card.innerHTML = '<p class="empty">Click a part on the model or in the list to see what it is, what it is made of and how to make it.</p>'; return; }
+  const m = P[selected];
+  const files = [`parts/${selected}.step`].concat(m.stl ? [`stl/${selected}.stl`] : [], m.dxf ? [`dxf/${selected}.dxf`] : []);
+  card.innerHTML = `<span class="pid">${esc(selected)}</span><h3>${esc(m.name)}</h3><dl>
+    <dt>Assembly</dt><dd>${esc(m.group)}</dd><dt>Quantity</dt><dd class="num">${m.qty}</dd>
+    <dt>Material</dt><dd>${esc(m.material.replace("_", " "))}</dd><dt>Make</dt><dd>${esc(m.process)}</dd>
+    <dt>Mass</dt><dd class="num">${m.mass_g.toFixed(1)} g each</dd><dt>Budget line</dt><dd>${esc(m.budget)}</dd>
+    ${m.note ? `<dt>Note</dt><dd>${esc(m.note)}</dd>` : ""}<dt>Files</dt><dd class="mono" style="font-size:12px">${files.map(esc).join("<br>")}</dd></dl>
+    <div class="row"><button class="btn" id="zoomto">Zoom to part</button></div>`;
+  document.getElementById("zoomto").onclick = () => zoomTo(selected);
+}
+function zoomTo(pid) {
+  const meshes = pidMeshes.get(pid); if (!meshes) return;
+  const box = new THREE.Box3(); meshes.forEach((o) => box.expandByObject(o));
+  const c = box.getCenter(new THREE.Vector3()), s = box.getSize(new THREE.Vector3()).length();
+  const dir = camera.position.clone().sub(controls.target).normalize();
+  controls.target.copy(c); camera.position.copy(c).addScaledVector(dir, Math.max(160, s * 2.2)); controls.update();
+}
+function buildTree(filter = "") {
+  const tree = document.getElementById("tree"); tree.innerHTML = "";
+  const f = filter.trim().toLowerCase();
+  for (const g of meta.groups) {
+    const ids = Object.keys(P).filter((k) => P[k].group === g && (!f || (k + " " + P[k].name).toLowerCase().includes(f)));
+    if (!ids.length) continue;
+    const mass = ids.reduce((a, k) => a + P[k].mass_g * P[k].qty, 0);
+    const d = document.createElement("details"); if (f) d.open = true;
+    d.innerHTML = `<summary><span class="t">${esc(g)}</span><span class="m">${ids.length} parts · ${mass.toFixed(0)} g</span></summary>`;
+    const ul = document.createElement("ul"); ul.className = "parts";
+    for (const k of ids) {
+      const li = document.createElement("li"); li.dataset.pid = k; li.tabIndex = 0; li.setAttribute("role", "button");
+      li.innerHTML = `<span>${esc(P[k].name)}</span><span class="q">${P[k].qty > 1 ? P[k].qty + " × " : ""}${P[k].mass_g.toFixed(1)} g</span>`;
+      li.onclick = () => select(k); li.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(k); } };
+      ul.appendChild(li);
+    }
+    d.appendChild(ul); tree.appendChild(d);
+  }
+  paint();
+}
+document.getElementById("q").addEventListener("input", (e) => buildTree(e.target.value));
+
+// picking
+const ray = new THREE.Raycaster(); const mouse = new THREE.Vector2(); const tip = document.getElementById("tip");
+let downAt = null;
+function pick(ev) {
+  const r = renderer.domElement.getBoundingClientRect();
+  mouse.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(mouse, camera);
+  const hits = ray.intersectObjects(models[cfg] ? [models[cfg].root] : [], true).filter((h) => h.object.isMesh && (!sec.checked || cutPlane.distanceToPoint(h.point) >= 0));
+  return hits.length ? hits[0].object.userData.pid : null;
+}
+renderer.domElement.addEventListener("pointermove", (ev) => {
+  if (ev.buttons) { tip.hidden = true; return; }
+  const pid = pick(ev);
+  if (pid !== hovered) { hovered = pid; paint(); }
+  if (pid) { const r = stage.getBoundingClientRect(); tip.hidden = false; tip.textContent = P[pid].name; tip.style.left = ev.clientX - r.left + "px"; tip.style.top = ev.clientY - r.top + "px"; }
+  else tip.hidden = true;
+});
+renderer.domElement.addEventListener("pointerleave", () => { hovered = null; tip.hidden = true; paint(); });
+renderer.domElement.addEventListener("pointerdown", (ev) => { downAt = [ev.clientX, ev.clientY]; });
+renderer.domElement.addEventListener("pointerup", (ev) => {
+  if (!downAt || Math.hypot(ev.clientX - downAt[0], ev.clientY - downAt[1]) > 5) return;
+  const pid = pick(ev); if (pid) { select(pid); const li = document.querySelector(`li[data-pid="${pid}"]`); if (li) { li.closest("details").open = true; li.scrollIntoView({ block: "nearest" }); } }
+});
+
+// ------------------------------------------------------------------ sizing + loop
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false); labels.setSize(w, h);
+  camera.aspect = w / Math.max(1, h); camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(stage);
+const mq = window.matchMedia("(prefers-color-scheme: dark)");
+const retheme = () => paint();
+mq.addEventListener("change", retheme);
+new MutationObserver(retheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+const total = Object.values(P).reduce((a, m) => a + m.qty, 0);
+document.getElementById("s-parts").textContent = Object.keys(P).length;
+document.getElementById("s-pieces").textContent = total + " pieces";
+buildTree();
+resize();
+setView(params.get("view") || "overview", true);
+if (params.has("explode")) exp.value = params.get("explode");
+if (params.has("section")) sec.checked = params.get("section") === "1";
+if (params.has("edges")) edg.checked = params.get("edges") === "1";
+if (params.has("tags")) { tg.checked = params.get("tags") === "1"; for (const t of tags) t.visible = tg.checked; cgMark.visible = tg.checked; }
+applySection();
+await setConfig(cfg);
+if (params.has("view")) setView(params.get("view"), true);
+if (params.has("select")) select(params.get("select"));
+(function loop() { requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); labels.render(scene, camera); })();
+requestAnimationFrame(() => requestAnimationFrame(() => { window.__ready = true; }));
+</script>

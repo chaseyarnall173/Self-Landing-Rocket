@@ -76,3 +76,11 @@ DOIs are listed for lookup through your library.
 - CPSC 16 CFR 1500.85: [Cornell LII](https://www.law.cornell.edu/cfr/text/16/1500.85); ATF APCP notice: [Federal Register 2010](https://regulations.justia.com/regulations/fedreg/2010/01/08/2010-45.html); ATF exemption rule: [govinfo](https://www.govinfo.gov/content/pkg/FR-2006-08-11/html/06-6862.htm)
 - Massachusetts: [MGL c.148 §9A](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXX/Chapter148/Section9A), [527 CMR 1.00](https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download)
 - CMASS (NAR #464): [nar.org](https://www.nar.org/local_club/central-massachusetts-spacemodeling-society-cmass-464/)
+
+## CAD and visualisation
+
+- CadQuery (parametric CAD in Python): [github.com/CadQuery/cadquery](https://github.com/CadQuery/cadquery), [documentation](https://cadquery.readthedocs.io)
+- Open CASCADE Technology (the geometry kernel under CadQuery): [dev.opencascade.org](https://dev.opencascade.org)
+- STEP AP214 / glTF 2.0 formats: [ISO 10303-214](https://www.iso.org/standard/43669.html), [Khronos glTF](https://www.khronos.org/gltf/)
+- three.js (3D viewer): [threejs.org](https://threejs.org)
+- LOC Precision 3.9 in airframe (3.9 in ID x 4.0 in OD, 0.05 in wall) and couplers: [cardboard airframes](https://locprecision.com/products/cardboard-airframes), [tube coupler](https://locprecision.com/products/tube-coupler)

@@ -9,7 +9,7 @@ each line aloud. Nothing gets skipped.
 |---|---|
 | Surface wind (landing attempt) | **≤ 3 m/s (6.7 mph)** sustained. For an ascent-only flight, ≤ 20 mph per the NAR code |
 | Clouds | Not launching into cloud; RSO approval |
-| Field | ≥ 1000 ft minimum dimension (127 N·s total); landing area clear |
+| Field | ≥ 1000 ft minimum dimension (137 N·s total); landing area clear |
 | Vehicle | Liftoff mass ≤ 1500 g (weighed today); all checks below passed |
 | Battery | 2S at ≥ 8.0 V at the pad (the software refuses to arm below 7.4 V) |
 | Parameters | `params.h` matches the measured ignition delay / k_min / mass; firmware version logged |
@@ -36,15 +36,15 @@ each line aloud. Nothing gets skipped.
 
 ## 10.3 Prep table (field)
 
-- [ ] Weigh both motors. Check the types (F42T ascent, F25W landing) and the plugged / no-ejection
+- [ ] Weigh both motors. Check the types (F52C ascent, F25W landing) and the plugged / no-ejection
   configuration.
-- [ ] Install the **landing** motor in the LANDING sleeve (the one with the
-  paddles), retainer locked.
+- [ ] Install the **landing** motor (with its 13 mm spacer) in the LANDING
+  sleeve (the one with the paddles), clip retainer engaged.
 - [ ] Install **two** landing igniters (A and B) in the landing motor. Leads
   shorted together until the pad.
-- [ ] Install the **ascent** motor in the ASCENT sleeve, retainer locked. Its
+- [ ] Install the **ascent** motor in the ASCENT sleeve, clip retainer engaged. Its
   igniter is installed at the pad.
-- [ ] Weigh the whole rocket: ______ g (≤ 1500). CG: ______ m (≈ 1.02).
+- [ ] Weigh the whole rocket: ______ g (≤ 1500; CAD 1467). CG: ______ m (≈ 0.97).
 - [ ] Legs stowed; release pin in. Airbrake petals latched flush. Main chute
   latched.
 - [ ] Key **OUT**. Power on. Status: `PAD_SAFE`, GPS fix, telemetry received.

@@ -3,6 +3,11 @@
 #pragma once
 #include "motor_curve.h"
 
+// AeroTech_F52C: I=66.3 N*s, Favg=49.9 N, Fmax=61.3 N, tb=1.33 s, prop=30.0 g, total=81.4 g (APCP)
+static const float MOTOR_F52C_T[] = {0.00000f, 0.02000f, 0.02400f, 0.03800f, 0.07300f, 0.14300f, 0.32300f, 0.82600f, 1.14100f, 1.17000f, 1.22500f, 1.26600f, 1.29100f, 1.32000f, 1.32900f};
+static const float MOTOR_F52C_F[] = {0.00000f, 0.26700f, 3.46500f, 38.82000f, 53.88100f, 56.49200f, 61.32300f, 57.34600f, 51.07400f, 35.61200f, 11.76100f, 4.55900f, 1.51200f, 0.13300f, 0.00000f};
+static const MotorCurve MOTOR_F52C = {MOTOR_F52C_T, MOTOR_F52C_F, 15, 0.03000f, 0.08140f};
+
 // AeroTech_F42T: I=55.9 N*s, Favg=38.0 N, Fmax=68.7 N, tb=1.47 s, prop=27.0 g, total=76.0 g (APCP)
 static const float MOTOR_F42T_T[] = {0.00000f, 0.01000f, 0.02900f, 0.20200f, 0.51100f, 0.73900f, 0.99300f, 1.02000f, 1.07200f, 1.19900f, 1.26200f, 1.31900f, 1.47000f};
 static const float MOTOR_F42T_F[] = {0.00000f, 68.69400f, 65.87900f, 62.50000f, 51.80200f, 43.35600f, 31.53200f, 29.27900f, 23.08600f, 9.57200f, 4.50500f, 2.81500f, 0.00000f};

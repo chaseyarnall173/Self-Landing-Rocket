@@ -23,7 +23,7 @@ tools/gen_tables.py   regenerate motor tables + Python "golden" values
 ## Build and test
 
 ```bash
-make -C firmware test            # 28 tests: motor models, C++ vs Python guidance (ramp + exp),
+make -C firmware test            # 29 tests: motor models, C++ vs Python guidance (ramp + exp),
                                  # TVC closed loop, Kalman filter, attitude, SIL missions
 make -C firmware compile-check   # host type-check of the Teensy code (stub Arduino headers)
 cd firmware && pio run -e teensy41 -t upload
@@ -42,5 +42,5 @@ them up on the bench (docs/08 §8.5) before anything else.
 - Calibrations → `src/hal/board.h`:
   - gimbal centres and gains, `PADDLE_US[]`
   - `IMU_MAP`, `PAD_HEADING_DEG`
-- `VIRTUAL_GROUND_M`: 0 for a real landing, 30 for test flight F2 (fly it on an F52C).
+- `VIRTUAL_GROUND_M`: 0 for a real landing, 30 for test flight F2.
 - Re-run the Python Monte Carlo with the same numbers.

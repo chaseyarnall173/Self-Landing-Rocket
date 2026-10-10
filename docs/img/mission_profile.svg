@@ -1,48 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 520" width="980" height="520" font-family="DejaVu Sans, Helvetica, Arial, sans-serif">
   <title>SLR-1 mission profile</title>
   <rect width="980" height="520" fill="#fcfcfb"/>
-  <text x="20" y="32" font-size="17" font-weight="bold" fill="#0b0b0b">Mission profile (nominal simulation, 2 m/s wind)</text>
+  <text x="20" y="32" font-size="17" font-weight="bold" fill="#0b0b0b">Mission profile (nominal simulation, rev C, 2 m/s wind)</text>
   <text x="20" y="54" font-size="12" fill="#52514e">Altitude to scale (4 px = 1 m); horizontal axis is time. No parachute: the engine does the whole recovery.</text>
 
   <!-- axes: x = 80 + 82 px/s, y = 460 - 4 px/m -->
   <g stroke="#c3c2b7" stroke-width="1">
-    <line x1="80" y1="460" x2="940" y2="460"/>
-    <line x1="80" y1="460" x2="80" y2="180"/>
+    <line x1="80" y1="460" x2="950" y2="460"/>
+    <line x1="80" y1="460" x2="80" y2="176"/>
   </g>
   <g font-size="10" fill="#898781">
     <text x="72" y="463" text-anchor="end">0 m</text>
     <text x="72" y="383" text-anchor="end">20</text>
     <text x="72" y="303" text-anchor="end">40</text>
     <text x="72" y="223" text-anchor="end">60</text>
-    <line x1="80" y1="380" x2="940" y2="380" stroke="#e1e0d9"/>
-    <line x1="80" y1="300" x2="940" y2="300" stroke="#e1e0d9"/>
-    <line x1="80" y1="220" x2="940" y2="220" stroke="#e1e0d9"/>
+    <line x1="80" y1="380" x2="950" y2="380" stroke="#e1e0d9"/>
+    <line x1="80" y1="300" x2="950" y2="300" stroke="#e1e0d9"/>
+    <line x1="80" y1="220" x2="950" y2="220" stroke="#e1e0d9"/>
     <text x="80" y="480">0 s</text><text x="244" y="480">2</text><text x="408" y="480">4</text><text x="572" y="480">6</text><text x="736" y="480">8</text><text x="900" y="480">10 s</text>
   </g>
 
-  <polyline points="80,460 121,444 162,400 195,348 244,292 326,232 410,208 490,228 572,280 654,348 725,400 751,424 777,442 818,454 869,460 900,460"
+  <polyline points="80,460 100,458 121,448 142,430 162,405 182,374 203,343 224,315 244,290 264,268 285,248 306,231 326,217 346,205 367,196 388,189 408,185 428,183 449,183 470,186 490,192 510,199 531,209 552,220 572,232 592,246 613,261 634,276 654,292 674,309 695,326 716,344 736,361 756,379 777,397 798,417 818,433 838,444 859,451 880,455 900,458 920,459 926,460"
         fill="none" stroke="#2a78d6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
   <!-- landing-burn segment -->
-  <polyline points="751,424 777,442 818,454 869,460" fill="none" stroke="#eb6834" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="805,423 826,438 846,447 867,453 887,456 908,458 926,460" fill="none" stroke="#eb6834" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
 
   <g font-size="11.5" fill="#0b0b0b">
     <circle cx="80" cy="460" r="5" fill="#eb6834"/>
-    <text x="90" y="448">1  Liftoff: F42T, TVC on</text>
-    <circle cx="195" cy="348" r="5" fill="#2a78d6"/>
-    <text x="206" y="362">2  Burnout 1.4 s, 28 m, 27 m/s</text>
-    <text x="206" y="376" fill="#52514e">    coast nose-first (fins stabilise)</text>
-    <circle cx="410" cy="208" r="6" fill="#2a78d6"/>
-    <text x="330" y="176">3  Apogee 63 m (207 ft) at 4.0 s</text>
-    <text x="330" y="190" fill="#52514e">    top airbrakes open; rocket swings tail-down</text>
-    <circle cx="572" cy="280" r="5" fill="#2a78d6"/>
-    <text x="584" y="266">4  Tail-first fall, ~18.5 m/s</text>
-    <text x="584" y="280" fill="#52514e">    computer plans the burn every 5 ms</text>
-    <circle cx="725" cy="400" r="6" fill="#e34948"/>
-    <text x="546" y="398">5  FIRE at 15 m (49 ft)</text>
-    <circle cx="751" cy="424" r="5" fill="#eb6834"/>
-    <text x="770" y="410">6  Lit 0.3 s later; legs at 12 m</text>
-    <text x="770" y="424" fill="#52514e">thrust 49 N, simmering to ~16 N</text>
-    <circle cx="869" cy="460" r="6" fill="#0ca30c"/>
-    <text x="760" y="500">7  Touchdown 9.6 s, 1.1 m/s</text>
+    <text x="90" y="448">1  Liftoff: F52C, TVC on</text>
+    <circle cx="186" cy="367" r="5" fill="#2a78d6"/>
+    <text x="198" y="381">2  Burnout 1.3 s, 23 m, 32 m/s</text>
+    <text x="198" y="395" fill="#52514e">    coast nose-first (fins stabilise)</text>
+    <circle cx="434" cy="183" r="6" fill="#2a78d6"/>
+    <text x="330" y="146">3  Apogee 69 m (227 ft) at 4.3 s</text>
+    <text x="330" y="160" fill="#52514e">    top airbrakes open; rocket swings tail-down</text>
+    <circle cx="613" cy="261" r="5" fill="#2a78d6"/>
+    <text x="625" y="247">4  Tail-first fall, ~18 m/s</text>
+    <text x="625" y="261" fill="#52514e">    computer plans the burn every 5 ms</text>
+    <circle cx="780" cy="400" r="6" fill="#e34948"/>
+    <text x="602" y="404">5  FIRE at 15 m (49 ft)</text>
+    <circle cx="805" cy="423" r="5" fill="#eb6834"/>
+    <text x="818" y="382">6  Lit 0.3 s later</text>
+    <text x="818" y="396" fill="#52514e">legs out at 12 m;</text>
+    <text x="818" y="410" fill="#52514e">50 N simmering to 18 N</text>
+    <circle cx="926" cy="460" r="6" fill="#0ca30c"/>
+    <text x="740" y="500">7  Touchdown 10.3 s, 1.1 m/s</text>
   </g>
 </svg>

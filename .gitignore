@@ -3,3 +3,5 @@ __pycache__/
 firmware/build/
 firmware/.pio/
 .vscode/
+# CAD: base64 GLB copies exist only for publishing the web viewer
+cad/out/viewer/*.b64.txt

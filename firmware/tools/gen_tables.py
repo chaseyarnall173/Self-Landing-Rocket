@@ -45,7 +45,9 @@ def main() -> None:
         "#pragma once",
         '#include "motor_curve.h"',
         "",
-        motor_block("MOTOR_F42T", "AeroTech_F42T"),   # ascent
+        motor_block("MOTOR_F52C", "AeroTech_F52C"),   # ascent (rev C baseline)
+        "",
+        motor_block("MOTOR_F42T", "AeroTech_F42T"),   # lighter ascent alternative
         "",
         motor_block("MOTOR_F25W", "AeroTech_F25W"),   # landing
         "",

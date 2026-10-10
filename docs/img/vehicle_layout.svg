@@ -3,7 +3,7 @@
   <rect width="980" height="470" fill="#fcfcfb"/>
   <!-- scale: 500 px per metre; nose tip at x = 100; body axis at y = 200; radius 25.4 px -->
   <text x="20" y="32" font-size="17" font-weight="bold" fill="#0b0b0b">SLR-1 layout: 60 in (1.52 m) long, 4.0 in (102 mm) diameter</text>
-  <text x="20" y="54" font-size="12" fill="#52514e">Side view, nose left. Stations from the nose tip. Legs and airbrakes shown stowed (solid) and deployed (dashed).</text>
+  <text x="20" y="54" font-size="12" fill="#52514e">Rev C (CAD-checked). Side view, nose left; stations from the nose tip. Legs and airbrakes stowed (solid) and deployed (dashed, legs not to scale).</text>
 
   <!-- station ruler -->
   <g font-size="10" fill="#898781" stroke="#c3c2b7" stroke-width="1">
@@ -27,76 +27,80 @@
   <g fill="#1baf7a"><circle cx="910" cy="17" r="6"/><circle cx="910" cy="383" r="6"/></g>
   <text x="920" y="40" font-size="11" fill="#52514e">foot</text>
 
-  <!-- deployed airbrake petals (dashed): hinged at 0.42 m (x=310), 125 mm long, open to 90 deg -->
+  <!-- deployed airbrake petals (dashed): hinged at 0.395 m (x=297.5), 150 mm long, open to 90 deg -->
   <g stroke="#eb6834" stroke-width="4" stroke-dasharray="6 4" stroke-linecap="round">
-    <line x1="310" y1="174.6" x2="310" y2="112.6"/>
-    <line x1="310" y1="225.4" x2="310" y2="287.4"/>
+    <line x1="297.5" y1="174.6" x2="297.5" y2="99.6"/>
+    <line x1="297.5" y1="225.4" x2="297.5" y2="300.4"/>
   </g>
 
   <!-- body tube -->
   <rect x="262" y="174.6" width="600" height="50.8" fill="#eef2f7" stroke="#52514e" stroke-width="1.5"/>
   <!-- nose cone (ogive) -->
   <path d="M100,200 C150,176 210,174.6 262,174.6 L262,225.4 C210,225.4 150,224 100,200 Z" fill="#eef2f7" stroke="#52514e" stroke-width="1.5"/>
-  <!-- stowed airbrake petals: cut from the tube between 0.42 and 0.545 m -->
+  <!-- stowed airbrake petals: cut from the tube between 0.395 and 0.545 m -->
   <g stroke="#eb6834" stroke-width="4" stroke-linecap="round">
-    <line x1="310" y1="173" x2="372" y2="173"/>
-    <line x1="310" y1="227" x2="372" y2="227"/>
+    <line x1="297.5" y1="173" x2="372.5" y2="173"/>
+    <line x1="297.5" y1="227" x2="372.5" y2="227"/>
   </g>
-  <g fill="#eb6834"><circle cx="310" cy="173" r="3.5"/><circle cx="310" cy="227" r="3.5"/></g>
-  <!-- backup chute bay -->
-  <rect x="378" y="179" width="58" height="42" rx="4" fill="#f6d9cc" stroke="#eb6834" stroke-width="1"/>
-  <!-- avionics bay -->
-  <rect x="440" y="179" width="75" height="42" rx="4" fill="#d6e6f8" stroke="#2a78d6" stroke-width="1"/>
-  <line x1="440" y1="174.6" x2="440" y2="225.4" stroke="#52514e" stroke-width="2"/>
-  <line x1="515" y1="174.6" x2="515" y2="225.4" stroke="#52514e" stroke-width="2"/>
-  <!-- legs stowed (solid) -->
+  <g fill="#eb6834"><circle cx="297.5" cy="173" r="3.5"/><circle cx="297.5" cy="227" r="3.5"/></g>
+  <!-- backup chute bay 0.568-0.700 m, side door 0.585-0.690 m -->
+  <rect x="384" y="179" width="66" height="42" rx="4" fill="#f6d9cc" stroke="#eb6834" stroke-width="1"/>
+  <line x1="392.5" y1="173.6" x2="445" y2="173.6" stroke="#eb6834" stroke-width="2.5"/>
+  <!-- avionics bay 0.70-0.86 m with the switch band 0.768-0.793 m -->
+  <rect x="450" y="179" width="80" height="42" rx="4" fill="#d6e6f8" stroke="#2a78d6" stroke-width="1"/>
+  <line x1="450" y1="174.6" x2="450" y2="225.4" stroke="#52514e" stroke-width="2"/>
+  <line x1="530" y1="174.6" x2="530" y2="225.4" stroke="#52514e" stroke-width="2"/>
+  <rect x="484" y="174.6" width="12.5" height="50.8" fill="#2b2b2e" opacity="0.85"/>
+  <!-- legs stowed (solid): hinge 1.40 m, tips at ~0.82 m -->
   <g stroke="#1baf7a" stroke-width="4" stroke-linecap="round">
-    <line x1="800" y1="172" x2="500" y2="172"/>
-    <line x1="800" y1="228" x2="500" y2="228"/>
+    <line x1="800" y1="172" x2="510" y2="172"/>
+    <line x1="800" y1="228" x2="510" y2="228"/>
   </g>
-  <!-- motor bay: dual-motor gimbal with two 29 mm motors -->
-  <rect x="790" y="181" width="62" height="16" rx="2" fill="#898781"/>
-  <rect x="800" y="203" width="52" height="16" rx="2" fill="#52514e"/>
-  <rect x="778" y="178" width="10" height="44" fill="#2a78d6"/>
-  <!-- fins (top and bottom shown) -->
-  <path d="M800,174.6 L812,136.6 L842,136.6 L862,174.6 Z" fill="#c3c2b7" stroke="#52514e" stroke-width="1"/>
-  <path d="M800,225.4 L812,263.4 L842,263.4 L862,225.4 Z" fill="#c3c2b7" stroke="#52514e" stroke-width="1"/>
-  <!-- exhaust paddles (under the landing motor) -->
-  <path d="M864,203 L880,209 L880,211 L864,206 Z" fill="#e34948"/>
-  <path d="M864,219 L880,213 L880,211 L864,216 Z" fill="#e34948"/>
+  <!-- motor bay: F52C (top) and F25W + 13 mm spacer (bottom), nozzles at 1.485 m -->
+  <rect x="787.5" y="181" width="55" height="16" rx="2" fill="#898781"/>
+  <rect x="794" y="203" width="48.5" height="16" rx="2" fill="#52514e"/>
+  <rect x="787.5" y="203" width="6.5" height="16" fill="#c3c2b7"/>
+  <rect x="810" y="176" width="3" height="48" fill="#52514e"/>
+  <rect x="827" y="178" width="6" height="44" fill="#2a78d6"/>
+  <!-- fins, 90 % planform, trailing edge 10 mm forward of the aft end -->
+  <path d="M803.3,174.6 L829.6,140.3 L857,140.3 L857,174.6 Z" fill="#c3c2b7" stroke="#52514e" stroke-width="1"/>
+  <path d="M803.3,225.4 L829.6,259.7 L857,259.7 L857,225.4 Z" fill="#c3c2b7" stroke="#52514e" stroke-width="1"/>
+  <!-- exhaust paddles (under the landing motor, ending 1 mm above the aft end) -->
+  <path d="M846.5,203.5 L860.5,203.5 L860.5,205.5 L846.5,205.5 Z" fill="#e34948"/>
+  <path d="M846.5,216.5 L860.5,216.5 L860.5,218.5 L846.5,218.5 Z" fill="#e34948"/>
   <!-- lidar -->
-  <rect x="852" y="222" width="10" height="6" fill="#6250d6"/>
+  <rect x="847" y="221" width="8" height="6" fill="#6250d6"/>
 
   <!-- CG / CP markers -->
   <g>
-    <circle cx="609.5" cy="200" r="7" fill="#fcfcfb" stroke="#0b0b0b" stroke-width="1.5"/>
-    <path d="M609.5,193 A7,7 0 0 1 616.5,200 L609.5,200 Z M609.5,207 A7,7 0 0 1 602.5,200 L609.5,200 Z" fill="#0b0b0b"/>
-    <text x="609" y="250" font-size="11" text-anchor="middle" fill="#0b0b0b">CG 1.02 m (liftoff)</text>
-    <circle cx="646" cy="200" r="5" fill="#e34948"/>
-    <text x="660" y="270" font-size="11" text-anchor="middle" fill="#0b0b0b">CP 1.09 m (nose-first, +0.7 cal)</text>
+    <circle cx="586" cy="200" r="7" fill="#fcfcfb" stroke="#0b0b0b" stroke-width="1.5"/>
+    <path d="M586,193 A7,7 0 0 1 593,200 L586,200 Z M586,207 A7,7 0 0 1 579,200 L586,200 Z" fill="#0b0b0b"/>
+    <text x="586" y="250" font-size="11" text-anchor="middle" fill="#0b0b0b">CG 0.97 m (liftoff)</text>
+    <circle cx="623" cy="200" r="5" fill="#e34948"/>
+    <text x="650" y="270" font-size="11" text-anchor="middle" fill="#0b0b0b">CP 1.05 m (nose-first, +0.7 cal)</text>
   </g>
 
   <!-- callouts -->
   <g font-size="11.5" fill="#0b0b0b">
-    <line x1="310" y1="112" x2="290" y2="98" stroke="#898781"/>
+    <line x1="297.5" y1="99" x2="280" y2="96" stroke="#898781"/>
     <text x="40" y="78">Top airbrakes: 4 petals cut from the tube,</text>
     <text x="40" y="92" fill="#52514e">spring open at apogee (like Falcon 9 grid fins)</text>
-    <line x1="407" y1="221" x2="407" y2="296" stroke="#898781"/>
-    <text x="310" y="312">Backup chute (abort only)</text>
-    <line x1="477" y1="179" x2="477" y2="128" stroke="#898781"/>
+    <line x1="417" y1="221" x2="417" y2="296" stroke="#898781"/>
+    <text x="320" y="312">Backup chute (abort only), side door</text>
+    <line x1="470" y1="179" x2="470" y2="128" stroke="#898781"/>
     <text x="420" y="118">Avionics bay: Teensy 4.1,</text>
     <text x="420" y="132" fill="#52514e">BMI088, BMP390, GPS, LoRa</text>
     <line x1="650" y1="172" x2="650" y2="150" stroke="#898781"/>
-    <text x="580" y="146">Legs stowed (4 x 0.60 m CF tube)</text>
-    <line x1="783" y1="222" x2="700" y2="330" stroke="#898781"/>
-    <text x="520" y="346">2-axis TVC gimbal: F42T ascent motor</text>
+    <text x="560" y="146">Legs stowed (4 x 8 x 7 mm CF struts)</text>
+    <line x1="830" y1="222" x2="720" y2="330" stroke="#898781"/>
+    <text x="520" y="346">2-axis TVC gimbal: F52C ascent motor</text>
     <text x="520" y="360" fill="#52514e">+ F25W landing motor, side by side</text>
-    <line x1="878" y1="212" x2="940" y2="212" stroke="#898781"/>
+    <line x1="861" y1="217" x2="895" y2="228" stroke="#898781"/>
     <text x="898" y="236">Exhaust</text>
     <text x="898" y="250">paddles</text>
     <text x="898" y="264" fill="#52514e">(throttle)</text>
     <text x="760" y="130" fill="#52514e">4 fins</text>
-    <line x1="857" y1="228" x2="830" y2="300" stroke="#898781"/>
+    <line x1="851" y1="227" x2="830" y2="300" stroke="#898781"/>
     <text x="800" y="314" fill="#52514e">Lidar</text>
   </g>
 
@@ -105,7 +109,7 @@
     <rect x="20" y="430" width="14" height="10" fill="#d6e6f8" stroke="#2a78d6"/><text x="40" y="439">electronics</text>
     <line x1="125" y1="435" x2="145" y2="435" stroke="#eb6834" stroke-width="4"/><text x="151" y="439">airbrakes</text>
     <rect x="225" y="430" width="14" height="10" fill="#f6d9cc" stroke="#eb6834"/><text x="245" y="439">backup chute</text>
-    <line x1="345" y1="435" x2="365" y2="435" stroke="#1baf7a" stroke-width="4"/><text x="371" y="439">legs (footprint 1.08 m tip-to-tip)</text>
+    <line x1="345" y1="435" x2="365" y2="435" stroke="#1baf7a" stroke-width="4"/><text x="371" y="439">legs (footprint 1.05 m tip-to-tip)</text>
     <rect x="610" y="430" width="14" height="10" fill="#52514e"/><text x="630" y="439">motors</text>
     <rect x="690" y="430" width="14" height="10" fill="#e34948"/><text x="710" y="439">paddles</text>
   </g>

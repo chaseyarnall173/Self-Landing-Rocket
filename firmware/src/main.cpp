@@ -30,7 +30,7 @@ static Actuators act;
 static Logger logger;
 static AttitudeEstimator att;
 static AltitudeKF kf;
-static FlightFsm fsm(MOTOR_F42T, MOTOR_F25W);  // ascent, landing
+static FlightFsm fsm(MOTOR_F52C, MOTOR_F25W);  // ascent, landing
 
 static bool have_gps = false;
 static float ground_p = 101325.0f, ground_t = 15.0f;

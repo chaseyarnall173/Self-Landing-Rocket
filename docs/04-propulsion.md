@@ -8,10 +8,10 @@ The `.eng` files live in `sim/data/motors/`, from
 
 | Motor | Type | Total impulse | Avg / max thrust | Burn | Propellant / total | Use |
 |---|---|---|---|---|---|---|
-| **AeroTech F42T** | Blue Thunder, single-use, 29 x 83 mm | 53-56 N·s | 38-42 / 69 N | 1.3-1.5 s | 27 / 76 g | **Ascent → 207 ft** |
+| **AeroTech F52C** | Classic, single-use, 29 x 111 mm | 66 N·s | 50 / 61 N | 1.3 s | 30 / 81 g | **Ascent → 227 ft** (rev C baseline) |
 | **AeroTech F25W** | White Lightning, single-use (molded case), 29 x 98 mm | 71-78 N·s | 26 / 58 N | 2.2-2.7 s | 36-39 / 90-97 g | **Landing** |
-| AeroTech F52C | Classic, single-use | 66 N·s | 50 / 61 N | 1.3 s | 30 / 81 g | Ascent alternative: ~276 ft (also used for test flight F2) |
-| AeroTech G25W | White Lightning, **reload** (RMS-29 case) | 117.5 N·s | 22 / 41 N | 5.3 s | 62.5 g + case | Long-burn landing alternative: ~2.9 s controlled burn |
+| AeroTech F42T | Blue Thunder, single-use, 29 x 83 mm | 53-56 N·s | 38-42 / 69 N | 1.3-1.5 s | 27 / 76 g | Lighter ascent: only ~169 ft at the rev C mass, 83% clean landings |
+| AeroTech G25W | White Lightning, **reload** (RMS-29 case) | 117.5 N·s | 22 / 41 N | 5.3 s | 62.5 g + case | Long-burn landing: lands as well, but puts rev C at 1564 g, over the limit |
 | AeroTech G40W | White Lightning, single-use | 97-99 N·s | 41 / 74 N | 2.3 s | 53.8 / 123 g | Rev A (500 ft) design |
 | Estes F15 | Black powder | 49.6 N·s | 14.4 / 25 N | 3.45 s | 60 / 102 g | Too weak for a 5 ft vehicle (below its weight) |
 
@@ -35,11 +35,11 @@ What the regressive curve buys you:
 - **It fades toward hover** near the ground.
 - **No hop after touchdown.** From 0.4 s of burn onward, even with the paddles
   fully closed (25% of thrust), the motor can't lift a landed rocket off its
-  legs. The touchdown window runs from 0.40 s to 1.79 s of burn, much wider
-  than the G40W's (1.12-1.94 s).
+  legs. At the rev C mass the touchdown window runs from 0.09 s to 1.72 s of
+  burn, much wider than the G40W's (1.12-1.94 s).
 
 **Totals for the flight:**
-- 65.8 g of propellant and 127 N·s: Class 1, in the NAR "G" site row (1000 ft).
+- 68.8 g of propellant and 137 N·s: Class 1, in the NAR "G" site row (1000 ft).
 - Each motor has less than 62.5 g of propellant and less than 80 N·s, so both
   are CPSC-exempt consumer model-rocket motors.
 
@@ -58,9 +58,10 @@ Results from 300 dispersed flights (wind 0-4 m/s, ignition delay 0.30 ± 0.08 s)
 | Variant | Clean landings | Crashes |
 |---|---|---|
 | **Baseline: paddles leave 25% of thrust, "strong then simmer" guidance** | **93%** | **0%** |
-| Weak paddles (leave 40% of thrust) | 93% | 0% |
-| Tightly characterised ignition (σ = 0.04 s) | 93% | <1% |
-| Linear-ramp guidance instead of exponential | 89% | 0% |
+| Weak paddles (leave 40% of thrust) | 95% | 0% |
+| Tightly characterised ignition (σ = 0.04 s) | 94% | 0% |
+| Linear-ramp guidance instead of exponential | 90% | 0% |
+| F42T ascent instead of F52C (51 m apogee) | 83% | 1% |
 
 With the F25W, paddle strength stops being the critical driver, because the
 motor's own decay does most of the work. The remaining failures are mostly
@@ -78,7 +79,8 @@ sideways drift in winds of 3-4 m/s.
 ```
 
 - **Geometry:**
-  - two flat paddles 20 x 28 mm, pivoting 10 mm below the nozzle exit;
+  - two flat paddles 20 x 28 mm, pivoting 8 mm below the nozzle exit, so the
+    open paddles end 1 mm above the aft end of the airframe;
   - fully open (k = 1) they sit outside the plume;
   - closed, they meet at 30-40° to the axis and deflect most of the jet
     sideways in opposite directions.
@@ -98,20 +100,25 @@ sideways drift in winds of 3-4 m/s.
 ## 4.4 Dual-motor TVC gimbal
 
 - **Layout:**
-  - two aluminium 29 mm motor sleeves (125 mm long, so they fit both motor
-    lengths), 33 mm centre-to-centre, in an inner ring;
-  - a middle ring (axis Y) and an outer ring fixed to the airframe (axis Z);
-  - pivots at station ~1.46 m, about 0.45 m from the CG at landing.
+  - two kraft 29 mm motor-mount tubes as sleeves (113 mm long, to fit the
+    111 mm F52C), 33 mm centre-to-centre, bonded into an inner ring with
+    high-temperature epoxy and capped with aluminium thrust caps;
+  - a middle ring (pins on the X axis) and two yoke posts fixed to the thrust
+    plate (pins on the Y axis);
+  - pivots at station 1.46 m, at the **middle** of the sleeves, 0.50 m from
+    the CG at landing. The CAD sweep shows ±7° on both axes clears everything
+    (pivoting near the sleeve's aft end would hit the tube wall).
 - **Range:** ±7° (BPS uses ±5°,
   [BPS TVC](https://bps.space/products/thrust-vector-control)).
 - **Servos:** 2 x KST X08H with ball-link pushrods, about a 2:1 ratio.
 - **Offset thrust:** each motor is 16.5 mm off the centreline. The software
-  feeds forward a ~2.1° trim and leans the body the other way so the trim
+  feeds forward a ~1.9° trim and leans the body the other way so the trim
   doesn't push the vehicle sideways.
-- **Retention:** screw-cap or clip retainers **on each sleeve**. Thrust goes
-  through the sleeves and pivots into the aft thrust plate.
-- **Spacer:** the F42T is 15 mm shorter than the F25W. Add a printed spacer so
-  both nozzles exit at the same station.
+- **Retention:** a spring-steel clip on each sleeve hooks over the motor's
+  aft face. Screw-cap retainers are wider than the 33 mm spacing and don't fit.
+  Thrust goes through the sleeve caps, rings and pins into the thrust plate.
+- **Spacer:** the F25W is 13 mm shorter than the F52C. A printed spacer
+  (`F25W-SPACER.stl`) makes both nozzles exit at the same station.
 
 ## 4.5 Ignition
 
@@ -136,7 +143,7 @@ sideways drift in winds of 3-4 m/s.
 - **Both motors need a configuration with no ejection charge**, such as a
   plugged or "P" variant, or one where the instructions allow the charge to be
   removed for electronic deployment.
-- Ask AeroTech or your vendor which F42T and F25W configurations allow this.
+- Ask AeroTech or your vendor which F52C and F25W configurations allow this.
   Never drill or modify a motor.
 
 ## 4.7 Truly throttleable alternative: EDF test bed

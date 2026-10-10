@@ -1,0 +1,80 @@
+{
+ "items": [
+  {
+   "name": "Nose cone + shoulder",
+   "mass_kg": 0.0991,
+   "station_m": 0.244,
+   "length_m": 0.344
+  },
+  {
+   "name": "Top airbrake petals, hinges, springs, latch servo",
+   "mass_kg": 0.0156,
+   "station_m": 0.454,
+   "length_m": 0.289
+  },
+  {
+   "name": "Backup chute + shock cord + spring/servo door",
+   "mass_kg": 0.0969,
+   "station_m": 0.63,
+   "length_m": 0.129
+  },
+  {
+   "name": "Avionics bay: boards, sensors, radio, battery",
+   "mass_kg": 0.1117,
+   "station_m": 0.768,
+   "length_m": 0.148
+  },
+  {
+   "name": "Couplers, bulkheads, motor-bay frame",
+   "mass_kg": 0.2504,
+   "station_m": 0.861,
+   "length_m": 1.173
+  },
+  {
+   "name": "Body tube",
+   "mass_kg": 0.402,
+   "station_m": 0.923,
+   "length_m": 1.202
+  },
+  {
+   "name": "4 landing legs + release",
+   "mass_kg": 0.1005,
+   "station_m": 1.09,
+   "length_m": 0.854
+  },
+  {
+   "name": "Wiring, hardware, epoxy, paint",
+   "mass_kg": 0.0378,
+   "station_m": 1.132,
+   "length_m": 1.071
+  },
+  {
+   "name": "Dual-motor TVC gimbal + 2 servos",
+   "mass_kg": 0.0938,
+   "station_m": 1.427,
+   "length_m": 0.137
+  },
+  {
+   "name": "4 fins",
+   "mass_kg": 0.0373,
+   "station_m": 1.472,
+   "length_m": 0.222
+  },
+  {
+   "name": "Exhaust-paddle throttle",
+   "mass_kg": 0.0326,
+   "station_m": 1.493,
+   "length_m": 0.063
+  },
+  {
+   "name": "Lidar + bracket",
+   "mass_kg": 0.0103,
+   "station_m": 1.504,
+   "length_m": 0.036
+  }
+ ],
+ "motor_station_m": 1.433,
+ "liftoff_mass_g": 1466.5,
+ "liftoff_cg_m": 0.9721,
+ "liftoff_Iyy_kgm2": 0.2462
+}

@@ -61,7 +61,7 @@ class GuidanceConfig:
     # --- landing-burn ignition predictor
     ignition_delay_nominal_s: float = 0.30   # fire-command -> thrust (MEASURE IT)
     fire_k1: float = 0.0                     # fire when the plan's throttle ramp slope <= this
-    fire_window_frac: float = 0.65          # where in the touchdown window the fire plan aims (0..1)
+    fire_window_frac: float = 0.80          # where in the touchdown window the fire plan aims (0..1)
     throttle_min: float = 0.25               # paddles fully closed: DESIGN REQUIREMENT, measure it
     target_touchdown_speed: float = 0.5      # m/s, downward
     predictor_dt: float = 0.01

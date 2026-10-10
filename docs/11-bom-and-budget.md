@@ -4,26 +4,32 @@ Prices are approximate USD (2025-2026). Lines marked * were found in vendor
 listings; the rest are typical-price estimates. Check current prices and
 availability before ordering.
 
+This is the shopping list. The part-by-part list (all 129 CAD parts, with
+quantity, material, how to make each one, mass and file names) is
+[`cad/out/bom.csv`](../cad/out/bom.csv).
+
 ## 11.1 Vehicle
 
 | Qty | Item | Example source | Each | Total |
 |---:|---|---|---:|---:|
 | 2 | LOC 3.9 in kraft body tube, 34 in | [LOC Precision](https://locprecision.com/products/cardboard-airframes) | $20 | $40 |
-| 1 | LOC 3.9 in coupler (avionics bay) + extra coupler (aft reinforcement) | LOC | $12 | $24 |
-| 1 | Nose cone: PETG filament (or LOC 3.9 in plastic nose, 5 oz) | [LOC nose cones](https://locprecision.com/product/nose-cones/) | $20 | $20 |
-| 1 | 1/8 in aircraft birch plywood, 12 x 24 in (fins, bulkheads, rings) | hobby shop | $15 | $15 |
+| 2 | LOC 3.9 in coupler, 8 in (avionics bay 160 mm; airbrake sleeve 189 mm) | LOC | $12 | $24 |
+| 1 | Nose cone: PETG filament (a LOC plastic nose would add ~47 g and put rev C over 1500 g) | | $20 | $20 |
+| 1 | Aircraft birch ply: 1/8 in 12 x 24 in (bulkheads, lids, thrust plate, doublers) + 3/32 in 6 x 12 in (fins); 1/8 in lite ply (sled) | hobby shop | $25 | $25 |
 | 1 | CF-nylon filament, 500 g (gimbal, hinges) | | $40 | $40 |
 | 1 | TPU-95A filament (feet) | | $25 | $25 |
-| 2 | 29 mm aluminium thin-wall tube, 125 mm (motor sleeves) | McMaster / Online Metals | $10 | $20 |
-| 2 | 29 mm motor retainers | Aero Pack-style screw retainers ([review](https://www.rocketreviews.com/review-180703144225.html)) | $25 | $50 |
+| 1 | 29 mm kraft motor-mount tube (cut 2 x 113 mm sleeves) + 1 mm aluminium for the thrust caps | LOC / hobby shop | $12 | $12 |
+| 2 | Spring-steel clip retainers (0.8 mm spring strip, or motor hooks); screw-cap retainers don't fit the 33 mm spacing | | $3 | $6 |
+| 1 | 200 gsm carbon cloth, 0.25 m² (aft liner) | | $15 | $15 |
+| 1 | M3 nylon threaded rod + nylon wing nuts (avionics bay) | | $5 | $5 |
 | 1 | Pins, bushings, MR63 bearings, M2/M3 stainless hardware | | $25 | $25 |
 | 1 | Paddle ceramic (alumina-silicate block) or graphite plate + 304 stainless strip | | $30 | $30 |
-| 4 | 8 mm x 6 mm pultruded carbon tube, 0.6 m | | $6 | $24 |
+| 4 | 8 mm x 7 mm pultruded carbon tube, 0.6 m (legs) | | $6 | $24 |
 | 4 | Torsion springs + Kevlar line + syringe dampers | | $4 | $16 |
 | 1 | 30 in nylon parachute + Nomex blanket + Kevlar shock cord + swivel | | $45 | $45 |
 | 1 | Airbrake petal hinges, torsion springs, stainless pins, latch ring | | $15 | $15 |
 | 1 | Epoxy (30-min + high-temp), CA, fillers, paint | | $50 | $50 |
-| | | | **Vehicle subtotal** | **≈ $440** |
+| | | | **Vehicle subtotal** | **≈ $420** |
 
 ## 11.2 Avionics
 
@@ -50,25 +56,24 @@ availability before ordering.
 | Qty | Item | Each | Total |
 |---:|---|---:|---:|
 | 8 | AeroTech F25W landing motors (5 static fires + 3 flights) | $25 | $200 |
-| 4 | AeroTech F42T ascent motors (3 flights + spare) | $22 | $88 |
-| 1 | AeroTech F52C (test flight F2) | $25 | $25 |
+| 4 | AeroTech F52C ascent motors (flights F1-F3 + spare) | $25 | $100 |
 | 1 | Hazmat shipping (one order) | $40 | $40 |
 | 12 | Extra igniters (dual landing igniters) | $3 | $36 |
 | 1 | Load cell 20 kg + ADS1220 ADC board + test-stand hardware | $60 | $60 |
 | 1 | 2-axis swivel test rig (printed / aluminium) | $40 | $40 |
 | 1 | Bench power supply, laser pointer, dummy-load resistors | $40 | $40 |
 | 1 | NAR membership (insurance at club launches) + club fees | $60 | $60 |
-| | **Motors and test subtotal** | | **≈ $590** |
+| | **Motors and test subtotal** | | **≈ $580** |
 
 ## 11.4 Total
 
 | | |
 |---|---:|
-| Vehicle | ≈ $440 |
+| Vehicle | ≈ $420 |
 | Avionics | ≈ $500 |
-| Motors, test equipment, club | ≈ $590 |
-| Contingency (20%: crashes happen) | ≈ $310 |
-| **Total** | **≈ $1,850** |
+| Motors, test equipment, club | ≈ $580 |
+| Contingency (20%: crashes happen) | ≈ $300 |
+| **Total** | **≈ $1,800** |
 
 **Ways to cut cost:**
 - prototype with MG90S servos ($5) and skip the GPS for the first ascent-only

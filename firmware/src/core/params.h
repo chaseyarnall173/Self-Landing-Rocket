@@ -6,14 +6,14 @@
 namespace params {
 
 // ---------------------------------------------------------------- vehicle
-constexpr float DRY_MASS_KG = 1.141f;          // WEIGH IT (everything but motors)
-constexpr float INERTIA_KGM2 = 0.203f;         // pitch/yaw, measure with a bifilar pendulum
-constexpr float GIMBAL_LEVER_M = 0.449f;       // gimbal pivot -> CG at landing
+constexpr float DRY_MASS_KG = 1.288f;          // WEIGH IT (everything but motors); CAD rev C estimate
+constexpr float INERTIA_KGM2 = 0.240f;         // pitch/yaw, measure with a bifilar pendulum (CAD 0.24)
+constexpr float GIMBAL_LEVER_M = 0.497f;       // gimbal pivot -> CG at landing
 constexpr float ASCENT_OFFSET_M = +0.0165f;    // ascent motor axis offset (body +y)
 constexpr float LANDING_OFFSET_M = -0.0165f;   // landing motor axis offset (body -y)
 constexpr float GIMBAL_LIMIT_DEG = 7.0f;
-constexpr float LEG_DROP_M = 0.22f;            // feet below the aft end, legs out (0.60 m legs at 55 deg)
-constexpr float CDA_PRE_M2 = 0.05667f;         // tail-first CdA, top airbrakes open (gen_tables)
+constexpr float LEG_DROP_M = 0.22f;            // feet below the aft end, legs out (55 deg)
+constexpr float CDA_PRE_M2 = 0.06627f;         // tail-first CdA, top airbrakes open (gen_tables)
 constexpr float CDA_BURN_M2 = 0.00867f;        // tail-first CdA, airbrakes stowed
 constexpr float CDA_LEGS_M2 = 0.00486f;        // extra CdA with legs deployed
 
@@ -22,7 +22,7 @@ constexpr float IGNITION_DELAY_NOMINAL_S = 0.30f;   // MEASURE on the static-fir
 constexpr float THROTTLE_MIN = 0.25f;               // paddles closed: MEASURE on the stand
 constexpr float TARGET_TOUCHDOWN_SPEED = 0.5f;      // m/s down
 constexpr float FIRE_K1 = 0.0f;                     // fire when plan ramp slope <= this
-constexpr float FIRE_WINDOW_FRAC = 0.65f;           // fire plan aims this far into the window
+constexpr float FIRE_WINDOW_FRAC = 0.80f;           // fire plan aims this far into the window
 // Burn shape: strong braking that decays to ~weight at touchdown (the
 // 'strong then simmer' profile). false = the older linear throttle ramp.
 constexpr bool EXP_BURN_PROFILE = true;

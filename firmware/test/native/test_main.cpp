@@ -53,6 +53,8 @@ static void test_motor() {
     CHECK(f.thrust(0.1f) > f.thrust(1.0f) && f.thrust(1.0f) > f.thrust(2.0f), "F25W regressive");
     CHECK(NEAR(MOTOR_F42T.total_impulse(), 55.9f, 0.5f), "F42T impulse %.2f",
           MOTOR_F42T.total_impulse());
+    CHECK(NEAR(MOTOR_F52C.total_impulse(), 66.3f, 0.6f), "F52C impulse %.2f",
+          MOTOR_F52C.total_impulse());
 }
 
 static void test_guidance_matches_python() {
@@ -169,7 +171,7 @@ static void on_event(float t, const char* msg) {
 }
 
 static float sil_flight(float true_delay, float true_kmin, bool print) {
-    FlightFsm fsm(MOTOR_F42T, MOTOR_F25W);
+    FlightFsm fsm(MOTOR_F52C, MOTOR_F25W);
     g_nev = 0;
     fsm.on_event = on_event;
     const float dt = 0.005f;
@@ -186,9 +188,9 @@ static float sil_flight(float true_delay, float true_kmin, bool print) {
     for (int i = 0; i < 6000 && !landed; ++i) {
         float ta = t - t_launch;
         float tl = (t_cmd >= 0) ? t - t_cmd - true_delay : -1;
-        float m = params::DRY_MASS_KG + MOTOR_F42T.mass(ta > 0 ? ta : 0) +
+        float m = params::DRY_MASS_KG + MOTOR_F52C.mass(ta > 0 ? ta : 0) +
                   (tl > 0 ? MOTOR_F25W.mass(tl) : MOTOR_F25W.total_kg);
-        float thrust = (ta > 0 ? MOTOR_F42T.thrust(ta) : 0) +
+        float thrust = (ta > 0 ? MOTOR_F52C.thrust(ta) : 0) +
                        (tl > 0 ? fmaxf(k_act, true_kmin) * MOTOR_F25W.thrust(tl) : 0);
         float cda = (v >= 0) ? 0.55f * A : (brakes ? params::CDA_PRE_M2 : params::CDA_BURN_M2) +
                                                  (legs ? params::CDA_LEGS_M2 : 0);

@@ -10,20 +10,21 @@
 |---|---|
 | FAA class | **Class 1 - Model Rocket**, if liftoff mass stays <= 1500 g and total propellant <= 125 g ([14 CFR 101.22](https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-101/subpart-C/section-101.22)) |
 | FAA notification / waiver | **Not required** for Class 1. Only the general rules of §101.23 apply: no hazard to people, property or aircraft. |
-| Certification needed? | **No.** The F42T and F25W are model-rocket motors: each under 62.5 g of propellant and under 80 N·s. |
+| Certification needed? | **No.** The F52C and F25W are model-rocket motors: each under 62.5 g of propellant and under 80 N·s. |
 | Age | Both motors are within the CPSC consumer exemption (≤ 62.5 g propellant, < 80 N·s). Some vendors still sell composite motors 18+ only; *verify with your vendor*. |
-| Where | At a **club launch** (strongly recommended) with RSO approval. Total impulse 127 N·s falls in the NAR "G" row: **minimum site dimension 1000 ft**. |
+| Where | At a **club launch** (strongly recommended) with RSO approval. Total impulse 137 N·s falls in the NAR "G" row: **minimum site dimension 1000 ft**. |
 | Biggest approval risk | The recovery requirement. Carry the **automatic backup parachute** and brief the RSO before you arrive. |
 
-If the build ends up **over 1500 g** it becomes a **high-power** rocket. That
-means:
+The CAD puts rev C at **1467 g**, only 33 g under the limit. If the build ends
+up **over 1500 g** it becomes a **high-power** rocket. That means:
 - Level 1 certification (NAR or Tripoli)
 - the NAR High Power Safety Code
 - launching under a club FAA waiver
 - liftoff weight <= 1/3 of average thrust
 
-The F42T gives ~40 N average, so a high-power build would need a bigger
-ascent motor.
+Weigh every part as you build, and use the lightening options in
+[docs/03](03-vehicle-design.md#32-mass-budget-target--1500-g-at-liftoff) to
+stay under 1500 g.
 
 ## 2.2 FAA - 14 CFR Part 101, Subpart C
 
@@ -39,7 +40,7 @@ ascent motor.
 
 Two points matter for this design:
 
-- **Total propellant counts both motors.** The budget is 27.0 + 38.8 = 65.8 g.
+- **Total propellant counts both motors.** The budget is 30.0 + 38.8 = 68.8 g.
 - **"No substantial metal parts."** The gimbal pivots, the paddle arms and the
   servos are small internal parts. Keep the airframe itself paper, wood and
   plastic, and discuss the metal gimbal parts with your RSO. This is a
@@ -88,7 +89,7 @@ From the [NAR Model Rocket Safety Code](https://www.nar.org/ModelRocketSafetyCod
 | Total impulse | Class | Site |
 |---|---|---|
 | 40-80 N·s | F | 1000 ft |
-| **80-160 N·s** | **G (SLR-1: 127 N·s)** | **1000 ft** |
+| **80-160 N·s** | **G (SLR-1: 137 N·s)** | **1000 ft** |
 | 160-320 N·s | two Gs (rev A design: 198 N·s) | 1500 ft |
 
 ([table summary](https://www.rocketryforum.com/threads/n-a-r-rules-question-launch-site-dimensions.84769/))
