@@ -8,9 +8,9 @@
   },
   {
    "name": "Top airbrake petals, hinges, springs, latch servo",
-   "mass_kg": 0.0156,
-   "station_m": 0.454,
-   "length_m": 0.289
+   "mass_kg": 0.0213,
+   "station_m": 0.471,
+   "length_m": 0.271
   },
   {
    "name": "Backup chute + shock cord + spring/servo door",
@@ -74,7 +74,7 @@
   }
  ],
  "motor_station_m": 1.433,
- "liftoff_mass_g": 1466.5,
- "liftoff_cg_m": 0.9721,
- "liftoff_Iyy_kgm2": 0.2462
+ "liftoff_mass_g": 1472.1,
+ "liftoff_cg_m": 0.9704,
+ "liftoff_Iyy_kgm2": 0.2474
 }

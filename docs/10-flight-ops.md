@@ -44,7 +44,7 @@ each line aloud. Nothing gets skipped.
   shorted together until the pad.
 - [ ] Install the **ascent** motor in the ASCENT sleeve, clip retainer engaged. Its
   igniter is installed at the pad.
-- [ ] Weigh the whole rocket: ______ g (≤ 1500; CAD 1467). CG: ______ m (≈ 0.97).
+- [ ] Weigh the whole rocket: ______ g (≤ 1500; CAD 1472). CG: ______ m (≈ 0.97).
 - [ ] Legs stowed; release pin in. Airbrake petals latched flush. Main chute
   latched.
 - [ ] Key **OUT**. Power on. Status: `PAD_SAFE`, GPS fix, telemetry received.

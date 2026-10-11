@@ -32,7 +32,7 @@
     <text x="198" y="381">2  Burnout 1.3 s, 23 m, 32 m/s</text>
     <text x="198" y="395" fill="#52514e">    coast nose-first (fins stabilise)</text>
     <circle cx="434" cy="183" r="6" fill="#2a78d6"/>
-    <text x="330" y="146">3  Apogee 69 m (227 ft) at 4.3 s</text>
+    <text x="330" y="146">3  Apogee 69 m (226 ft) at 4.3 s</text>
     <text x="330" y="160" fill="#52514e">    top airbrakes open; rocket swings tail-down</text>
     <circle cx="613" cy="261" r="5" fill="#2a78d6"/>
     <text x="625" y="247">4  Tail-first fall, ~18 m/s</text>
@@ -42,7 +42,7 @@
     <circle cx="805" cy="423" r="5" fill="#eb6834"/>
     <text x="818" y="382">6  Lit 0.3 s later</text>
     <text x="818" y="396" fill="#52514e">legs out at 12 m;</text>
-    <text x="818" y="410" fill="#52514e">50 N simmering to 18 N</text>
+    <text x="818" y="410" fill="#52514e">48 N simmering to 18 N</text>
     <circle cx="926" cy="460" r="6" fill="#0ca30c"/>
     <text x="740" y="500">7  Touchdown 10.3 s, 1.1 m/s</text>
   </g>

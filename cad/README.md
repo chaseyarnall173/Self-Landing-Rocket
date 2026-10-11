@@ -18,9 +18,12 @@ python cad/build.py           # writes cad/out/ (~3 min)
 | `slr1/catalog.py` | Part / instance records, materials and densities, mass-budget lines |
 | `slr1/massprops.py` | Mass, CG and inertia roll-up |
 | `slr1/model.py` | Collects every part; flight (stowed) and landing (deployed) configurations |
+| `slr1/sections.py` | Section guide: a one-line description of every part, and the sections and camera views for the X-ray images |
 | `build.py` | Exports, BOM, mass report, interference check, gimbal sweep |
 | `viewer/index.html` | Interactive three.js viewer (loads `out/viewer/*`) |
 | `tools/render_views.mjs` | Renders the still images in `docs/img/cad_*.png` |
+| `tools/render_sections.mjs` | Renders the X-ray section views (`docs/img/sections/`) and part thumbnails (`docs/img/parts/`) |
+| `tools/section_guide.py` | Writes [docs/14](../docs/14-sections.md) (and the website's section page) from the above |
 | `out/` | Generated: `SLR1_flight.step`, `SLR1_landing.step`, `parts/`, `stl/`, `dxf/`, `viewer/`, `bom.csv`, reports |
 
 **SolidWorks:** File → Open → STEP, pick `out/SLR1_flight.step`. It imports as

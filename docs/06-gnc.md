@@ -101,7 +101,7 @@ where s_thrust is the thrust scale learned in flight from the accelerometer.
 **Each re-plan (50 Hz):**
 - **Touchdown window:** t_land must be in [t1, t2], where k_min·T_motor < W
   (no post-touchdown hop) and T_motor > 1.25·W (enough thrust left to stop).
-  For the F25W at the rev C mass: **[0.09 s, 1.72 s]**.
+  For the F25W at the rev C mass: **[0.08 s, 1.72 s]**.
 - **Search:** 9 touchdown times x 3 decay rates (τ = 0.25, 0.35 and 0.5 of T)
   are tried.
 - **Score:** each candidate is scored on any throttle outside [k_min, 1], plus
@@ -133,10 +133,10 @@ offset trim.
 
 | Time after ignition | 0.05 s | 0.25 s | 0.5 s | 0.75 s | 1.0 s | 1.25 s | touchdown 1.5 s |
 |---|---|---|---|---|---|---|---|
-| Delivered thrust (N) | 50 | 38.5 | 32 | 26 | 19.4 | 19.2 | ~18 |
-| Rocket weight (N) | 14.1 | 14.0 | 14.0 | 13.9 | 13.8 | 13.8 | 13.8 |
-| Descent speed (m/s) | 16.7 | 11.7 | 7.3 | 4.3 | 2.6 | 1.7 | 1.1 |
-| Height (m) | 8.4 | 5.6 | 3.2 | 1.8 | 0.94 | 0.40 | 0 |
+| Delivered thrust (N) | 48 | 39 | 31 | 25 | 22 | 19 | ~18 |
+| Rocket weight (N) | 14.1 | 14.1 | 14.0 | 14.0 | 13.9 | 13.9 | 13.8 |
+| Descent speed (m/s) | 16.6 | 11.7 | 7.3 | 4.6 | 2.8 | 1.8 | 1.1 |
+| Height (m) | 8.5 | 5.7 | 3.3 | 1.9 | 1.0 | 0.41 | 0 |
 
 This is a cut-down cousin of real powered-descent guidance. Further reading:
 
@@ -177,16 +177,16 @@ The flight computer in the loop is the Python twin of the firmware.
 | Metric | Result |
 |---|---|
 | Clean landings (≤ 2.5 m/s vertical, ≤ 1.5 m/s lateral, ≤ 10° tilt, hop ≤ 0.3 m) | **280 / 300 (93%)**; the other 20 are hard landings; **0 crashes** |
-| Vertical touchdown | mean 1.39 m/s, p95 2.09 m/s, max 4.0 m/s |
-| Lateral touchdown | p5-p95 −1.19 to +1.33 m/s (the main failure driver) |
-| Apogee | mean 70 m (229 ft); p5-p95 62-78 m |
-| Landing spot | p5-p95 −20 to +21 m from the pad |
-| Wind 0-1 / 1-2 / 2-3 m/s | 99% / 95% / 97% clean |
+| Vertical touchdown | mean 1.41 m/s, p95 2.04 m/s, max 4.0 m/s |
+| Lateral touchdown | p5-p95 −1.16 to +1.26 m/s (the main failure driver) |
+| Apogee | mean 69 m (227 ft); p5-p95 62-77 m |
+| Landing spot | p5-p95 −20 to +20 m from the pad |
+| Wind 0-1 / 1-2 / 2-3 m/s | 99% / 94% / 98% clean |
 | Wind 3-4 m/s | 84% → **fly landing attempts below 3 m/s** |
-| Weak paddles (k_min 0.40) | 95% |
+| Weak paddles (k_min 0.40) | 94% |
 | Linear-ramp guidance instead of "strong then simmer" | 90% |
 
-These runs use the CAD mass properties (1467 g, CG 0.972 m, 0.246 kg·m²).
+These runs use the CAD mass properties (1472 g, CG 0.971 m, 0.247 kg·m²).
 
 ![Monte Carlo touchdown](img/mc_touchdown.png)
 ![Success vs wind](img/mc_wind.png)

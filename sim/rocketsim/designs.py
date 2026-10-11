@@ -54,7 +54,7 @@ class MassItem:
 # estimates for bought parts. Stations are from the nose tip; the vehicle is 60 in long.
 SLR1_ITEMS = [
     MassItem("Nose cone: printed PETG ogive (0.8 mm wall) + 2 in shoulder", 0.0991, 0.244, 0.344),
-    MassItem("Top airbrakes: petal hinges, springs, tabs, latch ring + servo (petals are tube)", 0.0156, 0.454, 0.289),
+    MassItem("Top airbrakes: petal hinges, springs, tabs, latch ring + servo (petals are tube)", 0.0213, 0.471, 0.271),
     MassItem("Backup chute (30 in), Nomex, shock cord, ejector, door hinge/latch + servo", 0.0969, 0.630, 0.129),
     MassItem("Avionics: Teensy 4.1, BMI088, BMP390, GPS, LoRa, 2S 450 mAh, switches", 0.1117, 0.768, 0.148),
     MassItem("Couplers, bulkheads, sled, aft carbon liner, thrust plate, leg doublers", 0.2504, 0.861, 1.173),

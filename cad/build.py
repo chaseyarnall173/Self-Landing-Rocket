@@ -113,7 +113,11 @@ def export_viewer(flight, landing):
         meta[pid]["qty"] = n
     for pid, n in Counter(i.part.pid for i in landing).items():
         meta[pid]["qty"] = max(meta[pid]["qty"], n)
+    from slr1.sections import PARTS as GUIDE, SECTIONS
+    for pid, m in meta.items():
+        m["short"], m["role"] = GUIDE.get(pid, (m["name"], ""))
     json.dump(dict(groups=model.GROUP_ORDER, parts=meta), open(vdir / "parts.json", "w"), indent=1)
+    json.dump(SECTIONS, open(vdir / "sections.json", "w"), indent=1)
     page = (ROOT / "viewer" / "index.html").read_text()
     (vdir / "index.html").write_text('<!doctype html>\n<meta charset="utf-8">\n'
                                      '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'

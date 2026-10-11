@@ -1,0 +1,436 @@
+[
+ {
+  "key": "nose",
+  "title": "Nose cone",
+  "cfg": "flight",
+  "intro": "The printed nose is the top 323 mm of the rocket. It comes off (three screws) so you can reach the airbrake latch.",
+  "pids": [
+   "NOSE-01",
+   "NOSE-SCREW"
+  ],
+  "ghost": [],
+  "views": [
+   {
+    "d": [
+     0.45,
+     -1,
+     0.35
+    ],
+    "cut": true
+   }
+  ]
+ },
+ {
+  "key": "airbrakes",
+  "title": "Top airbrakes",
+  "cfg": "flight",
+  "intro": "Four petals cut from the body tube, just below the nose. At apogee one servo turns a latch ring and springs flip all four out to 90\u00b0. Drag at the top keeps the falling rocket tail-down, the way a shuttlecock's feathers keep it cork-first.",
+  "pids": [
+   "TUBE-01",
+   "PETAL-01",
+   "PETAL-HINGE-F",
+   "PETAL-HINGE-M",
+   "PETAL-PIN",
+   "PETAL-SPRING",
+   "PETAL-TAB",
+   "CPL-01",
+   "LATCH-RING",
+   "SERVO-LATCH",
+   "HORN-LATCH",
+   "LATCH-LINK",
+   "LATCH-SERVO-BRKT"
+  ],
+  "ghost": [
+   "TUBE-01",
+   "PETAL-01",
+   "CPL-01"
+  ],
+  "views": [
+   {
+    "d": [
+     0.55,
+     -1,
+     0.3
+    ]
+   },
+   {
+    "d": [
+     1,
+     0.8,
+     0.25
+    ]
+   },
+   {
+    "d": [
+     1,
+     -1.1,
+     0.45
+    ],
+    "cfg": "landing",
+    "ghost": [],
+    "w": 0.56,
+    "title": "Open at apogee",
+    "also": [
+     "PETAL-01",
+     "PETAL-HINGE-F",
+     "PETAL-HINGE-M",
+     "CPL-01"
+    ]
+   }
+  ]
+ },
+ {
+  "key": "chute",
+  "title": "Backup chute bay",
+  "cfg": "flight",
+  "intro": "Abort-only recovery. A servo pulls a pin, the door swings open and two springs push the 30 in chute out. In a normal flight this bay never opens.",
+  "pids": [
+   "TUBE-02",
+   "DOOR-01",
+   "DOOR-HINGE-F",
+   "DOOR-HINGE-M",
+   "DOOR-PIN",
+   "DOOR-LUG",
+   "RECOV-BH",
+   "UBOLT",
+   "NUT-M4",
+   "CHUTE-NOMEX",
+   "CHUTE-30",
+   "SHOCK-CORD",
+   "SHOCK-CORD-RUN",
+   "EJECT-PLATE",
+   "EJECT-SPRING",
+   "EJECT-CUP",
+   "SERVO-CHUTE",
+   "HORN-CHUTE",
+   "CHUTE-PIN",
+   "CHUTE-LINK",
+   "CHUTE-SERVO-BRKT",
+   "CABLE-FWD"
+  ],
+  "ghost": [
+   "TUBE-02",
+   "DOOR-01",
+   "CHUTE-NOMEX"
+  ],
+  "views": [
+   {
+    "d": [
+     0.35,
+     -1,
+     0.2
+    ]
+   },
+   {
+    "d": [
+     -0.3,
+     1,
+     0.25
+    ]
+   }
+  ]
+ },
+ {
+  "key": "avionics",
+  "title": "Avionics bay",
+  "cfg": "flight",
+  "intro": "The flight computer, sensors, radio and battery on a sled that slides out. The switch band around the middle carries the arm key, the power switch, the static ports and the leg-release pin.",
+  "pids": [
+   "TUBE-03",
+   "CPL-02",
+   "AV-LID-F",
+   "AV-LID-A",
+   "AV-LID-RING-F",
+   "AV-LID-RING-A",
+   "AV-ROD",
+   "NUT-M3",
+   "AV-SLED",
+   "AV-SLED-TUBE",
+   "STANDOFF-3",
+   "PERFBOARD",
+   "HEADERS",
+   "TEENSY-41",
+   "IMU-BMI088",
+   "STANDOFF-5",
+   "BARO-BMP390",
+   "BARO-FOAM",
+   "BUCK-5V",
+   "FET-AO3400",
+   "CAP-1000U",
+   "BUZZER",
+   "JST-GH",
+   "LIPO-2S",
+   "GPS-M9N",
+   "GPS-PATCH",
+   "LORA-RFM95W",
+   "LORA-ANT",
+   "ARM-KEY-SW",
+   "ARM-KEY",
+   "MAIN-SW",
+   "SERVO-LEGPIN",
+   "HORN-LEGPIN",
+   "LEG-RELEASE-PIN",
+   "LEGPIN-LINK",
+   "LEGPIN-BRKT",
+   "GROMMET"
+  ],
+  "ghost": [
+   "TUBE-03",
+   "CPL-02"
+  ],
+  "views": [
+   {
+    "d": [
+     1,
+     -0.35,
+     0.2
+    ]
+   },
+   {
+    "d": [
+     -1,
+     -0.3,
+     0.2
+    ]
+   }
+  ]
+ },
+ {
+  "key": "aft",
+  "title": "Aft airframe and fins",
+  "cfg": "flight",
+  "horizontal": true,
+  "intro": "The long aft tube carries the fins and the legs, and the wiring from the avionics bay runs down its wall to the motor bay. A carbon liner stiffens the last 6 in.",
+  "pids": [
+   "TUBE-04",
+   "LINER-AFT",
+   "FIN-01",
+   "FIN-FILLET",
+   "HARNESS-AFT",
+   "CABLE-LIDAR"
+  ],
+  "ghost": [
+   "TUBE-04",
+   "LINER-AFT"
+  ],
+  "views": [
+   {
+    "d": [
+     0.2,
+     -1,
+     0.08
+    ],
+    "w": 0.7
+   }
+  ]
+ },
+ {
+  "key": "legs",
+  "title": "Landing legs",
+  "cfg": "landing",
+  "only_instance": 1,
+  "intro": "Four carbon legs fold flat along the body for flight. At 12 m a servo pulls one pin, the Kevlar loop lets go, and springs swing all four out to 55\u00b0, where a stop and a detent lock them.",
+  "pids": [
+   "LEG-CLEVIS",
+   "LEG-DOUBLER",
+   "LEG-PIN",
+   "LEG-SPRING",
+   "LEG-INSERT",
+   "LEG-STRUT",
+   "LEG-DAMPER",
+   "LEG-PLUNGER",
+   "LEG-FOOT",
+   "LEG-LOOP"
+  ],
+  "ghost": [],
+  "context": [
+   "TUBE-04",
+   "LINER-AFT"
+  ],
+  "views": [
+   {
+    "d": [
+     0.3,
+     -1,
+     0.15
+    ],
+    "pids": [
+     "LEG-STRUT"
+    ],
+    "also": [
+     "LEG-CLEVIS",
+     "LEG-DAMPER",
+     "LEG-FOOT"
+    ],
+    "fit": [
+     "LEG-CLEVIS",
+     "LEG-STRUT",
+     "LEG-DAMPER",
+     "LEG-FOOT"
+    ],
+    "title": "Deployed (1 of 4)"
+   },
+   {
+    "d": [
+     0.14,
+     0.99,
+     0.35
+    ],
+    "ghost": [
+     "LEG-STRUT"
+    ],
+    "fit": [
+     "LEG-CLEVIS",
+     "LEG-PIN",
+     "LEG-SPRING",
+     "LEG-INSERT"
+    ],
+    "pids": [
+     "LEG-CLEVIS",
+     "LEG-DOUBLER",
+     "LEG-PIN",
+     "LEG-SPRING",
+     "LEG-INSERT"
+    ],
+    "title": "Hinge"
+   },
+   {
+    "d": [
+     0.3,
+     -1,
+     0.3
+    ],
+    "ghost": [
+     "LEG-DAMPER"
+    ],
+    "pids": [
+     "LEG-DAMPER",
+     "LEG-PLUNGER",
+     "LEG-FOOT"
+    ],
+    "title": "Damper and foot"
+   },
+   {
+    "d": [
+     0.55,
+     -1,
+     0.25
+    ],
+    "cfg": "flight",
+    "pids": [
+     "LEG-LOOP"
+    ],
+    "title": "Folded for flight"
+   }
+  ]
+ },
+ {
+  "key": "motorbay",
+  "title": "Motor bay and TVC gimbal",
+  "cfg": "flight",
+  "intro": "Both motors sit side by side in one 2-axis gimbal centred on its pivot. Two servos tilt it up to 7\u00b0 each way to steer the thrust. All thrust flows from the sleeve caps through the rings and pins into the thrust plate.",
+  "pids": [
+   "MOTOR-F52C",
+   "MOTOR-F25W",
+   "F25W-SPACER",
+   "SLEEVE-29",
+   "SLEEVE-CAP",
+   "CLIP-RET",
+   "CLIP-RET-L",
+   "IGN-CONN",
+   "GIMBAL-INNER",
+   "GIMBAL-MIDDLE",
+   "GIMBAL-POST",
+   "GIMBAL-POST-B",
+   "PIN-X",
+   "PIN-Y",
+   "THRUST-PLATE",
+   "THRUST-PLATE-AL",
+   "SERVO-GIMBAL-A",
+   "HORN-GIMBAL-A",
+   "PUSHROD-A",
+   "SERVO-BRKT-A",
+   "SERVO-GIMBAL-B",
+   "HORN-GIMBAL-B",
+   "PUSHROD-B",
+   "SERVO-BRKT-B",
+   "LIDAR-TFMINI",
+   "LIDAR-WINDOW",
+   "LIDAR-BRKT"
+  ],
+  "ghost": [
+   "SLEEVE-29",
+   "THRUST-PLATE",
+   "THRUST-PLATE-AL"
+  ],
+  "views": [
+   {
+    "d": [
+     0.4,
+     -1,
+     0.3
+    ]
+   },
+   {
+    "d": [
+     -0.4,
+     1,
+     0.3
+    ]
+   },
+   {
+    "d": [
+     0.5,
+     -0.6,
+     -0.9
+    ],
+    "title": "From below"
+   }
+  ]
+ },
+ {
+  "key": "throttle",
+  "title": "Exhaust-paddle throttle",
+  "cfg": "flight",
+  "intro": "A solid motor can't be throttled, so two ceramic paddles under the landing motor swing into its exhaust and deflect part of the thrust sideways. One servo drives both through a scissor linkage, so the side forces cancel.",
+  "pids": [
+   "PADDLE-R",
+   "PADDLE-L",
+   "PADDLE-ARM-OR",
+   "PADDLE-ARM-OL",
+   "PADDLE-ARM-IR",
+   "PADDLE-ARM-IL",
+   "PADDLE-PIN-R",
+   "PADDLE-PIN-L",
+   "PADDLE-BRKT",
+   "PADDLE-XHEAD",
+   "PADDLE-LINK-R",
+   "PADDLE-LINK-L",
+   "SERVO-PADDLE",
+   "HORN-PADDLE",
+   "PADDLE-SERVO-LINK",
+   "HEAT-SHIELD"
+  ],
+  "ghost": [],
+  "context": [
+   "MOTOR-F25W",
+   "SLEEVE-29"
+  ],
+  "views": [
+   {
+    "d": [
+     -0.75,
+     -1,
+     0.15
+    ]
+   },
+   {
+    "d": [
+     -0.6,
+     0.9,
+     -0.35
+    ]
+   }
+  ]
+ }
+]

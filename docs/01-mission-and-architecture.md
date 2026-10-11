@@ -15,16 +15,16 @@ Build a ~5 ft rocket that:
 
 | # | Event | Nominal value (simulation) | Trigger |
 |---|---|---|---|
-| 1 | Liftoff | 1.47 kg, T/W 4.3 peak / 3.5 average, AeroTech F52C | Club launch controller |
+| 1 | Liftoff | 1.47 kg, T/W 4.2 peak / 3.5 average, AeroTech F52C | Club launch controller |
 | 2 | Ascent burnout | 1.3 s, 23 m, 32 m/s | Accelerometer goes negative |
-| 3 | Apogee | **69 m (227 ft)** at 4.3 s | Kalman-filter velocity < −0.5 m/s for 50 ms |
+| 3 | Apogee | **69 m (226 ft)** at 4.3 s | Kalman-filter velocity < −0.5 m/s for 50 ms |
 | 3a | Top airbrakes open | 4 petals spring to 90° | Same event |
 | 4 | Tail-first fall | ~18 m/s | — |
 | 5 | Landing-motor FIRE command | ~15 m (49 ft) | Guidance predictor (every 5 ms) |
 | 5a | Legs flip down | 12 m | Altitude |
 | 5b | Ignition, AeroTech F25W | ~0.3 s after FIRE | Accelerometer jump |
-| 6 | Burn: 50 → 39 → 32 → 26 → 19 → 18 N | ~1.5 s | Throttle re-planned 50x/s |
-| 7 | Touchdown | **1.1 m/s** at 10.3 s (Monte Carlo mean 1.4, p95 2.1) | Lidar / altitude |
+| 6 | Burn: 48 → 39 → 31 → 25 → 22 → 19 N | ~1.5 s | Throttle re-planned 50x/s |
+| 7 | Touchdown | **1.1 m/s** at 10.3 s (Monte Carlo mean 1.4, p95 2.0) | Lidar / altitude |
 | 8 | Safe | paddles closed, motor burns out | — |
 
 Run it yourself: `python sim/scripts/run_nominal.py`.
@@ -34,12 +34,12 @@ Run it yourself: `python sim/scripts/run_nominal.py`.
 | ID | Requirement | Source / rationale | How it is met |
 |---|---|---|---|
 | R1 | Length ~5 ft | User | 60 in (1.524 m) |
-| R2 | Apogee ~200 ft | User | 227 ft nominal (203-256 ft p5-p95) |
+| R2 | Apogee ~200 ft | User | 226 ft nominal (202-254 ft p5-p95) |
 | R3 | Solid motor up, thrust-controlled motor down | User | F52C up; F25W down with exhaust-paddle throttle (k = 0.25-1.0) + TVC |
 | R4 | Burn is strong first, then simmers to barely firing | User | "Exponential-decay" guidance: net braking A·e^(−t/τ) + C, ending at ~hover thrust |
 | R5 | No drogue: engine-only recovery | User | Top airbrakes (rigid petals) for attitude only; the engine does all braking |
 | R6 | Legs flip down near the ground | User | 4 spring legs released by a servo pin at 12 m |
-| R7 | Liftoff mass ≤ 1500 g, propellant ≤ 125 g | FAA Class 1 ([§101.22](https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-101/subpart-C/section-101.22)) | 1467 g from the CAD (**33 g margin**), 68.8 g |
+| R7 | Liftoff mass ≤ 1500 g, propellant ≤ 125 g | FAA Class 1 ([§101.22](https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-101/subpart-C/section-101.22)) | 1472 g from the CAD (**28 g margin**), 68.8 g |
 | R8 | Touchdown ≤ 2.5 m/s vertical, ≤ 1.5 m/s lateral, ≤ 10° tilt | Leg sizing ([docs/07](07-landing-legs.md)) | 93% of 300 Monte Carlo flights, 0 crashes |
 | R11 | Every part fits, clears and can be made | Build | Full CAD ([docs/13](13-cad.md)): 0 clashes, gimbal free through ±7° |
 | R9 | Fail-safe if the landing motor doesn't light | NAR code, MA law, safety | Backup 30 in chute fires **only** on an abort |
@@ -65,7 +65,7 @@ SLR-1 does the same, and adds three choices that made the simulator happy.
    90% for a linear-ramp plan.
 3. **A low flight and a short fall.** At 200 ft the fall is short and slow
    (~18 m/s), and wind drift is small (p5-p95 of the landing spot is
-   −20 to +21 m from the pad).
+   −20 to +20 m from the pad).
 
 ### Why not finless, like the videos?
 
@@ -91,7 +91,7 @@ and ~4 s down, too long without passive stability.
 |---|---|---|
 | **Solid + exhaust paddles + TVC** (F25W) | Partial, k = 0.25-1.0 | **Baseline.** Proven by BPS; works in the 1.5 kg model-rocket class |
 | Solid, ignition timing only | No | Not viable: ±0.08 s of ignition scatter at 18 m/s is ±1.5 m of altitude error |
-| Long-burn solid (AeroTech G25W reload, 5.3 s) + paddles | Partial | Lands as well (93% in Monte Carlo, ~2.9 s controlled burn lit at ~80 ft), but its metal case puts rev C at 1564 g, **over the 1500 g limit** |
+| Long-burn solid (AeroTech G25W reload, 5.3 s) + paddles | Partial | Lands as well (94% in Monte Carlo, ~2.9 s controlled burn lit at ~80 ft), but its metal case puts rev C at 1570 g, **over the 1500 g limit** |
 | 80-90 mm electric ducted fan | Full, can hover | Adds 0.8-1.2 kg → high-power rocket; great as a tethered test bed |
 | Throttled hybrid / liquid | Full | Research-grade, high-power rules |
 
@@ -118,7 +118,7 @@ Sources and details: [docs/04-propulsion.md](04-propulsion.md).
 
 - **Done:**
   - design, sizing and a 3-DOF simulator with Monte Carlo;
-  - a full 3D CAD model (129 parts) with STEP, STL and DXF files, a clash
+  - a full 3D CAD model (133 parts) with STEP, STL and DXF files, a clash
     check and a gimbal sweep ([docs/13](13-cad.md));
   - flight software: a C++ core with 29 native unit and SIL tests that match
     the Python simulator, plus a Teensy hardware layer that compile-checks.
@@ -127,7 +127,7 @@ Sources and details: [docs/04-propulsion.md](04-propulsion.md).
 - **Biggest risks, in order:**
   1. **Wind.** Landing attempts only in surface wind under 3 m/s (~6.7 mph);
      success falls to 84% at 3-4 m/s.
-  2. **Mass.** The CAD puts liftoff at 1467 g, 33 g under the 1500 g limit.
+  2. **Mass.** The CAD puts liftoff at 1472 g, 28 g under the 1500 g limit.
      Weigh every part; [docs/03](03-vehicle-design.md#32-mass-budget-target--1500-g-at-liftoff)
      lists where to cut.
   3. **Airbrake petals:** they must open reliably and give the drag the

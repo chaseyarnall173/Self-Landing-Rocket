@@ -22,7 +22,9 @@
    "note": "0.8 mm walls; shoulder 1.6 mm. Held by 3 x M3 so the airbrake latch stays reachable.",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Nose cone",
+   "role": "Printed PETG tangent ogive, 0.8 mm wall. Its 2 in shoulder slides into the nose ring. Three printed bosses inside take the retention screws."
   },
   "NOSE-SCREW": {
    "name": "M3 x 8 button-head screw (nose retention)",
@@ -34,7 +36,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 3
+   "qty": 3,
+   "short": "M3 retention screws",
+   "role": "Hold the nose on through the nose ring. Take them out to lift the nose off and reach the airbrake latch."
   },
   "TUBE-01": {
    "name": "Nose ring, LOC 3.9 in kraft tube (71 mm)",
@@ -46,7 +50,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Nose ring (tube)",
+   "role": "The 71 mm piece of body tube between the nose and the petals. The fixed hinge halves are bonded to it, and it is glued 19 mm onto the airbrake sleeve."
   },
   "PETAL-HINGE-F": {
    "name": "Petal hinge, fixed half with 90 deg stop",
@@ -58,7 +64,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Fixed hinge half + 90\u00b0 stop",
+   "role": "Printed CF-nylon leaf bonded to the nose ring with two knuckles. Its stop block catches the open petal at 90\u00b0 against ~3 N of air load."
   },
   "PETAL-01": {
    "name": "Airbrake petal, 90 deg quadrant cut from the tube (149 mm)",
@@ -70,7 +78,9 @@
    "note": "Seal edges with thin CA; 2 oz fibreglass inside.",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Airbrake petal (x4)",
+   "role": "A 90\u00b0 quadrant cut from the body tube, 150 mm long. Flush with the skin on the way up; springs out to 90\u00b0 at apogee so the rocket falls tail-first and stable at ~18 m/s."
   },
   "PETAL-HINGE-M": {
    "name": "Petal hinge, moving half",
@@ -82,7 +92,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Moving hinge half",
+   "role": "Printed CF-nylon leaf bonded to the petal's forward edge; its middle knuckle turns on the hinge pin."
   },
   "PETAL-PIN": {
    "name": "Petal hinge pin, 1.6 mm stainless, 34 mm",
@@ -94,7 +106,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Hinge pin",
+   "role": "1.6 mm stainless pin through the three knuckles; it also carries the torsion spring."
   },
   "PETAL-SPRING": {
    "name": "Petal torsion spring, ~0.1 N m",
@@ -106,7 +120,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Torsion spring",
+   "role": "About 0.1 N\u00b7m of preload that flips the petal open in under 0.2 s when the latch lets go."
   },
   "PETAL-TAB": {
    "name": "Petal latch tab",
@@ -118,7 +134,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Latch tab",
+   "role": "Printed tab bonded inside the petal's aft edge. It pokes through the sleeve slot, and its notch is where the latch-ring finger sits."
   },
   "CPL-01": {
    "name": "Airbrake sleeve, LOC 3.9 in coupler (189 mm), latch slots + 4 lightening windows",
@@ -130,7 +148,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Airbrake sleeve (coupler)",
+   "role": "189 mm LOC coupler that holds the nose ring and the recovery section together across the petal band. Windows under each petal save 33 g; slots let the petal tabs through."
   },
   "LATCH-RING": {
    "name": "Airbrake latch ring with 4 fingers",
@@ -142,7 +162,65 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Latch ring",
+   "role": "Printed ring inside the sleeve with one finger per petal. Turning it a few degrees slides all four fingers out of the tab notches at once."
+  },
+  "SERVO-LATCH": {
+   "name": "Airbrake-latch micro servo (4.3 g)",
+   "group": "Top airbrakes",
+   "material": "servo",
+   "process": "buy",
+   "mass_g": 4.3,
+   "budget": "Top airbrake petals, hinges, springs, latch servo",
+   "note": "",
+   "stl": false,
+   "dxf": false,
+   "qty": 1,
+   "short": "Latch servo",
+   "role": "4.3 g micro servo (pin 7) that turns the latch ring at apogee."
+  },
+  "HORN-LATCH": {
+   "name": "Servo horn",
+   "group": "Top airbrakes",
+   "material": "cf_nylon",
+   "process": "buy",
+   "mass_g": 0.3,
+   "budget": "Top airbrake petals, hinges, springs, latch servo",
+   "note": "",
+   "stl": false,
+   "dxf": false,
+   "qty": 1,
+   "short": "Servo horn",
+   "role": "Arm on the latch servo's output shaft."
+  },
+  "LATCH-LINK": {
+   "name": "Servo-to-latch-ring link",
+   "group": "Top airbrakes",
+   "material": "steel",
+   "process": "buy",
+   "mass_g": 0.3,
+   "budget": "Top airbrake petals, hinges, springs, latch servo",
+   "note": "",
+   "stl": false,
+   "dxf": false,
+   "qty": 1,
+   "short": "Latch link",
+   "role": "Wire link with ball ends from the horn to the latch ring's lug."
+  },
+  "LATCH-SERVO-BRKT": {
+   "name": "Latch servo mount, bonded to the sleeve",
+   "group": "Top airbrakes",
+   "material": "cf_nylon",
+   "process": "3D print",
+   "mass_g": 0.74,
+   "budget": "Top airbrake petals, hinges, springs, latch servo",
+   "note": "",
+   "stl": true,
+   "dxf": false,
+   "qty": 1,
+   "short": "Servo mount",
+   "role": "Printed block that bonds the latch servo to the solid strip of sleeve between two windows."
   },
   "TUBE-02": {
    "name": "Recovery section, kraft tube (223 mm) with door cut-out",
@@ -154,7 +232,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Recovery section (tube)",
+   "role": "223 mm of body tube between the petals and the avionics bay. It holds the chute bay and has the door cut out of it."
   },
   "DOOR-01": {
    "name": "Chute door, cut from the tube",
@@ -166,7 +246,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Chute door",
+   "role": "105 x 70 mm panel cut from the tube. It is latched shut in a normal flight; in an abort it swings open and the chute is pushed out."
   },
   "DOOR-HINGE-F": {
    "name": "Door hinge, fixed half",
@@ -178,7 +260,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Door hinge, fixed half",
+   "role": "Printed hinge leaf on the tube at the door's aft edge."
   },
   "DOOR-HINGE-M": {
    "name": "Door hinge, moving half",
@@ -190,7 +274,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Door hinge, moving half",
+   "role": "Printed hinge leaf on the door."
   },
   "DOOR-PIN": {
    "name": "Door hinge pin, 1.6 mm stainless",
@@ -202,7 +288,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Door hinge pin",
+   "role": "1.6 mm stainless pin through the door hinge."
   },
   "DOOR-LUG": {
    "name": "Door latch lug",
@@ -214,7 +302,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Door latch lug",
+   "role": "Printed lug inside the door's forward edge; the chute-latch pin passes through it to hold the door shut."
   },
   "TUBE-03": {
    "name": "Switch band, kraft tube (25 mm): key, switch, static ports, leg pin",
@@ -226,7 +316,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Switch band",
+   "role": "25 mm ring of body tube glued around the middle of the avionics coupler. It carries the arm key, main switch, leg-release pin and three static ports."
   },
   "CPL-02": {
    "name": "Avionics-bay coupler, LOC 3.9 in (160 mm)",
@@ -238,7 +330,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Avionics coupler",
+   "role": "160 mm LOC coupler that is the avionics bay. It joins the recovery section to the aft tube."
   },
   "TUBE-04": {
    "name": "Aft airframe, kraft tube (731 mm), fin and leg slots",
@@ -250,7 +344,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Aft tube",
+   "role": "731 mm of body tube from the avionics bay to the tail. Slotted for the fins and leg clevises."
   },
   "LINER-AFT": {
    "name": "Aft carbon liner, 2 wraps 200 gsm + epoxy (6 in), slotted",
@@ -262,7 +358,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Carbon liner",
+   "role": "Two wraps of carbon cloth inside the last 6 in. They stiffen the tube where the fins, legs and thrust plate load it."
   },
   "FIN-01": {
    "name": "Fin, 3/32 in aircraft birch ply, through-the-wall",
@@ -274,7 +372,9 @@
    "note": "Round the leading edge; 6 mm epoxy fillets.",
    "stl": false,
    "dxf": true,
-   "qty": 4
+   "qty": 4,
+   "short": "Fin (x4)",
+   "role": "3/32 in birch ply, through the wall. Keeps the rocket pointed while it coasts up with the motor out."
   },
   "FIN-FILLET": {
    "name": "Epoxy root fillet, 6 mm",
@@ -286,7 +386,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 8
+   "qty": 8,
+   "short": "Epoxy fillets (x8)",
+   "role": "6 mm epoxy fillets on both sides of each fin root; they make the joint strong."
   },
   "RECOV-BH": {
    "name": "Recovery bulkhead, 1/8 in ply, U-bolt + cable holes",
@@ -298,7 +400,9 @@
    "note": "",
    "stl": false,
    "dxf": true,
-   "qty": 1
+   "qty": 1,
+   "short": "Recovery bulkhead",
+   "role": "1/8 in ply disc glued in the tube at the top of the chute bay. It carries the U-bolt and separates the bay from the airbrake sleeve."
   },
   "UBOLT": {
    "name": "M4 U-bolt, shock-cord anchor",
@@ -310,7 +414,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "U-bolt",
+   "role": "M4 U-bolt: the strong point the shock cord and chute hang from."
   },
   "NUT-M4": {
    "name": "M4 nut",
@@ -322,7 +428,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "M4 nuts",
+   "role": "Clamp the U-bolt to the bulkhead."
   },
   "CHUTE-NOMEX": {
    "name": "Nomex chute protector (9 in), wrapped",
@@ -334,7 +442,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Nomex wrap",
+   "role": "Fire-resistant blanket wrapped around the folded chute, in case the motors' heat reaches it."
   },
   "CHUTE-30": {
    "name": "Backup main parachute, 30 in nylon, Z-folded",
@@ -346,7 +456,9 @@
    "note": "Packed size about 54 x 74 mm.",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Backup parachute, 30 in",
+   "role": "Nylon chute, Z-folded to about 54 x 74 mm. Used only in an abort; it brings 1.4 kg down at about 5-6 m/s."
   },
   "SHOCK-CORD": {
    "name": "Kevlar shock cord, 4.5 m, flaked and bundled",
@@ -358,7 +470,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Shock cord",
+   "role": "4.5 m of Kevlar, flaked and bundled. It absorbs the snatch when the chute opens."
   },
   "SHOCK-CORD-RUN": {
    "name": "Shock cord to U-bolt and riser",
@@ -370,7 +484,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Cord to U-bolt",
+   "role": "The ends of the shock cord: one tied to the U-bolt, one to the chute's riser."
   },
   "EJECT-PLATE": {
    "name": "Ejector plate, 2 mm ply",
@@ -382,7 +498,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Ejector plate",
+   "role": "Thin ply plate on two springs that pushes the chute pack toward the door."
   },
   "EJECT-SPRING": {
    "name": "Ejector compression spring, ~20 N each",
@@ -394,7 +512,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "Ejector springs (x2)",
+   "role": "Compression springs, ~20 N each, that throw the chute out when the door opens."
   },
   "EJECT-CUP": {
    "name": "Ejector spring seat",
@@ -406,7 +526,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "Spring seats (x2)",
+   "role": "Printed cups bonded to the far wall that locate the ejector springs."
   },
   "SERVO-CHUTE": {
    "name": "Chute-latch micro servo (4.3 g)",
@@ -418,7 +540,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Chute-latch servo",
+   "role": "4.3 g micro servo (pin 29) under the bulkhead. It pulls the latch pin to open the door."
   },
   "HORN-CHUTE": {
    "name": "Servo horn",
@@ -430,7 +554,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo horn",
+   "role": "Arm on the chute-latch servo."
   },
   "CHUTE-PIN": {
    "name": "Chute-latch pin, 1.8 mm steel",
@@ -442,7 +568,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Latch pin",
+   "role": "1.8 mm steel pin through the door lug. Pulling it releases the door."
   },
   "CHUTE-LINK": {
    "name": "Servo-to-pin link",
@@ -454,7 +582,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Pin link",
+   "role": "Wire link from the servo horn to the latch pin."
   },
   "CHUTE-SERVO-BRKT": {
    "name": "Chute servo mount",
@@ -466,7 +596,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo mount",
+   "role": "Printed block that bonds the servo to the bulkhead."
   },
   "AV-LID-F": {
    "name": "Avionics bay forward lid, 1/8 in ply",
@@ -478,7 +610,9 @@
    "note": "",
    "stl": false,
    "dxf": true,
-   "qty": 1
+   "qty": 1,
+   "short": "Forward lid",
+   "role": "1/8 in ply disc that closes the top of the bay; the GPS patch hangs under it."
   },
   "AV-LID-A": {
    "name": "Avionics bay aft lid, 1/8 in ply, grommet + cable holes",
@@ -490,7 +624,9 @@
    "note": "",
    "stl": false,
    "dxf": true,
-   "qty": 1
+   "qty": 1,
+   "short": "Aft lid",
+   "role": "1/8 in ply disc that closes the bottom of the bay, with the harness grommet and lidar-cable hole."
   },
   "AV-LID-RING-F": {
    "name": "Lid locating ring, PETG",
@@ -502,7 +638,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Lid ring (forward)",
+   "role": "Printed ring that keys the forward lid into the coupler."
   },
   "AV-LID-RING-A": {
    "name": "Lid locating ring, PETG",
@@ -514,7 +652,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Lid ring (aft)",
+   "role": "Printed ring that keys the aft lid into the coupler."
   },
   "AV-ROD": {
    "name": "M3 nylon threaded rod, 175 mm",
@@ -526,7 +666,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "Threaded rods (x2)",
+   "role": "M3 nylon rods that clamp the two lids to the coupler and guide the sled."
   },
   "NUT-M3": {
    "name": "M3 nylon wing nut",
@@ -538,7 +680,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Wing nuts (x4)",
+   "role": "Nylon wing nuts on the rod ends; finger-tight so the bay opens on the field."
   },
   "AV-SLED": {
    "name": "Avionics sled, 1/8 in lite ply",
@@ -550,7 +694,9 @@
    "note": "",
    "stl": false,
    "dxf": true,
-   "qty": 1
+   "qty": 1,
+   "short": "Sled",
+   "role": "1/8 in lite-ply board everything electronic mounts to. It slides out on the rods."
   },
   "AV-SLED-TUBE": {
    "name": "Sled rod guide, printed",
@@ -562,7 +708,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "Rod guides (x2)",
+   "role": "Printed tubes along the sled edges that ride on the threaded rods."
   },
   "STANDOFF-3": {
    "name": "Nylon standoff 3 mm",
@@ -574,7 +722,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 12
+   "qty": 12,
+   "short": "Standoffs",
+   "role": "3 mm nylon spacers under the boards."
   },
   "PERFBOARD": {
    "name": "Perfboard 54 x 120 mm (flight computer carrier)",
@@ -586,7 +736,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Flight-computer board",
+   "role": "54 x 120 mm perfboard carrying the Teensy, sensors, regulator and pyro channels. Becomes a PCB once the design is frozen."
   },
   "HEADERS": {
    "name": "Female header strips 2 x 24",
@@ -598,7 +750,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Header strips",
+   "role": "Sockets the Teensy plugs into, so it can be swapped."
   },
   "TEENSY-41": {
    "name": "PJRC Teensy 4.1 (600 MHz, microSD log)",
@@ -610,7 +764,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Teensy 4.1",
+   "role": "The flight computer: a 600 MHz microcontroller that runs the 1 kHz state estimator and re-plans the landing burn 50 times a second, logging everything to its microSD card."
   },
   "IMU-BMI088": {
    "name": "Bosch BMI088 IMU breakout (Seeed Grove), on the axis",
@@ -622,7 +778,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "BMI088 IMU",
+   "role": "Accelerometer (\u00b124 g) and gyro. Mounted near the rocket's axis so it reads attitude and acceleration cleanly."
   },
   "STANDOFF-5": {
    "name": "IMU standoffs (4)",
@@ -634,7 +792,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "IMU standoffs",
+   "role": "Four 5 mm standoffs that mount the IMU rigidly."
   },
   "BARO-BMP390": {
    "name": "Bosch BMP390 barometer breakout (Adafruit)",
@@ -646,7 +806,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "BMP390 barometer",
+   "role": "Measures air pressure for altitude through the whole flight, through the static ports."
   },
   "BARO-FOAM": {
    "name": "Open-cell foam over the barometer",
@@ -658,7 +820,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Barometer foam",
+   "role": "Open-cell foam that shields the barometer from gusts and light."
   },
   "BUCK-5V": {
    "name": "Pololu D24V30F5 5 V 3 A buck",
@@ -670,7 +834,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "5 V regulator",
+   "role": "Steps the 2S battery down to 5 V for the Teensy, lidar and micro servos."
   },
   "FET-AO3400": {
    "name": "AO3400A pyro MOSFET (SOT-23)",
@@ -682,7 +848,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "Pyro MOSFETs (x2)",
+   "role": "Switch the two landing-motor igniters, fired together."
   },
   "CAP-1000U": {
    "name": "1000 uF servo-rail capacitor",
@@ -694,7 +862,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo-rail capacitor",
+   "role": "1000 \u00b5F reservoir that keeps servo current spikes from browning out the computer."
   },
   "BUZZER": {
    "name": "11 mm piezo buzzer",
@@ -706,7 +876,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Buzzer",
+   "role": "Beeps the arm state and status on the pad and helps you find the rocket."
   },
   "JST-GH": {
    "name": "JST-GH locking header",
@@ -718,7 +890,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 6
+   "qty": 6,
+   "short": "Locking connectors",
+   "role": "JST-GH headers for servos, sensors and the pyro leads; they can't shake loose."
   },
   "SERVO-LEGPIN": {
    "name": "Leg-release micro servo (4.3 g)",
@@ -730,7 +904,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Leg-release servo",
+   "role": "4.3 g micro servo (pin 28) that pulls the leg-release pin at 12 m."
   },
   "HORN-LEGPIN": {
    "name": "Servo horn",
@@ -742,7 +918,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo horn",
+   "role": "Arm on the leg-release servo."
   },
   "LEG-RELEASE-PIN": {
    "name": "Leg-release pin, 1.5 mm steel",
@@ -754,7 +932,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Leg-release pin",
+   "role": "1.5 mm steel pin poking out of the switch band. The Kevlar loop that holds the folded legs hooks over it."
   },
   "LEGPIN-LINK": {
    "name": "Servo-to-pin link",
@@ -766,7 +946,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Pin link",
+   "role": "Wire link from the servo horn to the release pin."
   },
   "LEGPIN-BRKT": {
    "name": "Leg-release servo mount",
@@ -778,7 +960,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo mount",
+   "role": "Printed block that bonds the leg-release servo to the coupler wall."
   },
   "LIPO-2S": {
    "name": "2S 450 mAh LiPo",
@@ -790,7 +974,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "2S LiPo battery",
+   "role": "450 mAh, 7.4 V pack that powers everything for about 15 minutes of pad time."
   },
   "GPS-M9N": {
    "name": "u-blox NEO-M9N GPS breakout (SparkFun)",
@@ -802,7 +988,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "GPS receiver",
+   "role": "u-blox NEO-M9N; gives the sideways velocity the landing burn cancels."
   },
   "GPS-PATCH": {
    "name": "25 mm ceramic GPS patch antenna, under the forward lid",
@@ -814,7 +1002,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "GPS antenna",
+   "role": "25 mm ceramic patch under the forward lid, facing the sky."
   },
   "LORA-RFM95W": {
    "name": "HopeRF RFM95W 915 MHz LoRa breakout",
@@ -826,7 +1016,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "LoRa radio",
+   "role": "915 MHz telemetry link to the ground station."
   },
   "LORA-ANT": {
    "name": "915 MHz quarter-wave wire antenna (82 mm)",
@@ -838,7 +1030,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Radio antenna",
+   "role": "82 mm quarter-wave wire antenna."
   },
   "ARM-KEY-SW": {
    "name": "Arm key switch (pyro rail), panel-mount through the band",
@@ -850,7 +1044,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Arm key switch",
+   "role": "Physical switch in the igniter power line. Key out means the landing motor cannot fire, whatever the software does."
   },
   "ARM-KEY": {
    "name": "Arm key (remove before flight on the bench)",
@@ -862,7 +1058,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Arm key",
+   "role": "Removable key; it goes in only at the pad."
   },
   "MAIN-SW": {
    "name": "Main power toggle switch",
@@ -874,7 +1072,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Main power switch",
+   "role": "Turns the flight computer on."
   },
   "GROMMET": {
    "name": "Harness grommet, aft lid",
@@ -886,7 +1086,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Harness grommet",
+   "role": "Printed TPU grommet where the servo and pyro wiring leaves the bay."
   },
   "HARNESS-AFT": {
    "name": "Servo / pyro harness to the motor bay (bundle)",
@@ -898,7 +1100,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Wiring harness",
+   "role": "Servo and pyro wiring from the avionics bay down the tube wall to the motor bay."
   },
   "CABLE-LIDAR": {
    "name": "Lidar cable, along the 315 deg leg line",
@@ -910,7 +1114,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Lidar cable",
+   "role": "Runs from the avionics bay to the lidar along the 315\u00b0 leg line."
   },
   "CABLE-FWD": {
    "name": "Airbrake / chute servo cable",
@@ -922,7 +1128,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo cable",
+   "role": "Runs the airbrake-latch and chute-latch servo leads up from the avionics bay through the bulkhead."
   },
   "MOTOR-F52C": {
    "name": "AeroTech F52C ascent motor (29 x 111 mm, 81 g)",
@@ -934,7 +1142,9 @@
    "note": "Plugged / no-ejection configuration only.",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "F52C ascent motor",
+   "role": "AeroTech F52C, 66 N\u00b7s. Lit by the launch controller; flies the rocket to ~226 ft."
   },
   "MOTOR-F25W": {
    "name": "AeroTech F25W landing motor (29 x 98 mm, 97 g)",
@@ -946,7 +1156,9 @@
    "note": "Two igniters, fired by the flight computer.",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "F25W landing motor",
+   "role": "AeroTech F25W, 71 N\u00b7s. Lit by the flight computer at ~15 m on the way down; its thrust fades naturally ('strong, then simmer')."
   },
   "F25W-SPACER": {
    "name": "F25W 13 mm spacer (both nozzles exit together)",
@@ -958,7 +1170,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "F25W spacer",
+   "role": "13 mm printed spacer so both nozzles end at the same height (the F25W is shorter)."
   },
   "SLEEVE-29": {
    "name": "29 mm motor sleeve, kraft motor-mount tube, 113 mm (high-temp epoxy)",
@@ -970,7 +1184,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "Motor sleeve (x2)",
+   "role": "113 mm kraft motor tube bonded into the inner gimbal ring; the motors slide in from the bottom."
   },
   "SLEEVE-CAP": {
    "name": "Sleeve thrust cap, aluminium (igniter-lead hole)",
@@ -982,7 +1198,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "Thrust cap (x2)",
+   "role": "Aluminium cap on the top of each sleeve. The motor pushes on it, and the igniter leads pass through its hole."
   },
   "CLIP-RET": {
    "name": "Spring-steel clip retainer + M2 screw",
@@ -994,7 +1212,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Clip retainer (ascent)",
+   "role": "Spring-steel clip that hooks under the motor's aft end so it can't slide out."
   },
   "CLIP-RET-L": {
    "name": "Spring-steel clip retainer + M2 screw",
@@ -1006,7 +1226,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Clip retainer (landing)",
+   "role": "Same clip on the landing-motor sleeve."
   },
   "IGN-CONN": {
    "name": "Landing-igniter 2-pin locking connector",
@@ -1018,7 +1240,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Igniter connector",
+   "role": "Locking 2-pin connector for the landing igniters; it stays unplugged until the pad."
   },
   "GIMBAL-INNER": {
    "name": "Gimbal inner ring (holds both sleeves), CF-nylon",
@@ -1030,7 +1254,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Inner gimbal ring",
+   "role": "Holds both sleeves. Tilts about the X axis on the X pins; servo B drives it."
   },
   "GIMBAL-MIDDLE": {
    "name": "Gimbal middle ring, CF-nylon",
@@ -1042,7 +1268,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Middle gimbal ring",
+   "role": "Carries the inner ring. Tilts about the Y axis on the Y pins; servo A drives it."
   },
   "GIMBAL-POST": {
    "name": "Gimbal yoke post (outer frame), CF-nylon",
@@ -1054,7 +1282,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Yoke post (+Y)",
+   "role": "Fixed post from the thrust plate that holds one Y pin."
   },
   "GIMBAL-POST-B": {
    "name": "Gimbal yoke post (outer frame), CF-nylon",
@@ -1066,7 +1296,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Yoke post (\u2212Y)",
+   "role": "The matching post on the other side."
   },
   "PIN-X": {
    "name": "Gimbal pin, 3 mm steel (X axis)",
@@ -1078,7 +1310,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "X pins (x2)",
+   "role": "3 mm steel pivots between the inner and middle rings."
   },
   "PIN-Y": {
    "name": "Gimbal pin, 3 mm steel (Y axis)",
@@ -1090,7 +1324,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 2
+   "qty": 2,
+   "short": "Y pins (x2)",
+   "role": "3 mm steel pivots between the middle ring and the yoke posts."
   },
   "THRUST-PLATE": {
    "name": "Thrust plate, 1/8 in ply ring",
@@ -1102,7 +1338,9 @@
    "note": "",
    "stl": false,
    "dxf": true,
-   "qty": 1
+   "qty": 1,
+   "short": "Thrust plate (ply)",
+   "role": "1/8 in ply ring bonded in the tube. All motor thrust ends up here and goes into the airframe."
   },
   "THRUST-PLATE-AL": {
    "name": "Thrust plate, 1 mm aluminium ring",
@@ -1114,7 +1352,9 @@
    "note": "",
    "stl": false,
    "dxf": true,
-   "qty": 1
+   "qty": 1,
+   "short": "Thrust plate (aluminium)",
+   "role": "1 mm aluminium ring on the ply that spreads the post and servo loads."
   },
   "SERVO-GIMBAL-A": {
    "name": "KST X08H gimbal servo A (pitch, drives middle ring)",
@@ -1126,7 +1366,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Gimbal servo A",
+   "role": "KST X08H (pin 2) that tilts the middle ring: pitch."
   },
   "HORN-GIMBAL-A": {
    "name": "Servo horn (10 mm)",
@@ -1138,7 +1380,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo horn A",
+   "role": "10 mm horn, about a 2:1 servo-to-gimbal ratio."
   },
   "PUSHROD-A": {
    "name": "1.5 mm steel pushrod with ball links",
@@ -1150,7 +1394,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Pushrod A",
+   "role": "1.5 mm steel rod with ball links from servo A to the middle-ring lug."
   },
   "SERVO-BRKT-A": {
    "name": "Gimbal servo bracket, CF-nylon",
@@ -1162,7 +1408,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo bracket A",
+   "role": "Printed bracket on the thrust plate."
   },
   "SERVO-GIMBAL-B": {
    "name": "KST X08H gimbal servo B (yaw, drives inner ring)",
@@ -1174,7 +1422,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Gimbal servo B",
+   "role": "KST X08H (pin 3) that tilts the inner ring: yaw."
   },
   "HORN-GIMBAL-B": {
    "name": "Servo horn (10 mm)",
@@ -1186,7 +1436,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo horn B",
+   "role": "10 mm horn."
   },
   "PUSHROD-B": {
    "name": "1.5 mm steel pushrod with ball links",
@@ -1198,7 +1450,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Pushrod B",
+   "role": "Ball-link rod from servo B to the inner-ring lug."
   },
   "SERVO-BRKT-B": {
    "name": "Gimbal servo bracket, CF-nylon",
@@ -1210,7 +1464,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo bracket B",
+   "role": "Printed bracket on the thrust plate."
   },
   "PADDLE-R": {
    "name": "Throttle paddle, alumina-silicate ceramic 20 x 28 x 4",
@@ -1222,7 +1478,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Paddle (+Y)",
+   "role": "Machinable ceramic, 20 x 28 x 4 mm. Swings into the landing motor's exhaust to deflect up to 75 % of its thrust sideways: the throttle."
   },
   "PADDLE-ARM-OR": {
    "name": "Paddle arm with lever, 1.5 mm 304 stainless",
@@ -1234,7 +1492,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Outboard arm + lever (+Y)",
+   "role": "1.5 mm stainless arm that holds the paddle; its lever is what the scissor link pushes."
   },
   "PADDLE-ARM-IR": {
    "name": "Paddle arm, 1.5 mm 304 stainless",
@@ -1246,7 +1506,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Inboard arm (+Y)",
+   "role": "Second stainless arm on the paddle's other end."
   },
   "PADDLE-PIN-R": {
    "name": "Paddle pivot pin, 2 mm steel",
@@ -1258,7 +1520,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Pivot pin (+Y)",
+   "role": "2 mm steel pin the paddle swings on, 8 mm below the nozzle."
   },
   "PADDLE-LINK-R": {
    "name": "Scissor link",
@@ -1270,7 +1534,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Scissor link (+Y)",
+   "role": "Link from the crosshead to the +Y paddle lever."
   },
   "PADDLE-L": {
    "name": "Throttle paddle, alumina-silicate ceramic 20 x 28 x 4",
@@ -1282,7 +1548,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Paddle (\u2212Y)",
+   "role": "Its twin on the other side, so the two side forces cancel."
   },
   "PADDLE-ARM-OL": {
    "name": "Paddle arm with lever, 1.5 mm 304 stainless",
@@ -1294,7 +1562,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Outboard arm + lever (\u2212Y)",
+   "role": "Same, other paddle."
   },
   "PADDLE-ARM-IL": {
    "name": "Paddle arm, 1.5 mm 304 stainless",
@@ -1306,7 +1576,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Inboard arm (\u2212Y)",
+   "role": "Same, other paddle."
   },
   "PADDLE-PIN-L": {
    "name": "Paddle pivot pin, 2 mm steel",
@@ -1318,7 +1590,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Pivot pin (\u2212Y)",
+   "role": "Same, other paddle."
   },
   "PADDLE-LINK-L": {
    "name": "Scissor link",
@@ -1330,7 +1604,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Scissor link (\u2212Y)",
+   "role": "Link to the \u2212Y paddle lever."
   },
   "PADDLE-BRKT": {
    "name": "Paddle bracket on the inner gimbal ring, 1.5 mm 6061 aluminium",
@@ -1342,7 +1618,9 @@
    "note": "Wrap the plume-facing rails in stainless tape / ceramic paper.",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Paddle bracket",
+   "role": "1.5 mm aluminium U-bracket under the inner gimbal ring, so the paddles move with the motor."
   },
   "PADDLE-XHEAD": {
    "name": "Scissor crosshead",
@@ -1354,7 +1632,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Scissor crosshead",
+   "role": "Slides up and down. Through the two links it opens or closes both paddles together."
   },
   "SERVO-PADDLE": {
    "name": "KST X08H paddle (throttle) servo, strapped to the bracket",
@@ -1366,7 +1646,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Throttle servo",
+   "role": "KST X08H (pin 4) strapped to the bracket. It moves the crosshead 50 times a second to follow the burn plan."
   },
   "HORN-PADDLE": {
    "name": "Servo horn (10 mm)",
@@ -1378,7 +1660,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo horn",
+   "role": "10 mm horn on the throttle servo."
   },
   "PADDLE-SERVO-LINK": {
    "name": "Servo-to-crosshead link",
@@ -1390,7 +1674,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Servo link",
+   "role": "Link from the horn to the crosshead, through a slot in the bracket."
   },
   "HEAT-SHIELD": {
    "name": "Servo heat shield, aluminium + ceramic paper",
@@ -1402,7 +1688,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Heat shield",
+   "role": "Aluminium plus ceramic paper under the servo, between it and the plume."
   },
   "LIDAR-TFMINI": {
    "name": "Benewake TFmini-S lidar, looking down",
@@ -1414,7 +1702,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Lidar",
+   "role": "Benewake TFmini-S looking straight down; measures the last ~7 m to the ground and detects touchdown."
   },
   "LIDAR-WINDOW": {
    "name": "Replaceable 1 mm polycarbonate lidar window",
@@ -1426,7 +1716,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Lidar window",
+   "role": "Replaceable 1 mm polycarbonate shield that keeps exhaust soot off the lidar's lenses. Wipe it after every flight."
   },
   "LIDAR-BRKT": {
    "name": "Lidar bracket, CF-nylon",
@@ -1438,7 +1730,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Lidar bracket",
+   "role": "Printed bracket on the liner at 315\u00b0, clear of both plumes and the paddles; its lip holds the window."
   },
   "LEG-CLEVIS": {
    "name": "Leg hinge clevis with 55 deg stop, CF-nylon",
@@ -1450,7 +1744,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Hinge clevis + 55\u00b0 stop",
+   "role": "Printed CF-nylon bracket bonded through a slot in the tube. Its cheeks hold the hinge pin, and its stop block catches the leg at 55\u00b0."
   },
   "LEG-DOUBLER": {
    "name": "Leg hinge doubler, 1/8 in ply (on the aft liner)",
@@ -1462,7 +1758,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Doubler",
+   "role": "1/8 in ply pad inside the tube that the clevis tongue bonds to, spreading the landing load."
   },
   "LEG-PIN": {
    "name": "Leg hinge pin, 3 mm steel",
@@ -1474,7 +1772,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Hinge pin",
+   "role": "3 mm steel pin the leg pivots on."
   },
   "LEG-SPRING": {
    "name": "Leg torsion spring, ~0.15 N m",
@@ -1486,7 +1786,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Torsion spring",
+   "role": "About 0.15 N\u00b7m that swings the leg out in under 0.3 s once released."
   },
   "LEG-INSERT": {
    "name": "Leg hinge knuckle / strut plug, CF-nylon",
@@ -1498,7 +1800,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Knuckle insert",
+   "role": "Printed knuckle around the pin, with a plug bonded into the strut."
   },
   "LEG-STRUT": {
    "name": "Leg strut, 8 x 7 mm pultruded carbon tube, 532 mm",
@@ -1510,7 +1814,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Strut",
+   "role": "532 mm of 8 x 7 mm pultruded carbon tube."
   },
   "LEG-DAMPER": {
    "name": "Syringe air damper barrel",
@@ -1522,7 +1828,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Damper barrel",
+   "role": "Syringe-style air damper bonded to the strut tip. It soaks up the touchdown so the rocket doesn't bounce."
   },
   "LEG-PLUNGER": {
    "name": "Damper plunger",
@@ -1534,7 +1842,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Damper plunger",
+   "role": "Piston and rod that slide in the damper and carry the foot."
   },
   "LEG-FOOT": {
    "name": "Foot, TPU-95A lattice crush pad (30 mm)",
@@ -1546,7 +1856,9 @@
    "note": "",
    "stl": true,
    "dxf": false,
-   "qty": 4
+   "qty": 4,
+   "short": "Foot",
+   "role": "30 mm TPU lattice pad, angled to sit flat at 55\u00b0; it also crushes to absorb energy."
   },
   "LEG-LOOP": {
    "name": "Kevlar release loop around the 4 legs, to the release pin",
@@ -1558,7 +1870,9 @@
    "note": "",
    "stl": false,
    "dxf": false,
-   "qty": 1
+   "qty": 1,
+   "short": "Release loop",
+   "role": "Kevlar loop around all four folded legs, hooked over the release pin. Pulling the pin lets all four legs swing out together."
   }
  }
 }

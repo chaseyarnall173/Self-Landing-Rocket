@@ -6,18 +6,18 @@ catalogue / estimated masses for bought parts (see `cad/slr1/catalog.py` and eac
 
 | Configuration | Mass | CG station | Pitch inertia |
 |---|---:|---:|---:|
-| Liftoff (flight, legs stowed) | 1466 g | 972 mm | 0.246 kg m^2 |
-| Same, landing configuration (legs and airbrakes out) | 1466 g | 998 mm | 0.282 kg m^2 |
-| Dry (no motors) | 1288 g | 908 mm | 0.203 kg m^2 |
+| Liftoff (flight, legs stowed) | 1472 g | 970 mm | 0.247 kg m^2 |
+| Same, landing configuration (legs and airbrakes out) | 1471 g | 997 mm | 0.283 kg m^2 |
+| Dry (no motors) | 1294 g | 907 mm | 0.204 kg m^2 |
 
-Model-rocket limit 1500 g: margin **34 g**.
+Model-rocket limit 1500 g: margin **28 g**.
 
 ## By mass-budget line
 
 | Line | CAD (g) | CG station (mm) | Rev B paper budget (g) |
 |---|---:|---:|---:|
 | Nose cone + shoulder | 99.1 | 244 | 95 |
-| Top airbrake petals, hinges, springs, latch servo | 15.6 | 454 | 35 |
+| Top airbrake petals, hinges, springs, latch servo | 21.3 | 471 | 35 |
 | Backup chute + shock cord + spring/servo door | 96.9 | 630 | 85 |
 | Avionics bay: boards, sensors, radio, battery | 111.7 | 768 | 105 |
 | Couplers, bulkheads, motor-bay frame | 250.4 | 861 | 80 |
@@ -30,7 +30,7 @@ Model-rocket limit 1500 g: margin **34 g**.
 | 4 fins | 37.3 | 1472 | 45 |
 | Exhaust-paddle throttle | 32.6 | 1493 | 50 |
 | Lidar + bracket | 10.3 | 1504 | 12 |
-| **Total** | **1466** | **972** | **1314** |
+| **Total** | **1472** | **970** | **1314** |
 
 ## Heaviest parts
 

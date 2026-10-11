@@ -1,0 +1,848 @@
+[
+ {
+  "key": "nose",
+  "views": 1,
+  "parts": [
+   {
+    "pid": "NOSE-01",
+    "num": 1,
+    "view": 0,
+    "px": 102364
+   },
+   {
+    "pid": "NOSE-SCREW",
+    "num": 2,
+    "view": 0,
+    "px": 135
+   }
+  ]
+ },
+ {
+  "key": "airbrakes",
+  "views": 3,
+  "parts": [
+   {
+    "pid": "TUBE-01",
+    "num": 1,
+    "view": 0,
+    "px": 69753
+   },
+   {
+    "pid": "PETAL-01",
+    "num": 2,
+    "view": 1,
+    "px": 130212
+   },
+   {
+    "pid": "PETAL-HINGE-F",
+    "num": 3,
+    "view": 0,
+    "px": 10541
+   },
+   {
+    "pid": "PETAL-HINGE-M",
+    "num": 4,
+    "view": 0,
+    "px": 8572
+   },
+   {
+    "pid": "PETAL-PIN",
+    "num": 5,
+    "view": 0,
+    "px": 133
+   },
+   {
+    "pid": "PETAL-SPRING",
+    "num": 6,
+    "view": 1,
+    "px": 369
+   },
+   {
+    "pid": "PETAL-TAB",
+    "num": 7,
+    "view": 1,
+    "px": 1815
+   },
+   {
+    "pid": "CPL-01",
+    "num": 8,
+    "view": 0,
+    "px": 106564
+   },
+   {
+    "pid": "LATCH-RING",
+    "num": 9,
+    "view": 0,
+    "px": 9199
+   },
+   {
+    "pid": "SERVO-LATCH",
+    "num": 10,
+    "view": 0,
+    "px": 3053
+   },
+   {
+    "pid": "HORN-LATCH",
+    "num": 11,
+    "view": 0,
+    "px": 196
+   },
+   {
+    "pid": "LATCH-LINK",
+    "num": 12,
+    "view": 0,
+    "px": 237
+   },
+   {
+    "pid": "LATCH-SERVO-BRKT",
+    "num": 13,
+    "view": 1,
+    "px": 2607
+   }
+  ]
+ },
+ {
+  "key": "chute",
+  "views": 2,
+  "parts": [
+   {
+    "pid": "TUBE-02",
+    "num": 1,
+    "view": 0,
+    "px": 254705
+   },
+   {
+    "pid": "DOOR-01",
+    "num": 2,
+    "view": 1,
+    "px": 73337
+   },
+   {
+    "pid": "DOOR-HINGE-F",
+    "num": 3,
+    "view": 1,
+    "px": 3514
+   },
+   {
+    "pid": "DOOR-HINGE-M",
+    "num": 4,
+    "view": 1,
+    "px": 3410
+   },
+   {
+    "pid": "DOOR-PIN",
+    "num": 5,
+    "view": 1,
+    "px": 26
+   },
+   {
+    "pid": "DOOR-LUG",
+    "num": 6,
+    "view": 1,
+    "px": 969
+   },
+   {
+    "pid": "RECOV-BH",
+    "num": 7,
+    "view": 1,
+    "px": 9830
+   },
+   {
+    "pid": "UBOLT",
+    "num": 8,
+    "view": 0,
+    "px": 1668
+   },
+   {
+    "pid": "NUT-M4",
+    "num": 9,
+    "view": 1,
+    "px": 619
+   },
+   {
+    "pid": "CHUTE-NOMEX",
+    "num": 10,
+    "view": 1,
+    "px": 51658
+   },
+   {
+    "pid": "CHUTE-30",
+    "num": 11,
+    "view": 1,
+    "px": 48446
+   },
+   {
+    "pid": "SHOCK-CORD",
+    "num": 12,
+    "view": 0,
+    "px": 14418
+   },
+   {
+    "pid": "SHOCK-CORD-RUN",
+    "num": 13,
+    "view": 1,
+    "px": 1419
+   },
+   {
+    "pid": "EJECT-PLATE",
+    "num": 14,
+    "view": 0,
+    "px": 21989
+   },
+   {
+    "pid": "EJECT-SPRING",
+    "num": 15,
+    "view": 0,
+    "px": 3020
+   },
+   {
+    "pid": "EJECT-CUP",
+    "num": 16,
+    "view": 0,
+    "px": 2848
+   },
+   {
+    "pid": "SERVO-CHUTE",
+    "num": 17,
+    "view": 1,
+    "px": 4722
+   },
+   {
+    "pid": "HORN-CHUTE",
+    "num": 18,
+    "view": 0,
+    "px": 196
+   },
+   {
+    "pid": "CHUTE-PIN",
+    "num": 19,
+    "view": 1,
+    "px": 227
+   },
+   {
+    "pid": "CHUTE-LINK",
+    "num": 20,
+    "view": 1,
+    "px": 205
+   },
+   {
+    "pid": "CHUTE-SERVO-BRKT",
+    "num": 21,
+    "view": 1,
+    "px": 493
+   },
+   {
+    "pid": "CABLE-FWD",
+    "num": 22,
+    "view": 1,
+    "px": 6261
+   }
+  ]
+ },
+ {
+  "key": "avionics",
+  "views": 2,
+  "parts": [
+   {
+    "pid": "TUBE-03",
+    "num": 1,
+    "view": 0,
+    "px": 44487
+   },
+   {
+    "pid": "CPL-02",
+    "num": 2,
+    "view": 0,
+    "px": 259887
+   },
+   {
+    "pid": "AV-LID-F",
+    "num": 3,
+    "view": 0,
+    "px": 7571
+   },
+   {
+    "pid": "AV-LID-A",
+    "num": 4,
+    "view": 0,
+    "px": 30598
+   },
+   {
+    "pid": "AV-LID-RING-F",
+    "num": 5,
+    "view": 0,
+    "px": 5051
+   },
+   {
+    "pid": "AV-LID-RING-A",
+    "num": 6,
+    "view": 0,
+    "px": 8190
+   },
+   {
+    "pid": "AV-ROD",
+    "num": 7,
+    "view": 0,
+    "px": 1856
+   },
+   {
+    "pid": "NUT-M3",
+    "num": 8,
+    "view": 0,
+    "px": 535
+   },
+   {
+    "pid": "AV-SLED",
+    "num": 9,
+    "view": 1,
+    "px": 79678
+   },
+   {
+    "pid": "AV-SLED-TUBE",
+    "num": 10,
+    "view": 1,
+    "px": 14139
+   },
+   {
+    "pid": "STANDOFF-3",
+    "num": 11,
+    "view": 0,
+    "px": 0
+   },
+   {
+    "pid": "PERFBOARD",
+    "num": 12,
+    "view": 0,
+    "px": 44601
+   },
+   {
+    "pid": "HEADERS",
+    "num": 13,
+    "view": 0,
+    "px": 2697
+   },
+   {
+    "pid": "TEENSY-41",
+    "num": 14,
+    "view": 0,
+    "px": 17513
+   },
+   {
+    "pid": "IMU-BMI088",
+    "num": 15,
+    "view": 0,
+    "px": 11848
+   },
+   {
+    "pid": "STANDOFF-5",
+    "num": 16,
+    "view": 0,
+    "px": 6
+   },
+   {
+    "pid": "BARO-BMP390",
+    "num": 17,
+    "view": 0,
+    "px": 3347
+   },
+   {
+    "pid": "BARO-FOAM",
+    "num": 18,
+    "view": 0,
+    "px": 3985
+   },
+   {
+    "pid": "BUCK-5V",
+    "num": 19,
+    "view": 0,
+    "px": 5105
+   },
+   {
+    "pid": "FET-AO3400",
+    "num": 20,
+    "view": 0,
+    "px": 327
+   },
+   {
+    "pid": "CAP-1000U",
+    "num": 21,
+    "view": 0,
+    "px": 2207
+   },
+   {
+    "pid": "BUZZER",
+    "num": 22,
+    "view": 0,
+    "px": 1850
+   },
+   {
+    "pid": "JST-GH",
+    "num": 23,
+    "view": 0,
+    "px": 3713
+   },
+   {
+    "pid": "LIPO-2S",
+    "num": 24,
+    "view": 1,
+    "px": 29036
+   },
+   {
+    "pid": "GPS-M9N",
+    "num": 25,
+    "view": 1,
+    "px": 14446
+   },
+   {
+    "pid": "GPS-PATCH",
+    "num": 26,
+    "view": 1,
+    "px": 1940
+   },
+   {
+    "pid": "LORA-RFM95W",
+    "num": 27,
+    "view": 1,
+    "px": 10426
+   },
+   {
+    "pid": "LORA-ANT",
+    "num": 28,
+    "view": 1,
+    "px": 1252
+   },
+   {
+    "pid": "ARM-KEY-SW",
+    "num": 29,
+    "view": 1,
+    "px": 3271
+   },
+   {
+    "pid": "ARM-KEY",
+    "num": 30,
+    "view": 1,
+    "px": 2267
+   },
+   {
+    "pid": "MAIN-SW",
+    "num": 31,
+    "view": 1,
+    "px": 2130
+   },
+   {
+    "pid": "SERVO-LEGPIN",
+    "num": 32,
+    "view": 0,
+    "px": 3059
+   },
+   {
+    "pid": "HORN-LEGPIN",
+    "num": 33,
+    "view": 0,
+    "px": 740
+   },
+   {
+    "pid": "LEG-RELEASE-PIN",
+    "num": 34,
+    "view": 0,
+    "px": 315
+   },
+   {
+    "pid": "LEGPIN-LINK",
+    "num": 35,
+    "view": 0,
+    "px": 132
+   },
+   {
+    "pid": "LEGPIN-BRKT",
+    "num": 36,
+    "view": 0,
+    "px": 1738
+   },
+   {
+    "pid": "GROMMET",
+    "num": 37,
+    "view": 1,
+    "px": 1016
+   }
+  ]
+ },
+ {
+  "key": "aft",
+  "views": 1,
+  "parts": [
+   {
+    "pid": "TUBE-04",
+    "num": 1,
+    "view": 0,
+    "px": 139738
+   },
+   {
+    "pid": "LINER-AFT",
+    "num": 2,
+    "view": 0,
+    "px": 26368
+   },
+   {
+    "pid": "FIN-01",
+    "num": 3,
+    "view": 0,
+    "px": 21937
+   },
+   {
+    "pid": "FIN-FILLET",
+    "num": 4,
+    "view": 0,
+    "px": 6098
+   },
+   {
+    "pid": "HARNESS-AFT",
+    "num": 5,
+    "view": 0,
+    "px": 7913
+   },
+   {
+    "pid": "CABLE-LIDAR",
+    "num": 6,
+    "view": 0,
+    "px": 3801
+   }
+  ]
+ },
+ {
+  "key": "legs",
+  "views": 4,
+  "parts": [
+   {
+    "pid": "LEG-CLEVIS",
+    "num": 1,
+    "view": 1,
+    "px": 159140
+   },
+   {
+    "pid": "LEG-DOUBLER",
+    "num": 2,
+    "view": 1,
+    "px": 147421
+   },
+   {
+    "pid": "LEG-PIN",
+    "num": 3,
+    "view": 1,
+    "px": 4351
+   },
+   {
+    "pid": "LEG-SPRING",
+    "num": 4,
+    "view": 1,
+    "px": 12765
+   },
+   {
+    "pid": "LEG-INSERT",
+    "num": 5,
+    "view": 1,
+    "px": 72197
+   },
+   {
+    "pid": "LEG-STRUT",
+    "num": 6,
+    "view": 0,
+    "px": 9185
+   },
+   {
+    "pid": "LEG-DAMPER",
+    "num": 7,
+    "view": 2,
+    "px": 43955
+   },
+   {
+    "pid": "LEG-PLUNGER",
+    "num": 8,
+    "view": 2,
+    "px": 7236
+   },
+   {
+    "pid": "LEG-FOOT",
+    "num": 9,
+    "view": 2,
+    "px": 41172
+   },
+   {
+    "pid": "LEG-LOOP",
+    "num": 10,
+    "view": 3,
+    "px": 6956
+   }
+  ]
+ },
+ {
+  "key": "motorbay",
+  "views": 3,
+  "parts": [
+   {
+    "pid": "MOTOR-F52C",
+    "num": 1,
+    "view": 0,
+    "px": 50919
+   },
+   {
+    "pid": "MOTOR-F25W",
+    "num": 2,
+    "view": 1,
+    "px": 45486
+   },
+   {
+    "pid": "F25W-SPACER",
+    "num": 3,
+    "view": 1,
+    "px": 8276
+   },
+   {
+    "pid": "SLEEVE-29",
+    "num": 4,
+    "view": 1,
+    "px": 89983
+   },
+   {
+    "pid": "SLEEVE-CAP",
+    "num": 5,
+    "view": 0,
+    "px": 6978
+   },
+   {
+    "pid": "CLIP-RET",
+    "num": 6,
+    "view": 1,
+    "px": 494
+   },
+   {
+    "pid": "CLIP-RET-L",
+    "num": 7,
+    "view": 1,
+    "px": 1481
+   },
+   {
+    "pid": "IGN-CONN",
+    "num": 8,
+    "view": 1,
+    "px": 1174
+   },
+   {
+    "pid": "GIMBAL-INNER",
+    "num": 9,
+    "view": 2,
+    "px": 7054
+   },
+   {
+    "pid": "GIMBAL-MIDDLE",
+    "num": 10,
+    "view": 2,
+    "px": 25478
+   },
+   {
+    "pid": "GIMBAL-POST",
+    "num": 11,
+    "view": 1,
+    "px": 17369
+   },
+   {
+    "pid": "GIMBAL-POST-B",
+    "num": 12,
+    "view": 0,
+    "px": 17330
+   },
+   {
+    "pid": "PIN-X",
+    "num": 13,
+    "view": 2,
+    "px": 83
+   },
+   {
+    "pid": "PIN-Y",
+    "num": 14,
+    "view": 0,
+    "px": 17
+   },
+   {
+    "pid": "THRUST-PLATE",
+    "num": 15,
+    "view": 2,
+    "px": 25457
+   },
+   {
+    "pid": "THRUST-PLATE-AL",
+    "num": 16,
+    "view": 2,
+    "px": 23730
+   },
+   {
+    "pid": "SERVO-GIMBAL-A",
+    "num": 17,
+    "view": 1,
+    "px": 11466
+   },
+   {
+    "pid": "HORN-GIMBAL-A",
+    "num": 18,
+    "view": 2,
+    "px": 433
+   },
+   {
+    "pid": "PUSHROD-A",
+    "num": 19,
+    "view": 1,
+    "px": 815
+   },
+   {
+    "pid": "SERVO-BRKT-A",
+    "num": 20,
+    "view": 1,
+    "px": 3946
+   },
+   {
+    "pid": "SERVO-GIMBAL-B",
+    "num": 21,
+    "view": 0,
+    "px": 12073
+   },
+   {
+    "pid": "HORN-GIMBAL-B",
+    "num": 22,
+    "view": 0,
+    "px": 604
+   },
+   {
+    "pid": "PUSHROD-B",
+    "num": 23,
+    "view": 0,
+    "px": 1754
+   },
+   {
+    "pid": "SERVO-BRKT-B",
+    "num": 24,
+    "view": 2,
+    "px": 3873
+   },
+   {
+    "pid": "LIDAR-TFMINI",
+    "num": 25,
+    "view": 0,
+    "px": 11341
+   },
+   {
+    "pid": "LIDAR-WINDOW",
+    "num": 26,
+    "view": 2,
+    "px": 7920
+   },
+   {
+    "pid": "LIDAR-BRKT",
+    "num": 27,
+    "view": 2,
+    "px": 16141
+   }
+  ]
+ },
+ {
+  "key": "throttle",
+  "views": 2,
+  "parts": [
+   {
+    "pid": "PADDLE-R",
+    "num": 1,
+    "view": 1,
+    "px": 65017
+   },
+   {
+    "pid": "PADDLE-L",
+    "num": 2,
+    "view": 0,
+    "px": 67866
+   },
+   {
+    "pid": "PADDLE-ARM-OR",
+    "num": 3,
+    "view": 1,
+    "px": 4355
+   },
+   {
+    "pid": "PADDLE-ARM-OL",
+    "num": 4,
+    "view": 0,
+    "px": 4090
+   },
+   {
+    "pid": "PADDLE-ARM-IR",
+    "num": 5,
+    "view": 1,
+    "px": 2110
+   },
+   {
+    "pid": "PADDLE-ARM-IL",
+    "num": 6,
+    "view": 0,
+    "px": 3115
+   },
+   {
+    "pid": "PADDLE-PIN-R",
+    "num": 7,
+    "view": 1,
+    "px": 2398
+   },
+   {
+    "pid": "PADDLE-PIN-L",
+    "num": 8,
+    "view": 0,
+    "px": 4272
+   },
+   {
+    "pid": "PADDLE-BRKT",
+    "num": 9,
+    "view": 0,
+    "px": 98985
+   },
+   {
+    "pid": "PADDLE-XHEAD",
+    "num": 10,
+    "view": 1,
+    "px": 353
+   },
+   {
+    "pid": "PADDLE-LINK-R",
+    "num": 11,
+    "view": 0,
+    "px": 0
+   },
+   {
+    "pid": "PADDLE-LINK-L",
+    "num": 12,
+    "view": 0,
+    "px": 0
+   },
+   {
+    "pid": "SERVO-PADDLE",
+    "num": 13,
+    "view": 0,
+    "px": 59880
+   },
+   {
+    "pid": "HORN-PADDLE",
+    "num": 14,
+    "view": 1,
+    "px": 6582
+   },
+   {
+    "pid": "PADDLE-SERVO-LINK",
+    "num": 15,
+    "view": 1,
+    "px": 746
+   },
+   {
+    "pid": "HEAT-SHIELD",
+    "num": 16,
+    "view": 1,
+    "px": 9185
+   }
+  ]
+ }
+]

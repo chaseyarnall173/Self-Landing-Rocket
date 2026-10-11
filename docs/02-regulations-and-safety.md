@@ -15,7 +15,7 @@
 | Where | At a **club launch** (strongly recommended) with RSO approval. Total impulse 137 N·s falls in the NAR "G" row: **minimum site dimension 1000 ft**. |
 | Biggest approval risk | The recovery requirement. Carry the **automatic backup parachute** and brief the RSO before you arrive. |
 
-The CAD puts rev C at **1467 g**, only 33 g under the limit. If the build ends
+The CAD puts rev C at **1472 g**, only 28 g under the limit. If the build ends
 up **over 1500 g** it becomes a **high-power** rocket. That means:
 - Level 1 certification (NAR or Tripoli)
 - the NAR High Power Safety Code

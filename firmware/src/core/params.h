@@ -6,9 +6,9 @@
 namespace params {
 
 // ---------------------------------------------------------------- vehicle
-constexpr float DRY_MASS_KG = 1.288f;          // WEIGH IT (everything but motors); CAD rev C estimate
-constexpr float INERTIA_KGM2 = 0.240f;         // pitch/yaw, measure with a bifilar pendulum (CAD 0.24)
-constexpr float GIMBAL_LEVER_M = 0.497f;       // gimbal pivot -> CG at landing
+constexpr float DRY_MASS_KG = 1.294f;          // WEIGH IT (everything but motors); CAD rev C estimate
+constexpr float INERTIA_KGM2 = 0.241f;         // pitch/yaw, measure with a bifilar pendulum (CAD 0.24)
+constexpr float GIMBAL_LEVER_M = 0.499f;       // gimbal pivot -> CG at landing
 constexpr float ASCENT_OFFSET_M = +0.0165f;    // ascent motor axis offset (body +y)
 constexpr float LANDING_OFFSET_M = -0.0165f;   // landing motor axis offset (body -y)
 constexpr float GIMBAL_LIMIT_DEG = 7.0f;

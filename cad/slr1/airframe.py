@@ -262,6 +262,25 @@ def latch_ring():
     return fuse(parts)
 
 
+LATCH_SERVO = dict(L=20.0, W=8.5, H=17.0, tab_L=26.0, tab_t=1.2, horn=8.5)   # 4.3 g micro servo
+
+
+def latch_servo_parts():
+    """Airbrake latch micro servo inside the sleeve on the 45 deg strip between
+    two lightening windows (modelled on +X, placed at 45 deg). Returns body,
+    horn, link and mount, all in the +X frame."""
+    from .bays import ball_link, _world
+    from .geom import frame, servo
+    zl = D.z(D.LATCH_S)
+    zc = zl + 20.0
+    body, horn, tip = servo(**LATCH_SERVO, horn_deg=90)
+    fr = frame((45.3 - LATCH_SERVO["H"] / 2, 0.0, zc), (0, 0, 1), (-1, 0, 0))
+    lug = V(45.6, 0.0, zl - 6.0)
+    link = ball_link(tuple(_world(tip, fr)), tuple(lug), 0.6, 1.2)
+    mount = box(45.3, D.R_CPL_IN + 0.5, -7.0, 7.0, zc - 10, zc + 10).intersect(cyl(D.R_CPL_IN, zc - 20, zc + 20))
+    return body.moved(fr), horn.moved(fr), link, mount
+
+
 # ---------------------------------------------------------------- chute door hinge and latch
 DH = V(D.R_OUT + 2.0, 0, D.z(D.DOOR_S[1]))       # door hinge axis (aft edge, local +X)
 
@@ -336,6 +355,16 @@ def parts():
                       airbrake_sleeve(), "kraft_cpl", "tube", "Top airbrakes", "couplers")))
     out.append(Inst(P("LATCH-RING", "Airbrake latch ring with 4 fingers", latch_ring(), "cf_nylon",
                       "print", "Top airbrakes", "airbrakes", stl=True)))
+    lb, lh, ll, lm = latch_servo_parts()
+    l45 = loc_z(45.0)
+    out.append(Inst(P("SERVO-LATCH", "Airbrake-latch micro servo (4.3 g)", lb, "servo", "buy", "Top airbrakes",
+                      "airbrakes", mass_g=4.3), l45))
+    out.append(Inst(P("HORN-LATCH", "Servo horn", lh, "cf_nylon", "buy", "Top airbrakes", "airbrakes",
+                      mass_g=0.3), l45))
+    out.append(Inst(P("LATCH-LINK", "Servo-to-latch-ring link", ll, "steel", "buy", "Top airbrakes", "airbrakes",
+                      mass_g=0.3), l45))
+    out.append(Inst(P("LATCH-SERVO-BRKT", "Latch servo mount, bonded to the sleeve", lm, "cf_nylon", "print",
+                      "Top airbrakes", "airbrakes", stl=True), l45))
 
     out.append(Inst(P("TUBE-02", "Recovery section, kraft tube (223 mm) with door cut-out",
                       forward_tube(), "kraft", "tube", "Forward airframe", "tube")))

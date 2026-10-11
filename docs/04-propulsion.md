@@ -8,10 +8,10 @@ The `.eng` files live in `sim/data/motors/`, from
 
 | Motor | Type | Total impulse | Avg / max thrust | Burn | Propellant / total | Use |
 |---|---|---|---|---|---|---|
-| **AeroTech F52C** | Classic, single-use, 29 x 111 mm | 66 N·s | 50 / 61 N | 1.3 s | 30 / 81 g | **Ascent → 227 ft** (rev C baseline) |
+| **AeroTech F52C** | Classic, single-use, 29 x 111 mm | 66 N·s | 50 / 61 N | 1.3 s | 30 / 81 g | **Ascent → 226 ft** (rev C baseline) |
 | **AeroTech F25W** | White Lightning, single-use (molded case), 29 x 98 mm | 71-78 N·s | 26 / 58 N | 2.2-2.7 s | 36-39 / 90-97 g | **Landing** |
 | AeroTech F42T | Blue Thunder, single-use, 29 x 83 mm | 53-56 N·s | 38-42 / 69 N | 1.3-1.5 s | 27 / 76 g | Lighter ascent: only ~169 ft at the rev C mass, 83% clean landings |
-| AeroTech G25W | White Lightning, **reload** (RMS-29 case) | 117.5 N·s | 22 / 41 N | 5.3 s | 62.5 g + case | Long-burn landing: lands as well, but puts rev C at 1564 g, over the limit |
+| AeroTech G25W | White Lightning, **reload** (RMS-29 case) | 117.5 N·s | 22 / 41 N | 5.3 s | 62.5 g + case | Long-burn landing: lands as well, but puts rev C at 1570 g, over the limit |
 | AeroTech G40W | White Lightning, single-use | 97-99 N·s | 41 / 74 N | 2.3 s | 53.8 / 123 g | Rev A (500 ft) design |
 | Estes F15 | Black powder | 49.6 N·s | 14.4 / 25 N | 3.45 s | 60 / 102 g | Too weak for a 5 ft vehicle (below its weight) |
 
@@ -35,7 +35,7 @@ What the regressive curve buys you:
 - **It fades toward hover** near the ground.
 - **No hop after touchdown.** From 0.4 s of burn onward, even with the paddles
   fully closed (25% of thrust), the motor can't lift a landed rocket off its
-  legs. At the rev C mass the touchdown window runs from 0.09 s to 1.72 s of
+  legs. At the rev C mass the touchdown window runs from 0.08 s to 1.72 s of
   burn, much wider than the G40W's (1.12-1.94 s).
 
 **Totals for the flight:**
@@ -58,10 +58,10 @@ Results from 300 dispersed flights (wind 0-4 m/s, ignition delay 0.30 ± 0.08 s)
 | Variant | Clean landings | Crashes |
 |---|---|---|
 | **Baseline: paddles leave 25% of thrust, "strong then simmer" guidance** | **93%** | **0%** |
-| Weak paddles (leave 40% of thrust) | 95% | 0% |
-| Tightly characterised ignition (σ = 0.04 s) | 94% | 0% |
-| Linear-ramp guidance instead of exponential | 90% | 0% |
-| F42T ascent instead of F52C (51 m apogee) | 83% | 1% |
+| Weak paddles (leave 40% of thrust) | 94% | <1% |
+| Tightly characterised ignition (σ = 0.04 s) | 95% | 0% |
+| Linear-ramp guidance instead of exponential | 90% | <1% |
+| F42T ascent instead of F52C (51 m apogee; 6% chute aborts) | 83% | 1% |
 
 With the F25W, paddle strength stops being the critical driver, because the
 motor's own decay does most of the work. The remaining failures are mostly

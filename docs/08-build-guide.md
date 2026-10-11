@@ -204,7 +204,7 @@ See [docs/07](07-landing-legs.md).
    lidar window and static ports clear.
 5. **Weigh and balance.**
    - Liftoff mass with 2 motors (or dummies of equal mass) must be **≤ 1500 g**.
-     The CAD predicts 1467 g, so aim for ≤ 1450 g and use the lightening
+     The CAD predicts 1472 g, so aim for ≤ 1450 g and use the lightening
      options in [docs/03](03-vehicle-design.md#32-mass-budget-target--1500-g-at-liftoff)
      if you are over.
    - Find the CG by balancing on a knife edge; CAD value 0.97 m from the nose.

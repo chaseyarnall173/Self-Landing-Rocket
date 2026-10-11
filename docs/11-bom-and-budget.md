@@ -4,7 +4,7 @@ Prices are approximate USD (2025-2026). Lines marked * were found in vendor
 listings; the rest are typical-price estimates. Check current prices and
 availability before ordering.
 
-This is the shopping list. The part-by-part list (all 129 CAD parts, with
+This is the shopping list. The part-by-part list (all 133 CAD parts, with
 quantity, material, how to make each one, mass and file names) is
 [`cad/out/bom.csv`](../cad/out/bom.csv).
 

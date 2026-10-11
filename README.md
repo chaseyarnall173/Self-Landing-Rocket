@@ -14,12 +14,14 @@ rocket's weight. **Landing legs flip down** before an upright touchdown.
 
 SLR-1 is a 4 in x 60 in rocket weighing 1.47 kg at liftoff. **Rev C is
 CAD-checked**: every part is modelled in 3D ([`cad/`](cad/), [docs/13](docs/13-cad.md)),
-and the simulator uses the CAD's mass, CG and inertia.
+and the simulator uses the CAD's mass, CG and inertia. [docs/14](docs/14-sections.md)
+walks through the rocket section by section, with X-ray views and a numbered
+card for each of the 133 parts.
 
 - **Motors:** two single-use AeroTech F motors share one 2-axis gimbal that
   steers the thrust (TVC): an **F52C** for the climb and an **F25W** for the
   landing.
-- **Climb:** the F52C flies it to **69 m (227 ft)**. Small fins keep it pointed
+- **Climb:** the F52C flies it to **69 m (226 ft)**. Small fins keep it pointed
   while it coasts up with the motor out.
 - **Fall:** at apogee, four airbrake petals cut from the body tube spring open
   near the top, like Falcon 9's grid fins. They keep the rocket tail-down and
@@ -28,7 +30,7 @@ and the simulator uses the CAD's mass, CG and inertia.
   - The flight computer lights the F25W at about 15 m (49 ft).
   - Two ceramic paddles in the exhaust **throttle** it. The computer plans a
     burn that starts strong and fades out exponentially, so thrust tapers from
-    ~50 N to ~18 N (the rocket weighs 13.8 N) at touchdown.
+    ~48 N to ~18 N (the rocket weighs 13.8 N) at touchdown.
   - The gimbal holds it upright and cancels sideways drift.
 - **Touchdown:** the legs flip down at 12 m and it lands at ~1.1 m/s.
 - **Backup chute:** fires only if the landing motor fails to light.
@@ -37,14 +39,14 @@ and the simulator uses the CAD's mass, CG and inertia.
 
 | | |
 |---|---|
-| Liftoff mass | 1467 g from the CAD (model-rocket limit 1500 g: **33 g margin**) |
+| Liftoff mass | 1472 g from the CAD (model-rocket limit 1500 g: **28 g margin**) |
 | Motors | AeroTech F52C (climb) + AeroTech F25W (landing), both single-use |
 | Propellant / total impulse | 68.8 g / 137 N·s → **FAA Class 1 model rocket, no certification, 1000 ft field** |
-| Apogee | 69 m / 227 ft (Monte Carlo p5-p95: 62-78 m) |
-| Landing burn | lit ~15 m up, ~1.5 s long, thrust 50 N → 18 N ("strong, then simmer") |
-| Touchdown | 1.1 m/s nominal; Monte Carlo mean 1.4 m/s, p95 2.1 m/s |
-| Monte Carlo (300 flights) | **93% clean landings, 7% hard but intact, 0 crashes**; 95-99% in wind under 3 m/s |
-| CAD | 129 parts, 215 pieces; STEP for SolidWorks, STL for printing, DXF for laser cutting; 0 clashes |
+| Apogee | 69 m / 226 ft (Monte Carlo p5-p95: 62-77 m) |
+| Landing burn | lit ~15 m up, ~1.5 s long, thrust 48 N → 18 N ("strong, then simmer") |
+| Touchdown | 1.1 m/s nominal; Monte Carlo mean 1.4 m/s, p95 2.0 m/s |
+| Monte Carlo (300 flights) | **93% clean landings, 7% hard but intact, 0 crashes**; 94-99% in wind under 3 m/s |
+| CAD | 133 parts, 219 pieces; STEP for SolidWorks, STL for printing, DXF for laser cutting; 0 clashes |
 | Est. cost | ≈ $1,800 including motors, test gear and spares |
 
 ## What's in this repo
@@ -64,6 +66,7 @@ and the simulator uses the CAD's mass, CG and inertia.
 | [`docs/11-bom-and-budget.md`](docs/11-bom-and-budget.md) | Bill of materials and cost |
 | [`docs/12-references.md`](docs/12-references.md) | Sources |
 | [`docs/13-cad.md`](docs/13-cad.md) | **3D CAD model**: files, opening it in SolidWorks, making the parts, what the CAD changed |
+| [`docs/14-sections.md`](docs/14-sections.md) | **Section by section**: X-ray views of each bay with every part numbered and explained |
 | [`cad/`](cad/) | Parametric CadQuery model + generated STEP / STL / DXF / BOM in [`cad/out/`](cad/out/) ([README](cad/README.md)) |
 | [`sim/`](sim/) | Python 3-DOF mission simulator + Monte Carlo ([README](sim/README.md)) |
 | [`firmware/`](firmware/) | Teensy 4.1 flight software ([README](firmware/README.md)) |
@@ -97,7 +100,7 @@ cd firmware && pio run -e teensy41   # real build (PlatformIO)
   - landing-motor ignition delay (assumed 0.30 ± 0.08 s);
   - paddle throttle authority;
   - airbrake drag;
-  - final mass and inertia: the CAD puts the rocket only 33 g under the
+  - final mass and inertia: the CAD puts the rocket only 28 g under the
     1500 g limit, so weigh every part as you build.
 - Read [docs/02](docs/02-regulations-and-safety.md) before buying motors.
 - Fly only at a club launch, with RSO approval and the backup parachute

@@ -3,7 +3,7 @@
 ![Vehicle layout](img/vehicle_layout.svg)
 
 **Rev C is CAD-checked.** Every part below is modelled in 3D in [`cad/`](../cad/)
-([docs/13](13-cad.md)): 129 parts, no clashes, gimbal free through ±7°. The
+([docs/13](13-cad.md)): 133 parts, no clashes, gimbal free through ±7°. The
 CAD replaced the earlier paper estimates. The rocket turned out about 150 g
 heavier than the rev B budget, so rev C trims weight, moves to the F52C ascent
 motor, and re-balances the fins and airbrakes.
@@ -40,7 +40,7 @@ scale reading as you build.**
 | Item | CAD (g) | Station (m) | Rev B paper budget (g) |
 |---|---:|---:|---:|
 | Nose cone (PETG, 0.8 mm wall) + 2 in shoulder | 99 | 0.24 | 95 |
-| Top airbrakes: hinges, springs, tabs, latch ring + servo | 16 | 0.45 | 35 |
+| Top airbrakes: hinges, springs, tabs, latch ring + servo | 21 | 0.47 | 35 |
 | Backup chute (30 in), Nomex, shock cord, ejector, door hardware + servo | 97 | 0.63 | 85 |
 | Avionics: Teensy 4.1, BMI088, BMP390, GPS, LoRa, 2S 450 mAh, switches | 112 | 0.77 | 105 |
 | Couplers, bulkheads, sled, aft carbon liner, thrust plate, leg doublers | 250 | 0.86 | 80 |
@@ -51,14 +51,14 @@ scale reading as you build.**
 | 4 fins (3/32 in ply) | 37 | 1.47 | 45 |
 | Exhaust-paddle throttle: ceramic paddles, arms, bracket, servo | 33 | 1.49 | 50 |
 | Lidar + bracket + window | 10 | 1.50 | 12 |
-| **Dry total** | **1288** | **CG 0.908** | 1141 |
+| **Dry total** | **1294** | **CG 0.907** | 1141 |
 | AeroTech F52C (ascent) | 81 | 1.43 | (F42T 76) |
 | AeroTech F25W (landing) | 97 | 1.44 | 97 |
-| **Liftoff** | **1467** | **CG 0.972** | 1314 |
+| **Liftoff** | **1472** | **CG 0.971** | 1314 |
 
-- **Margin:** **33 g** to the 1500 g model-rocket limit. That is thin: weigh
+- **Margin:** **28 g** to the 1500 g model-rocket limit. That is thin: weigh
   every part, and use the lightening options below if the build runs heavy.
-- **Pitch inertia:** 0.246 kg·m² at liftoff (CAD). **Measure it** with a
+- **Pitch inertia:** 0.247 kg·m² at liftoff (CAD). **Measure it** with a
   bifilar pendulum before tuning the TVC.
 - **Where the paper budget was wrong:**
   - the couplers, bulkheads and avionics-bay hardware weigh about 250 g, not 80 g;
@@ -87,10 +87,10 @@ stable in **both** directions:
 
 | Phase | Flow direction | What keeps it straight | Static margin (calibers) |
 |---|---|---|---|
-| Boost (motor on) | nose-first | TVC + fins | +0.73 |
-| Coast up (motor off, ~3 s) | nose-first | **fins** | **+0.82** |
-| Fall, airbrakes closed | tail-first | nothing: fins at the leading end destabilise | **−4.88** (tumbles) |
-| Fall, airbrakes open (~4 s) | tail-first | **top airbrakes** | **+1.00** |
+| Boost (motor on) | nose-first | TVC + fins | +0.75 |
+| Coast up (motor off, ~3 s) | nose-first | **fins** | **+0.84** |
+| Fall, airbrakes closed | tail-first | nothing: fins at the leading end destabilise | **−4.90** (tumbles) |
+| Fall, airbrakes open (~4 s) | tail-first | **top airbrakes** | **+0.98** |
 | Landing burn | tail-first, slowing | TVC + airbrakes | (active) |
 
 **Why airbrakes at the top work.**
